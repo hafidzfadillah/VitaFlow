@@ -40,7 +40,7 @@ class _DaftarScreenState extends State<DaftarScreen> {
         backgroundColor: lightModeBgColor,
         body: SafeArea(
             child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: defMargin, vertical: 24),
+          padding: EdgeInsets.symmetric(horizontal: defMargin),
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
