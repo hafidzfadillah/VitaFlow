@@ -40,20 +40,10 @@ class _LoginScreenState extends State<LoginScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  elevation: 2.0,
-                  shape: CircleBorder(),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: primaryColor,
-                        ),
-                      )),
+                CustomBackButton(
+                  onClick: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 SizedBox(
                   height: 5.h,
@@ -95,7 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Text(
                             "Lupa password?",
-                            style: secondaryText.copyWith(fontSize: captionSize,fontWeight: FontWeight.w500),
+                            style: secondaryText.copyWith(
+                                fontSize: captionSize,
+                                fontWeight: FontWeight.w500),
                             textAlign: TextAlign.right,
                           ),
                         ],

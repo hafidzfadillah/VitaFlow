@@ -45,20 +45,10 @@ class _DaftarScreenState extends State<DaftarScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  elevation: 2.0,
-                  shape: CircleBorder(),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: primaryColor,
-                        ),
-                      )),
+                CustomBackButton(
+                  onClick: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 SizedBox(
                   height: 5.h,
@@ -77,16 +67,16 @@ class _DaftarScreenState extends State<DaftarScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomFormField(
-                              hintText: 'Masukan nama anda',
-                              labelText: 'Nama',
-                              state: name!,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                  RegExp(r"[a-zA-Z]+|\s"),
-                                )
-                              ],
-                              validator: RequiredValidator(
-                                  errorText: "Nama wajib diisi")),
+                          hintText: 'Masukan nama anda',
+                          labelText: 'Nama',
+                          state: name!,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r"[a-zA-Z]+|\s"),
+                            )
+                          ],
+                          validator:
+                              RequiredValidator(errorText: "Nama wajib diisi")),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -114,7 +104,9 @@ class _DaftarScreenState extends State<DaftarScreen> {
                           style: GoogleFonts.poppins(color: Colors.white),
                           background: primaryColor,
                           onClick: () {}),
-                          SizedBox(height: 2.h,),
+                      SizedBox(
+                        height: 2.h,
+                      ),
                     ],
                   ),
                 )

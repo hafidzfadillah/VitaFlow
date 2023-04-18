@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vitaflow/ui/pages/survey/surveyScreen.dart';
 
 import '../ui/pages/daftarScreen.dart';
 import '../ui/pages/loginScreen.dart';
@@ -19,7 +20,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case '/register':
         return MaterialPageRoute(builder: (_) => DaftarScreen());
-   
+      case '/survey':
+        return MaterialPageRoute(builder: (_) => SurveyScreen());
+
       case '/home':
         return MaterialPageRoute(builder: (_) => MainPages());
       // case '/product-detail':
