@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:vitaflow/ui/home/theme.dart';
+import 'package:vitaflow/ui/pages/HomeScreen.dart';
 import 'package:vitaflow/ui/pages/articleScreen.dart';
 import 'package:vitaflow/ui/pages/chatbot.dart';
 
@@ -43,9 +44,7 @@ class _MainPagesState extends State<MainPages> {
   ];
 
   List<Widget> _screens = [
-    Center(
-      child: Text('Home'),
-    ),
+  HomeScreen(),
     Center(
       child: Text('Program'),
     ),
@@ -75,6 +74,7 @@ class _MainPagesState extends State<MainPages> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
+      
     );
   }
 }

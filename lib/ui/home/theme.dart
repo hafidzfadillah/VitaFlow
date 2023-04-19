@@ -16,6 +16,7 @@ const Color neutral30 = Color(0xffEDEDED);
 const Color neutral20 = Color(0xffFFFFFF);
 const Color alertColor = Color(0xffED6363);
 const Color alertColorSurface = Color(0xffFFEEEE);
+const Color blackColor = Color(0xff333333);
 
 const Color headerColor = Color(0xff1B1C1E);
 
@@ -34,6 +35,9 @@ TextStyle blackTextStyle = GoogleFonts.inter(color: neutral100);
 TextStyle whiteTextStyle = GoogleFonts.inter(color: neutral20);
 
 TextStyle subtitleTextStyle2 = GoogleFonts.poppins(color: neutral70);
+
+TextStyle normalText = GoogleFonts.poppins(color: blackColor , fontSize: 14);
+
 
 TextStyle typeHeading = GoogleFonts.dmSans(color: primaryColor);
 TextStyle typetitle = GoogleFonts.dmSans(color: neutral70);
