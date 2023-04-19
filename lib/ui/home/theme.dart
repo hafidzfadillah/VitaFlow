@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 double defMargin = 16.0;
+double defRadius = 12.0;
 
 const Color primaryColor = Color(0xff18B279);
 const Color primaryDarkColor = Color(0xff173430);
+const Color primaryLightColor = Color(0xffD9FDD3);
 const Color lightModeBgColor = Color(0xffFFFFFF);
 const Color neutral100 = Color(0xff0A0A0A);
 const Color neutral90 = Color(0xff404040);

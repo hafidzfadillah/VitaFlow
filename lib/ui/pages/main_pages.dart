@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/pages/HomeScreen.dart';
+import 'package:vitaflow/ui/pages/articleScreen.dart';
+import 'package:vitaflow/ui/pages/chatbot.dart';
 
 class MainPages extends StatefulWidget {
   const MainPages({Key? key}) : super(key: key);
@@ -49,9 +51,7 @@ class _MainPagesState extends State<MainPages> {
     Center(
       child: Text('VitaMart'),
     ),
-    Center(
-      child: Text('Artikel'),
-    ),
+    ArticleScreen()
   ];
 
   @override

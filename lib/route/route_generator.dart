@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vitaflow/ui/pages/articleScreen.dart';
+import 'package:vitaflow/ui/pages/chatbot.dart';
 import 'package:vitaflow/ui/pages/survey/surveyScreen.dart';
 
 import '../ui/pages/daftarScreen.dart';
@@ -25,6 +27,8 @@ class RouteGenerator {
 
       case '/home':
         return MaterialPageRoute(builder: (_) => MainPages());
+      case '/chatbot':
+        return MaterialPageRoute(builder: (_) => ChatbotScreen());
       // case '/product-detail':
       //   return MaterialPageRoute(builder: (_) => ProductDetailScreen());
       // case '/cart':
