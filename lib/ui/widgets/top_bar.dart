@@ -4,7 +4,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 
 class MainTopBar extends StatelessWidget {
-  const MainTopBar({Key? key}) : super(key: key);
+  const MainTopBar({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class MainTopBar extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.star,
-                    color: Colors.yellow.shade600,
+                    color: Colors.yellow[700],
                   ),
                   SizedBox(
                     width: 1.h,
@@ -40,16 +42,22 @@ class MainTopBar extends StatelessWidget {
             ),
           ),
           Spacer(),
-          InkWell(
-              onTap: () {
-                Navigator.of(context, rootNavigator: true)
-                    .pushNamed('/chatbot');
-              },
-              child: Icon(Icons.smart_toy_outlined)),
+          IconButton(
+            icon: Image.asset(
+              'assets/images/gg_bot.png',
+              width: 24,
+              height: 24,
+            ),
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).pushNamed('/chatbot');
+            },
+            color: Color(0xff333333),
+          ),
           SizedBox(
             width: 2.h,
           ),
-          InkWell(onTap: () {}, child: Icon(Icons.menu)),
+          InkWell(
+              onTap: () {}, child: Icon(Icons.menu, color: Color(0xff333333))),
         ],
       ),
     );

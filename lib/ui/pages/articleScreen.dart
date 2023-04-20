@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:vitaflow/ui/home/theme.dart';
+import 'package:vitaflow/ui/widgets/CustomAppBar.dart';
 import 'package:vitaflow/ui/widgets/news_item.dart';
 import 'package:vitaflow/ui/widgets/top_bar.dart';
 
