@@ -7,18 +7,21 @@ class RoundedButton extends StatelessWidget {
   final TextStyle style;
   final Color background;
   final Function()? onClick;
+  final double width;
 
-  const RoundedButton(
-      {super.key,
-      required this.title,
-      required this.style,
-      required this.background,
-      required this.onClick});
+  RoundedButton({
+    super.key,
+    required this.title,
+    required this.style,
+    required this.background,
+    required this.onClick,
+    required this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: width,
       height: 48,
       child: ElevatedButton(
         onPressed: onClick,
@@ -43,7 +46,7 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2.0,
+      elevation: 1.0,
       shape: CircleBorder(),
       child: InkWell(
           onTap: onClick,
@@ -54,6 +57,46 @@ class CustomBackButton extends StatelessWidget {
               color: primaryColor,
             ),
           )),
+    );
+  }
+}
+
+class NotifButton extends StatelessWidget {
+  final bool hasUnreadNotifications;
+  final void Function() onClick;
+
+  NotifButton({required this.hasUnreadNotifications, required this.onClick});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        IconButton(
+            onPressed: onClick, icon: Icon(Icons.notifications_outlined)),
+        if (hasUnreadNotifications)
+          Positioned(
+            top: 6,
+            right: 6,
+            child: Container(
+              width: 12,
+              height: 12,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.red,
+              ),
+              child: Center(
+                child: Text(
+                  '!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 8,
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

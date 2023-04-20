@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:vitaflow/ui/home/theme.dart';
+import 'package:vitaflow/ui/widgets/CustomAppBar.dart';
 import 'package:vitaflow/ui/widgets/news_item.dart';
 import 'package:vitaflow/ui/widgets/top_bar.dart';
 
@@ -24,6 +25,17 @@ class _ArticleScreenState extends State<ArticleScreen> {
           child: Column(
         children: [
           MainTopBar(),
+          // Padding(
+          //   padding: EdgeInsets.all(defMargin),
+          //   child: CustomAppBar(
+          //       point: 90,
+          //       level: 1,
+          //       onChatPressed: () {
+          //         Navigator.of(context, rootNavigator: true)
+          //             .pushNamed('/chatbot');
+          //       },
+          //       onMenuPressed: () {}),
+          // ),
           Expanded(
               child: ListView(
             children: [
@@ -61,7 +73,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
   Widget _buildBanner() {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 20.h,
+        height: 25.h,
+        viewportFraction: 0.9,
         autoPlay: true,
         autoPlayInterval: Duration(seconds: 5),
         autoPlayAnimationDuration: Duration(milliseconds: 800),
@@ -74,8 +87,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 5.0),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(defRadius),
-                    color: Colors.amber),
+                  borderRadius: BorderRadius.circular(defRadius),
+                ),
                 child: Stack(
                   children: [
                     ClipRRect(
@@ -84,6 +97,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                         'assets/images/banner1.png',
                         fit: BoxFit.cover,
                         height: double.infinity,
+                        width: double.infinity,
                       ),
                     ),
                     Positioned(

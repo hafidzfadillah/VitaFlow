@@ -71,6 +71,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
             padding:
                 EdgeInsets.only(left: defMargin, bottom: 4.h, right: defMargin),
             child: RoundedButton(
+              width: double.infinity,
               background: primaryColor,
               title: 'Lanjut',
               style: GoogleFonts.poppins(color: Colors.white),

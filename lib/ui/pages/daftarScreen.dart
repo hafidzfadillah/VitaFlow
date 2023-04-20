@@ -100,6 +100,7 @@ class _DaftarScreenState extends State<DaftarScreen> {
                         height: 4.h,
                       ),
                       RoundedButton(
+                          width: double.infinity,
                           title: 'DAFTAR',
                           style: GoogleFonts.poppins(color: Colors.white),
                           background: primaryColor,

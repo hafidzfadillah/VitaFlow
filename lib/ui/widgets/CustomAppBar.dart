@@ -24,18 +24,14 @@ class CustomAppBar extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xffEAE7E7)),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(defRadius),
             ),
             child: Row(
-              
               children: [
                 Icon(Icons.star, color: Colors.yellow[700], size: 24),
                 SizedBox(width: 4),
                 Text("${point.toString()} point",
-                    style: normalText.copyWith(
-                      fontWeight: FontWeight.w600
-                    )
-                ),  
+                    style: normalText.copyWith(fontWeight: FontWeight.w600)),
                 SizedBox(width: 4),
                 Container(
                   width: 4,

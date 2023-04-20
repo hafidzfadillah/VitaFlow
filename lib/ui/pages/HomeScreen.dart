@@ -5,6 +5,7 @@ import 'package:vitaflow/ui/widgets/DatePicker.dart';
 import 'package:vitaflow/ui/widgets/Mission.dart';
 import 'package:vitaflow/ui/widgets/NutrionInfoBox.dart';
 import 'package:vitaflow/ui/widgets/NutritionBar.dart';
+import 'package:vitaflow/ui/widgets/top_bar.dart';
 
 import '../widgets/CustomAppBar.dart';
 
@@ -33,12 +34,16 @@ class HomeScreen extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             children: [
-              CustomAppBar(
-                point: 90,
-                level: 1,
-                onChatPressed: () {},
-                onMenuPressed: () {},
-              ),
+              MainTopBar(),
+              // CustomAppBar(
+              //   point: 90,
+              //   level: 1,
+              //   onChatPressed: () {
+              //     Navigator.of(context, rootNavigator: true)
+              //         .pushNamed('/chatbot');
+              //   },
+              //   onMenuPressed: () {},
+              // ),
               SizedBox(
                 height: 16,
               ),
@@ -58,7 +63,6 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    
                     children: [
                       Text("1,500",
                           style: normalText.copyWith(
@@ -66,13 +70,9 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         width: 8,
                       ),
-
-                      Text("kcal",
-                          style: normalText.copyWith(
-                              fontSize: 14)),
-                          
-                  ],)
-                 
+                      Text("kcal", style: normalText.copyWith(fontSize: 14)),
+                    ],
+                  )
                 ],
               ),
               SizedBox(
@@ -94,16 +94,15 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: 16,
               ),
-
-
-              CaloriRow(target: 2700, asupan: 0, aktivitas: 130, kaloriTersedia: 2600),
+              CaloriRow(
+                  target: 2700,
+                  asupan: 0,
+                  aktivitas: 130,
+                  kaloriTersedia: 2600),
               SizedBox(
                 height: 16,
               ),
               Mission(finishMisison: 0, totalMission: 6)
-
-
-
             ],
           ),
         ));

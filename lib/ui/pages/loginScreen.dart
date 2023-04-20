@@ -96,12 +96,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 4.h,
                       ),
                       RoundedButton(
-                          title: 'MASUK',
-                          style: GoogleFonts.poppins(color: Colors.white),
-                          background: primaryColor,
-                          onClick: () {
-                            Navigator.pushNamed(context, '/home');
-                          }),
+                        title: 'MASUK',
+                        style: GoogleFonts.poppins(color: Colors.white),
+                        background: primaryColor,
+                        onClick: () {
+                          Navigator.pushNamed(context, '/home');
+                        },
+                        width: double.infinity,
+                      ),
                       SizedBox(
                         height: 2.h,
                       ),

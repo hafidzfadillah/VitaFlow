@@ -4,6 +4,7 @@ import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/pages/HomeScreen.dart';
 import 'package:vitaflow/ui/pages/articleScreen.dart';
 import 'package:vitaflow/ui/pages/chatbot.dart';
+import 'package:vitaflow/ui/pages/vitamart.dart';
 
 class MainPages extends StatefulWidget {
   const MainPages({Key? key}) : super(key: key);
@@ -44,13 +45,11 @@ class _MainPagesState extends State<MainPages> {
   ];
 
   List<Widget> _screens = [
-  HomeScreen(),
+    HomeScreen(),
     Center(
       child: Text('Program'),
     ),
-    Center(
-      child: Text('VitaMart'),
-    ),
+    VitaMart(),
     ArticleScreen()
   ];
 
@@ -74,7 +73,6 @@ class _MainPagesState extends State<MainPages> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      
     );
   }
 }

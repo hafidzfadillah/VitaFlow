@@ -77,6 +77,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         height: 4.h,
                       ),
                       RoundedButton(
+                          width: double.infinity,
                           title: 'MULAI SEKARANG',
                           style: GoogleFonts.poppins(color: Colors.white),
                           background: primaryColor,
@@ -87,6 +88,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         height: 2.h,
                       ),
                       RoundedButton(
+                          width: double.infinity,
                           title: 'SAYA MEMPUNYAI AKUN',
                           style: GoogleFonts.poppins(color: primaryDarkColor),
                           background: Colors.white,
