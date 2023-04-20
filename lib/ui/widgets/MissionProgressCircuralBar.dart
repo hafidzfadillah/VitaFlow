@@ -58,6 +58,7 @@ class MissionProgressCircuralBar extends StatelessWidget {
                     icon,
                     color: foregroundColor,
                     size: radius,
+                    
                   ),
           ),
         ],

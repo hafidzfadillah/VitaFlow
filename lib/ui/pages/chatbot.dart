@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vitaflow/ui/home/theme.dart';
+import 'package:vitaflow/ui/widgets/CustomAppBar.dart';
 import 'package:vitaflow/ui/widgets/button.dart';
 import 'package:vitaflow/ui/widgets/chat_bubble.dart';
 
@@ -19,31 +20,18 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: neutral20,
+      appBar:   CustomAppBar(
+        title: 'Coach Ai',
+        backgroundColor: lightModeBgColor,
+        elevation: 0,
+        leading: CustomBackButton(onClick: () {
+          Navigator.pop(context);
+        }),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: defMargin),
-              child: Stack(
-                children: [
-                  CustomBackButton(onClick: () {
-                    Navigator.pop(context);
-                  }),
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: defMargin),
-                      child: Text(
-                        'Coach AI',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600,
-                            fontSize: subheaderSize),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+           
             Expanded(
                 child: Container(
               color: Color(0xFFF9F9F9),

@@ -4,6 +4,7 @@ import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/pages/HomeScreen.dart';
 import 'package:vitaflow/ui/pages/articleScreen.dart';
 import 'package:vitaflow/ui/pages/chatbot.dart';
+import 'package:vitaflow/ui/pages/programScreen.dart';
 
 class MainPages extends StatefulWidget {
   const MainPages({Key? key}) : super(key: key);
@@ -45,9 +46,7 @@ class _MainPagesState extends State<MainPages> {
 
   List<Widget> _screens = [
   HomeScreen(),
-    Center(
-      child: Text('Program'),
-    ),
+   ProgramScreen(),
     Center(
       child: Text('VitaMart'),
     ),
