@@ -170,6 +170,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   Widget _buildNews() {
     return ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 8),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: 5,

@@ -46,8 +46,9 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 1.0,
+      elevation: 0,
       shape: CircleBorder(),
+      color: Colors.transparent,
       child: InkWell(
           onTap: onClick,
           child: Padding(

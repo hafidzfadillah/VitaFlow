@@ -53,6 +53,9 @@ dependencies:
   fluttertoast: ^8.2.1
   chat_bubbles: ^1.4.1
   chip_list: ^2.4.3+8
+  swipeable_button_view: ^0.0.2
+  page_transition: ^2.0.9
+  fl_chart: ^0.62.0
 
 dev_dependencies:
   flutter_test:

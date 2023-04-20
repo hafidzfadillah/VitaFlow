@@ -19,7 +19,8 @@ class Mission extends StatelessWidget {
       "pointReward": 50,
       "unit": "kalori",
       "icon": "assets/images/icon_misi_1.png",
-      "backgroundColor": 0xffF6F8FA
+      "backgroundColor": 0xffF6F8FA,
+      'screen': '/food-record'
     },
     {
   "progress": 0.5,
@@ -30,7 +31,8 @@ class Mission extends StatelessWidget {
   "unit": "kalori",
   "pointReward": 20,
   "icon": "assets/images/icon_misi_2.png",
-  "backgroundColor": 0xffCBD6F8
+  "backgroundColor": 0xffCBD6F8,
+  'screen': 'record-sport'
 },
 
     {
@@ -42,7 +44,8 @@ class Mission extends StatelessWidget {
       "pointReward": 100,
       "unit": "langkah",
       "icon": "assets/images/icon_misi_3.png",
-      "backgroundColor": 0xffF5E6FB
+      "backgroundColor": 0xffF5E6FB,
+      'screen': 'record-sport-run'
     },
     {
       "progress": 0.8,
@@ -53,7 +56,8 @@ class Mission extends StatelessWidget {
       "pointReward": 25,
       "unit": "gelas",
       "icon": "assets/images/icon_misi_4.png",
-      "backgroundColor": 0xffE0F3FA
+      "backgroundColor": 0xffE0F3FA,
+      'screen': '/water-record'
     },
      {
       "progress": 0.0,
@@ -64,7 +68,8 @@ class Mission extends StatelessWidget {
       "pointReward": 5,
       "unit": "kg",
       "icon": "assets/images/icon_misi_5.png",
-      "backgroundColor": 0xffE4DDEF
+      "backgroundColor": 0xffE4DDEF,
+      'screen': 'record-weight'
     },
     {
        "progress": 1.0,
@@ -75,7 +80,8 @@ class Mission extends StatelessWidget {
       "pointReward": 5,
       "unit": "bpm",
       "icon": "assets/images/icon_misi_6.png",
-      "backgroundColor": 0xffF5D6D0
+      "backgroundColor": 0xffF5D6D0,
+      'screen': '/vita-pulse'
     }
     
   ];
@@ -117,6 +123,7 @@ class Mission extends StatelessWidget {
             unit: e["unit"],
             icon: e["icon"],
             backgroundColor: e["backgroundColor"],
+            screen: e["screen"],
           )).toList(),
         )
 

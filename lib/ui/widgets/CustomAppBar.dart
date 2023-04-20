@@ -1,72 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 
-class CustomAppBar extends StatelessWidget {
-  final int point;
-  final int level;
-  final void Function() onChatPressed;
-  final void Function() onMenuPressed;
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    this.actions,
+    this.leading,
+    this.backgroundColor,
+    this.elevation,
+  }) : super(key: key);
 
-  CustomAppBar({
-    required this.point,
-    required this.level,
-    required this.onChatPressed,
-    required this.onMenuPressed,
-  });
+  final String title;
+  final List<Widget>? actions;
+  final Widget? leading;
+  final Color? backgroundColor;
+  final double? elevation;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xffEAE7E7)),
-              borderRadius: BorderRadius.circular(defRadius),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.star, color: Colors.yellow[700], size: 24),
-                SizedBox(width: 4),
-                Text("${point.toString()} point",
-                    style: normalText.copyWith(fontWeight: FontWeight.w600)),
-                SizedBox(width: 4),
-                Container(
-                  width: 4,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(0xff333333),
-                  ),
-                ),
-                SizedBox(width: 4),
-                Text("Level ${level.toString()}",
-                    style: normalText.copyWith(fontWeight: FontWeight.w600)),
-              ],
-            ),
-          ),
-          Row(
-            children: [
-              // image gg_bot
-              IconButton(
-                icon: Image.asset(
-                  "assets/images/gg_bot.png",
-                  width: 24,
-                  height: 24,
-                ),
-                onPressed: onChatPressed,
-              ),
-              IconButton(
-                icon: Icon(Icons.menu, size: 24),
-                color: Color(0xff333333),
-                onPressed: onMenuPressed,
-              ),
-            ],
-          ),
-        ],
+    return AppBar(
+      backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
+      elevation: elevation ?? 0,
+      leading: leading,
+      centerTitle: true,
+      title: Text(
+        title,
+        style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w600,
+            color: blackColor,
+            fontSize: subheaderSize),
       ),
+      actions: actions,
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }

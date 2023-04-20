@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:vitaflow/ui/pages/articleScreen.dart';
 import 'package:vitaflow/ui/pages/chatbot.dart';
+import 'package:vitaflow/ui/pages/programScreen.dart';
+import 'package:vitaflow/ui/pages/recordFoodScreen.dart';
+import 'package:vitaflow/ui/pages/recordWaterScreen.dart';
 import 'package:vitaflow/ui/pages/survey/surveyScreen.dart';
+import 'package:vitaflow/ui/pages/vitaPulseScreen.dart';
 
 import '../ui/pages/daftarScreen.dart';
 import '../ui/pages/loginScreen.dart';
@@ -29,6 +33,20 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MainPages());
       case '/chatbot':
         return MaterialPageRoute(builder: (_) => ChatbotScreen());
+      case '/food-record' :
+        return MaterialPageRoute(builder: (_) => RecordFoodScreen());
+      case '/article' :
+        return MaterialPageRoute(builder: (_) => ArticleScreen());
+
+      case '/program':
+        return MaterialPageRoute(builder: (_) => ProgramScreen());
+
+      case '/water-record':
+        return MaterialPageRoute(builder: (_) => RecordWaterScreen());
+      case '/vita-pulse':
+        return MaterialPageRoute(builder: (_) =>VitaPulseScreen());
+
+      
       // case '/product-detail':
       //   return MaterialPageRoute(builder: (_) => ProductDetailScreen());
       // case '/cart':
