@@ -1,10 +1,10 @@
-import  'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/widgets/MissionCard.dart';
 
 class Mission extends StatelessWidget {
-   Mission({Key? key , required this.finishMisison , required this.totalMission}) : super(key: key);
-
+  Mission({Key? key, required this.finishMisison, required this.totalMission})
+      : super(key: key);
 
   int finishMisison = 0;
   int totalMission = 6;
@@ -23,18 +23,17 @@ class Mission extends StatelessWidget {
       'screen': '/food-record'
     },
     {
-  "progress": 0.5,
-  "missionColor": 0xff1F4DEF,
-  "title": "Catat Aktivitas Olahraga",
-  "target": 300,
-  "current": 150,
-  "unit": "kalori",
-  "pointReward": 20,
-  "icon": "assets/images/icon_misi_2.png",
-  "backgroundColor": 0xffCBD6F8,
-  'screen': 'record-sport'
-},
-
+      "progress": 0.5,
+      "missionColor": 0xff1F4DEF,
+      "title": "Catat Aktivitas Olahraga",
+      "target": 300,
+      "current": 150,
+      "unit": "kalori",
+      "pointReward": 20,
+      "icon": "assets/images/icon_misi_2.png",
+      "backgroundColor": 0xffCBD6F8,
+      'screen': '/record-sport'
+    },
     {
       "progress": 0.5,
       "missionColor": 0xffF39CFF,
@@ -59,7 +58,7 @@ class Mission extends StatelessWidget {
       "backgroundColor": 0xffE0F3FA,
       'screen': '/water-record'
     },
-     {
+    {
       "progress": 0.0,
       "missionColor": 0xff8D5EBC,
       "title": "Catat berat  badan",
@@ -72,7 +71,7 @@ class Mission extends StatelessWidget {
       'screen': 'record-weight'
     },
     {
-       "progress": 1.0,
+      "progress": 1.0,
       "missionColor": 0xffEF4F28,
       "title": "Check Kesehatan anda",
       "target": 0,
@@ -83,54 +82,55 @@ class Mission extends StatelessWidget {
       "backgroundColor": 0xffF5D6D0,
       'screen': '/vita-pulse'
     }
-    
   ];
-
-
 
   @override
   Widget build(BuildContext context) {
-  
     return Column(
       children: [
         Row(
           children: [
-           Text("Misi kamu hari ini " , style: normalText.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: Color(0xff333333),
-            ),),
-            Text("(" + finishMisison.toString() + "/" + totalMission.toString() + ")" , style: normalText.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: Color(0xff333333),
-            ),),
-           
-          
-           
+            Text(
+              "Misi kamu hari ini ",
+              style: normalText.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff333333),
+              ),
+            ),
+            Text(
+              "(" +
+                  finishMisison.toString() +
+                  "/" +
+                  totalMission.toString() +
+                  ")",
+              style: normalText.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff333333),
+              ),
+            ),
           ],
         ),
-        SizedBox(height: 16,),
-
+        SizedBox(
+          height: 16,
+        ),
         Column(
-          children: missions.map((e) => MissionCard(
-            progress: e["progress"],
-            missionColor: e["missionColor"],
-            title: e["title"],
-            target: e["target"],
-            current: e["current"],
-            pointReward: e["pointReward"],
-            unit: e["unit"],
-            icon: e["icon"],
-            backgroundColor: e["backgroundColor"],
-            screen: e["screen"],
-          )).toList(),
+          children: missions
+              .map((e) => MissionCard(
+                    progress: e["progress"],
+                    missionColor: e["missionColor"],
+                    title: e["title"],
+                    target: e["target"],
+                    current: e["current"],
+                    pointReward: e["pointReward"],
+                    unit: e["unit"],
+                    icon: e["icon"],
+                    backgroundColor: e["backgroundColor"],
+                    screen: e["screen"],
+                  ))
+              .toList(),
         )
-
-     
-                 
-      
-
       ],
     );
   }
