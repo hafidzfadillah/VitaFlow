@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/widgets/CalorieBox.dart';
 import 'package:vitaflow/ui/widgets/DatePicker.dart';
+import 'package:vitaflow/ui/widgets/LogFoodCard.dart';
 import 'package:vitaflow/ui/widgets/NutrientChart.dart';
 import 'package:vitaflow/ui/widgets/NutrionSummary.dart';
 import 'package:vitaflow/ui/widgets/button.dart';
@@ -148,6 +149,50 @@ class RecordFoodScreen extends StatelessWidget {
                 carbsPercentage: 75,
                 fatPercentage: 20,
                 proteinPercentage: 5,
+              ),
+              SizedBox(
+                height: 16,
+              ),
+
+             Text(
+                'Log makan',
+                style: normalText.copyWith(
+                    fontSize: 16,
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.w600),
+              ),
+              
+              SizedBox(
+                height: 16,
+              ),
+
+              Column(
+                children: [
+                  LogFoodCard(
+                    title : "Makan Pagi",
+                    icon:                   'assets/images/icon_breakfast.png',
+
+                  ),
+                  LogFoodCard(
+                    title : "Makan Siang",
+                    icon:                   'assets/images/icon_lunch.png',
+
+                  ),
+
+                  LogFoodCard(
+                    title : "Makan Malam",
+                    icon:                   'assets/images/icon_dinner.png',
+
+                  ),
+
+                  LogFoodCard(
+                    title : "Cemilan ",
+                    icon:                   'assets/images/icon_snack.png',
+
+                  ),
+
+                  
+                ],
               )
               
 
