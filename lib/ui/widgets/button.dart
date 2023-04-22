@@ -8,6 +8,7 @@ class RoundedButton extends StatelessWidget {
   final Color background;
   final Function()? onClick;
   final double width;
+  double height;
 
   RoundedButton({
     super.key,
@@ -16,13 +17,14 @@ class RoundedButton extends StatelessWidget {
     required this.background,
     required this.onClick,
     required this.width,
+    this.height = 48,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: 48,
+      height: height,
       child: ElevatedButton(
         onPressed: onClick,
         child: Text(

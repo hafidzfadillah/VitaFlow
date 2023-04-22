@@ -49,53 +49,65 @@ class _SurveyScreenState extends State<SurveyScreen> {
     return ChangeNotifierProvider(
       create: (_) => survey,
       child: Scaffold(
-          body: Column(
-        children: [
-          _buildTopbar(context),
-          Expanded(child: _screens[currentPage]
-              //     PageView.builder(
-              //   physics: NeverScrollableScrollPhysics(),
-              //   itemCount: _screens.length,
-              //   itemBuilder: ((context, index) {
-              //     return _screens[index];
-              //   }),
-              //   controller: _pageViewController,
-              //   // onPageChanged: (value) {
-              //   //   setState(() {
-              //   //     currentPage = value;
-              //   //   });
-              //   // },
-              // )
-              ),
-          Padding(
-            padding:
-                EdgeInsets.only(left: defMargin, bottom: 4.h, right: defMargin),
-            child: RoundedButton(
-              width: double.infinity,
-              background: primaryColor,
-              title: 'Lanjut',
-              style: GoogleFonts.poppins(color: Colors.white),
-              onClick: () {
-                if (percentage == 6 / 6 || currentPage == 5) {
-                  print('survey done');
-                  survey.result();
-                } else {
-                  setState(() {
-                    percentage += 1 / 6;
-                    currentPage += 1;
-                  });
-                }
-              },
+        
+          body: SafeArea(
+            
+            
+            child: Padding(
+                               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+
+              child: Column(
+                    children: [
+              _buildTopbar(context),
+              Expanded(child: _screens[currentPage]
+                  //     PageView.builder(
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   itemCount: _screens.length,
+                  //   itemBuilder: ((context, index) {
+                  //     return _screens[index];
+                  //   }),
+                  //   controller: _pageViewController,
+                  //   // onPageChanged: (value) {
+                  //   //   setState(() {
+                  //   //     currentPage = value;
+                  //   //   });
+                  //   // },
+                  // )
+                  ),
+
+             
+    
+       RoundedButton(
+                    width: double.infinity,
+                    background: primaryColor,
+                    title: 'Lanjut',
+                    height: 62,
+                    
+                    style: GoogleFonts.poppins(color: Colors.white , fontWeight:  FontWeight.w600, fontSize:  16),
+                    onClick: () {
+                      if (percentage == 6 / 6 || currentPage == 5) {
+                        print('survey done');
+                        survey.result();
+                      } else {
+                        setState(() {
+                          percentage += 1 / 6;
+                          currentPage += 1;
+                        });
+                      }
+                    },
+                  ),
+       
+
+                    ],
+                  ),
             ),
-          )
-        ],
-      )),
+          )),
     );
   }
 
   Widget _buildTopbar(context) {
     return Container(
-      padding: EdgeInsets.only(top: 4.h, left: defMargin, right: defMargin),
+      margin : EdgeInsets.only(bottom: 4.h),
       child: Row(
         children: [
           CustomBackButton(

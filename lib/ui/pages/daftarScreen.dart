@@ -38,26 +38,36 @@ class _DaftarScreenState extends State<DaftarScreen> {
     return ResponsiveSizer(builder: (ctx, orient, type) {
       return Scaffold(
         backgroundColor: lightModeBgColor,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: CustomBackButton(
+              onClick: () {
+                Navigator.pop(context);
+              },
+            )),
         body: SafeArea(
             child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: defMargin),
-          children: [
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),          children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomBackButton(
-                  onClick: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
+                
+                
                 Text(
-                  'Daftar',
+                  'Register',
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w600, fontSize: 24),
                 ),
+                  SizedBox(
+                  height: 1.h,
+                ),
+                Text(
+                  'Daftar untuk melanjutkan ke Vitaflow',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, fontSize: 14),
+                ),
+
                 SizedBox(
                   height: 4.h,
                 ),
@@ -102,12 +112,32 @@ class _DaftarScreenState extends State<DaftarScreen> {
                       RoundedButton(
                           width: double.infinity,
                           title: 'DAFTAR',
-                          style: GoogleFonts.poppins(color: Colors.white),
+                          style: GoogleFonts.poppins(color: Colors.white , fontWeight: FontWeight.w600,),
                           background: primaryColor,
+                          height:  54,
                           onClick: () {}),
                       SizedBox(
                         height: 2.h,
                       ),
+                      Center(
+                        child: RichText(
+                            text: TextSpan(
+                                text: 'Sudah punya akun ? ',
+                                style: blackTextStyle.copyWith(fontSize: 14),
+                                children: [
+                              TextSpan(
+                                text: 'Login Sekarang',
+                                style: GoogleFonts.poppins(
+                                    color: primaryColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.pushNamed(context, '/login');
+                                  },
+                              )
+                            ])),
+                      )
                     ],
                   ),
                 )

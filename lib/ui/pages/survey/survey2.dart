@@ -20,13 +20,11 @@ class _Survey2State extends State<Survey2> {
   Widget build(BuildContext context) {
     final survey = Provider.of<Survey>(context);
 
-    return Padding(
-      padding: EdgeInsets.all(defMargin),
-      child: Column(
+    return  Column(
         children: [
           Text(
             'Pertanyaan 2',
-            style: GoogleFonts.poppins(fontSize: subheaderSize),
+            style: GoogleFonts.poppins(fontSize: 14),
           ),
           SizedBox(
             height: 2.h,
@@ -35,7 +33,7 @@ class _Survey2State extends State<Survey2> {
             'Berapa umur Anda sekarang?',
             textAlign: TextAlign.center,
             style:
-                GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.w600),
+                surveyHeading,
           ),
           SizedBox(
             height: 4.h,
@@ -62,14 +60,18 @@ class _Survey2State extends State<Survey2> {
               Expanded(
                 child: Text(
                   'Informasi umur akan membantu kami untuk menentukan program yang sesuai dan kebutuhan tubuh Anda',
-                  softWrap: true,
-                  style: subtitleTextStyle2,
+                 softWrap: true,
+                  textAlign: TextAlign.center,
+                  style: normalText.copyWith(
+                    fontSize: 14,
+                    color: Color(0xff707070),
+                  ),
                 ),
               )
             ]),
           )
         ],
-      ),
+      
     );
   }
 }

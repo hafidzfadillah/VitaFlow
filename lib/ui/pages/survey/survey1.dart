@@ -18,124 +18,131 @@ class _Survey1State extends State<Survey1> {
   Widget build(BuildContext context) {
     final survey = Provider.of<Survey>(context);
 
-    return Padding(
-      padding: EdgeInsets.all(defMargin),
-      child: Column(
-        children: [
-          Text(
-            'Pertanyaan 1',
-            style: GoogleFonts.poppins(fontSize: subheaderSize),
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          Text(
-            'Jenis Kelamin Anda?',
-            textAlign: TextAlign.center,
-            style:
-                GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.w600),
-          ),
-          SizedBox(
-            height: 4.h,
-          ),
-          GestureDetector(
-            onTap: () {
-              // setState(() {
-              survey.gender = Gender.Pria;
-              // });
-            },
-            child: Container(
-              width: double.infinity,
-              padding:
-                  EdgeInsets.symmetric(horizontal: 24, vertical: defMargin),
-              decoration: BoxDecoration(
-                  color: neutral30,
-                  borderRadius: BorderRadius.circular(defMargin),
-                  border: survey.gender == Gender.Pria
-                      ? Border.all(color: primaryColor)
-                      : null),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Laki-laki',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: headerSize),
-                    ),
-                  ),
-                  Radio(
-                      value: Gender.Pria,
-                      groupValue: survey.gender,
-                      activeColor: primaryColor,
-                      onChanged: ((value) {
-                        // setState(() {
-                        survey.gender = Gender.Pria;
-                        // });
-                      }))
-                ],
-              ),
+    return 
+       Column(
+          children: [
+            Text(
+              'Pertanyaan 1',
+              style: GoogleFonts.poppins(fontSize: 14),
             ),
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          GestureDetector(
-            onTap: () {
-              // setState(() {
-              survey.gender = Gender.Wanita;
-              // });
-            },
-            child: Container(
-              width: double.infinity,
-              padding:
-                  EdgeInsets.symmetric(horizontal: 24, vertical: defMargin),
-              decoration: BoxDecoration(
-                  color: neutral30,
-                  borderRadius: BorderRadius.circular(defMargin),
-                  border: survey.gender == Gender.Wanita
-                      ? Border.all(color: primaryColor)
-                      : null),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Perempuan',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: headerSize),
-                    ),
-                  ),
-                  Radio(
-                      value: Gender.Wanita,
-                      groupValue: survey.gender,
-                      activeColor: primaryColor,
-                      onChanged: ((value) {
-                        // setState(() {
-                        survey.gender = Gender.Wanita;
-                        // });
-                      }))
-                ],
-              ),
+            SizedBox(
+              height: 1.h,
             ),
-          ),
-          Spacer(),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 2.h),
-            child: Row(children: [
-              // Icon(Icons.info_outline),
-              // SizedBox(
-              //   width: 2.h,
-              // ),
-              Expanded(
-                child: Text(
-                  'Penting bagi kami untuk mengetahui jenis kelamin Anda untuk menghitung metabolisme tubuh Anda. Informasi ini membantu kami untuk menentukan program terbaik untuk Anda',
-                  softWrap: true,
-                  style: subtitleTextStyle2,
+            Text(
+              'Jenis Kelamin Anda?',
+              textAlign: TextAlign.center,
+              style:
+              surveyHeading
+            ),
+            SizedBox(
+              height: 4.h,
+            ),
+            GestureDetector(
+              onTap: () {
+                // setState(() {
+                survey.gender = Gender.Pria;
+                // });
+              },
+              child: Container(
+                width: double.infinity,
+                padding:
+                    EdgeInsets.symmetric(horizontal: 24, vertical: defMargin),
+                decoration: BoxDecoration(
+                    color: neutral30,
+                    borderRadius: BorderRadius.circular(defMargin),
+                    border: survey.gender == Gender.Pria
+                        ? Border.all(color: primaryColor)
+                        : null),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Laki-laki',
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500, fontSize: headerSize , color : blackColor),
+                      ),
+                    ),
+                    Radio(
+                        value: Gender.Pria,
+                        groupValue: survey.gender,
+                        activeColor: primaryColor,
+                        onChanged: ((value) {
+                          // setState(() {
+                          survey.gender = Gender.Pria;
+                          // });
+                        }))
+                  ],
                 ),
-              )
-            ]),
-          )
-        ],
-      ),
+              ),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            GestureDetector(
+              onTap: () {
+                // setState(() {
+                survey.gender = Gender.Wanita;
+                // });
+              },
+              child: Container(
+                width: double.infinity,
+                padding:
+                    EdgeInsets.symmetric(horizontal: 24, vertical: defMargin),
+                decoration: BoxDecoration(
+                    color: neutral30,
+                    borderRadius: BorderRadius.circular(defMargin),
+                    border: survey.gender == Gender.Wanita
+                        ? Border.all(color: primaryColor)
+                        : null),
+                child: Row(
+                  children: [
+                    Expanded(
+                       child: Text(
+                        'Perempuan',
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500, fontSize: headerSize , color : blackColor),
+                      ),
+                   
+                    ),
+                    Radio(
+                        value: Gender.Wanita,
+                        groupValue: survey.gender,
+                        activeColor: primaryColor,
+                        onChanged: ((value) {
+                          // setState(() {
+                          survey.gender = Gender.Wanita;
+                          // });
+                        }))
+                  ],
+                ),
+              ),
+            ),
+            Spacer(),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 2.h),
+              child: Row(children: [
+                // Icon(Icons.info_outline),
+                // SizedBox(
+                //   width: 2.h,
+                // ),
+                Expanded(
+                  child: Text(
+                    'Mengetahui gender penting untuk menghitung metabolisme tubuh agar program yang diberikan sesuai dengan kebutuhan Anda.',
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                    style: normalText.copyWith(
+                      fontSize: 14,
+                      color:  Color(0xff707070),
+                    
+                    ),
+                    
+                  ),
+                )
+              ]),
+            )
+          ],
+   
+
     );
   }
 }

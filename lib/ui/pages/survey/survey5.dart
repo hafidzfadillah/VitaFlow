@@ -20,21 +20,19 @@ class _Survey5State extends State<Survey5> {
   @override
   Widget build(BuildContext context) {
     final survey = Provider.of<Survey>(context);
-    return Padding(
-        padding: EdgeInsets.all(defMargin),
-        child: Column(children: [
+    return 
+         Column(children: [
           Text(
             'Pertanyaan 5',
-            style: GoogleFonts.poppins(fontSize: subheaderSize),
+            style: GoogleFonts.poppins(fontSize: 14),
           ),
           SizedBox(
-            height: 2.h,
+            height: 1.h,
           ),
           Text(
             'Berapa berat badan Anda sekarang?',
             textAlign: TextAlign.center,
-            style:
-                GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.w600),
+            style: surveyHeading
           ),
           SizedBox(
             height: 4.h,
@@ -43,6 +41,9 @@ class _Survey5State extends State<Survey5> {
               width: 20.w,
               isScroll: false,
               labels: ['Kilogram', 'lbs'],
+               unSelectedBackgroundColors: [
+            Color(0xffF6F8FA),
+          ],
               selectedBackgroundColors: [Colors.white],
               selectedLabelIndex: ((p0) {
                 setState(() {
@@ -94,6 +95,6 @@ class _Survey5State extends State<Survey5> {
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w600))
             ],
           )
-        ]));
+        ]);
   }
 }
