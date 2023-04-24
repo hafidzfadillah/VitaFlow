@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:vitaflow/ui/home/theme.dart';
@@ -118,9 +119,16 @@ class _ExerciseScheduleState extends State<ExerciseSchedule> {
               style: GoogleFonts.poppins(color: Colors.white),
               background: primaryColor,
               onClick: () {
-                Navigator.pushNamed(context, '/list-sport',
-                    arguments: widget.exercises[currentWeek]['days']
-                        [selectedDay]);
+                if (widget.exercises[currentWeek]['days'][selectedDay]
+                        ['status'] !=
+                    0) {
+                  Navigator.pushNamed(context, '/list-sport',
+                      arguments: widget.exercises[currentWeek]['days']
+                          [selectedDay]);
+                } else {
+                  Fluttertoast.showToast(
+                      msg: 'Selesaikan sesi sebelumnya terlebih dahulu');
+                }
               },
               width: double.infinity),
           SizedBox(
