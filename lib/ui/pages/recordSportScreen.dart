@@ -30,15 +30,15 @@ class _RecordSportScreenState extends State<RecordSportScreen> {
             {
               "img": "assets/images/sport1.png",
               "title": "Peregangan kobra",
-              "durasi": 30,
+              "durasi": 10,
               "set": 16,
               "status": false
             },
             {
               "img": "assets/images/sport2.png",
               "title": "Peregangan kobra",
-              "durasi": 30,
-              "set": 16,
+              "durasi": 15,
+              "set": 10,
               "status": false
             },
           ],

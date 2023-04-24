@@ -29,7 +29,7 @@ class _ListSportState extends State<ListSport> {
       ..addListener(() {
         setState(() {
           lPad = _isSliverAppBarExpanded ? kToolbarHeight : 16;
-          // bPad = _isSliverAppBarExpanded ? 12 : 16;
+          bPad = _isSliverAppBarExpanded ? 12 : 16;
         });
       });
   }
@@ -119,9 +119,14 @@ class _ListSportState extends State<ListSport> {
                       itemBuilder: (c, i) {
                         var item = widget.data['exercises'][i];
                         return SportItem(
-                            title: item['title'],
-                            durasi: item['durasi'],
-                            imgAddress: item['img']);
+                          title: item['title'],
+                          durasi: item['durasi'],
+                          imgAddress: item['img'],
+                          onClick: () {
+                            Navigator.pushNamed(context, '/action-sport',
+                                arguments: widget.data['exercises']);
+                          },
+                        );
                       },
                     )
                   ],

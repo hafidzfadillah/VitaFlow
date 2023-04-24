@@ -110,7 +110,7 @@ class _ExerciseScheduleState extends State<ExerciseSchedule> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 5,
                   crossAxisSpacing: 1.h,
-                  childAspectRatio: 0.8),
+                  childAspectRatio: 0.7),
             ),
           ),
           RoundedButton(
