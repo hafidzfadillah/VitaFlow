@@ -37,7 +37,7 @@ class NutrientChart extends StatelessWidget {
                   child: PieChart(
                     PieChartData(
                       sectionsSpace: 0,
-                      centerSpaceRadius: 0,
+                      centerSpaceRadius:0,
                       sections: _buildPieChartSections(),
                     ),
                   ),

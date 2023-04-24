@@ -20,26 +20,26 @@ class _Survey3State extends State<Survey3> {
   Widget build(BuildContext context) {
     final survey = Provider.of<Survey>(context);
 
-    return Padding(
-      padding: EdgeInsets.all(defMargin),
-      child: Column(
+    return
+      Column(
         children: [
           Text(
             'Pertanyaan 3',
-            style: GoogleFonts.poppins(fontSize: subheaderSize),
+          style: GoogleFonts.poppins(fontSize: 14),
           ),
           SizedBox(
-            height: 2.h,
+            height: 1.h,
           ),
           Text(
-            'Apa survey.tujuan utama Anda?',
+            'Apa tujuan anda memakai aplikasi ini?',
             textAlign: TextAlign.center,
             style:
-                GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.w600),
+                surveyHeading,
           ),
           SizedBox(
             height: 4.h,
           ),
+        
           GestureDetector(
             onTap: () {
               setState(() {
@@ -62,8 +62,10 @@ class _Survey3State extends State<Survey3> {
                     child: Text(
                       'Menaikkan berat badan',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: headerSize),
-                    ),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: blackColor),
+                  ),
                   ),
                   Radio(
                       value: "Menaikkan berat badan",
@@ -102,9 +104,11 @@ class _Survey3State extends State<Survey3> {
                   Expanded(
                     child: Text(
                       'Menurunkan berat badan',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: headerSize),
-                    ),
+                  style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: blackColor),
+                    )
                   ),
                   Radio(
                       value: "Menurunkan berat badan",
@@ -143,9 +147,11 @@ class _Survey3State extends State<Survey3> {
                   Expanded(
                     child: Text(
                       'Mempertahankan berat badan',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: headerSize),
-                    ),
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: blackColor),
+                    )
                   ),
                   Radio(
                       value: "Mempertahankan berat badan",
@@ -170,15 +176,19 @@ class _Survey3State extends State<Survey3> {
               // ),
               Expanded(
                 child: Text(
-                  'Penting bagi kami untuk mengetahui jenis kelamin Anda untuk menghitung metabolisme tubuh Anda. Informasi ini membantu kami untuk menentukan program terbaik untuk Anda',
+                  'Yuk, ceritakan tujuan utama Anda dalam menggunakan aplikasi ini! Apakah ingin menurunkan berat badan, menambah massa otot, atau menjaga berat badan ideal?',
                   softWrap: true,
-                  style: subtitleTextStyle2,
+                  textAlign: TextAlign.center,
+                style: normalText.copyWith(
+                  fontSize: 14,
+                  color: Color(0xff707070),
+                ),
                 ),
               )
             ]),
           )
         ],
-      ),
+    
     );
   }
 }

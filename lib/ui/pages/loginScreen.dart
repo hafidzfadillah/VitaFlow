@@ -33,26 +33,36 @@ class _LoginScreenState extends State<LoginScreen> {
     return ResponsiveSizer(builder: (ctx, orient, type) {
       return Scaffold(
         backgroundColor: lightModeBgColor,
+        appBar:  AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: CustomBackButton(onClick:  () {
+            Navigator.pop(context);
+          },
+          )
+        ),
         body: SafeArea(
             child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: defMargin),
+          padding:  EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16),
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomBackButton(
-                  onClick: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
+               
+              
                 Text(
                   'Masuk',
                   style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600, fontSize: 24),
+                      fontWeight: FontWeight.w600, fontSize: 28),
                 ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                Text('Masuk untuk melanjutkan ke Vitaflow',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff707070))),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -65,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: 'Masukan email anda',
                         state: email!,
                         labelText: 'Email',
+                        
                         inputType: TextInputType.emailAddress,
                         validator: emailValidator,
                       ),
@@ -97,12 +108,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       RoundedButton(
                         title: 'MASUK',
-                        style: GoogleFonts.poppins(color: Colors.white),
+                        style: GoogleFonts.poppins(color: Colors.white , fontSize: 16 , fontWeight: FontWeight.w500),
                         background: primaryColor,
                         onClick: () {
                           Navigator.pushNamed(context, '/home');
                         },
                         width: double.infinity,
+                        height:  54,
+
                       ),
                       SizedBox(
                         height: 2.h,
@@ -112,13 +125,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: TextSpan(
                                 text: 'Belum punya akun? ',
                                 style: blackTextStyle.copyWith(
-                                    fontSize: captionSize),
+                                    fontSize: 14),
                                 children: [
                               TextSpan(
                                 text: 'Daftar Sekarang',
                                 style: GoogleFonts.poppins(
                                     color: primaryColor,
-                                    fontSize: captionSize,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {

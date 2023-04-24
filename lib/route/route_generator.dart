@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vitaflow/ui/pages/FoodDetailScreen.dart';
+import 'package:vitaflow/ui/pages/FoodListScreen.dart';
 import 'package:vitaflow/ui/pages/articleScreen.dart';
 import 'package:vitaflow/ui/pages/chatbot.dart';
 import 'package:vitaflow/ui/pages/listSport.dart';
@@ -57,6 +59,8 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) =>
                 SportActionScreen(data: args as List<Map<String, dynamic>>));
+      case '/food-detail' :
+        return MaterialPageRoute(builder: (_) => FoodDetailScreen());
 
       // case '/product-detail':
       //   return MaterialPageRoute(builder: (_) => ProductDetailScreen());

@@ -69,7 +69,7 @@ class CustomFormField extends StatelessWidget {
               labelStyle: TextStyle(color: primaryColor),
               hintText: hintText,
 
-              contentPadding: EdgeInsets.all(18), // Added this
+              contentPadding: EdgeInsets.all(24), // Added this
             ),
       
     ),

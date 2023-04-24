@@ -36,8 +36,12 @@ TextStyle whiteTextStyle = GoogleFonts.inter(color: neutral20);
 
 TextStyle subtitleTextStyle2 = GoogleFonts.poppins(color: neutral70);
 
-TextStyle normalText = GoogleFonts.poppins(color: blackColor , fontSize: 14);
-
+TextStyle normalText = GoogleFonts.poppins(color: blackColor, fontSize: 14);
 
 TextStyle typeHeading = GoogleFonts.dmSans(color: primaryColor);
 TextStyle typetitle = GoogleFonts.dmSans(color: neutral70);
+
+TextStyle surveyHeading = GoogleFonts.poppins(
+    fontSize: 24, fontWeight: FontWeight.w600, color: blackColor);
+TextStyle surveyOptionText =
+    GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500 , color: blackColor);
