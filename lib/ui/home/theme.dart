@@ -44,4 +44,4 @@ TextStyle typetitle = GoogleFonts.dmSans(color: neutral70);
 TextStyle surveyHeading = GoogleFonts.poppins(
     fontSize: 24, fontWeight: FontWeight.w600, color: blackColor);
 TextStyle surveyOptionText =
-    GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500 , color: blackColor);
+    GoogleFonts.poppins(fontSize: headerSize, fontWeight: FontWeight.w500 , color: blackColor);

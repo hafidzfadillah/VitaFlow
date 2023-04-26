@@ -46,10 +46,11 @@ class RecordFoodScreen extends StatelessWidget {
                 height: 16,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
              
                     Container(
-                      width:  MediaQuery.of(context).size.width * 0.55,
+                      width:  MediaQuery.of(context).size.width * 0.5,
                       child: Column(
                         children: [
                           Row(
@@ -133,7 +134,7 @@ class RecordFoodScreen extends StatelessWidget {
                     width: 16,
                   ),
 
-                  Text("asdasd")
+                CalorieBox(percentage: 0.05),
 
 
                   

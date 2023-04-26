@@ -17,6 +17,8 @@ class NutrientChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+      
       children: [
         Expanded(
           child: Column(
@@ -28,22 +30,29 @@ class NutrientChart extends StatelessWidget {
             ],
           ),
         ),
+        
         Expanded(
-          child: 
-              Container(
-                padding : EdgeInsets.all(10),
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: PieChart(
-                    PieChartData(
-                      sectionsSpace: 0,
-                      centerSpaceRadius:0,
-                      sections: _buildPieChartSections(),
-                    ),
-                  ),
-                           
-                        ),
+          child: AspectRatio(
+            aspectRatio: 1,
+          
+       
+            child: Align(
+              
+              alignment: Alignment.bottomRight,
+              child: PieChart(
+
+                PieChartData(
+                  
+                  
+                  sectionsSpace: 0,
+                  centerSpaceRadius: 0,
+                  startDegreeOffset: 180,
+
+                  sections: _buildPieChartSections(),
+                ),
               ),
+            ),
+          ),
         ),
       ],
     );
@@ -83,12 +92,20 @@ class NutrientChart extends StatelessWidget {
     return [
       PieChartSectionData(
         color: _getColorForLabel('Karbohidrat'),
+        value: carbsPercentage,
+                title: ''
+
       ),
       PieChartSectionData(
         color: _getColorForLabel('Lemak'),
+        value: fatPercentage,
+                title: ''
+
       ),
       PieChartSectionData(
         color: _getColorForLabel('Protein'),
+        value: proteinPercentage,
+        title: ''
        
       ),
     ];
