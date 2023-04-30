@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void dispose() {
     // TODO: implement dispose
-    _connectivitySubscription.cancel();
+    // _connectivitySubscription.cancel();
     super.dispose();
   }
 
