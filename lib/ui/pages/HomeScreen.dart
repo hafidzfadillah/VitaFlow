@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/widgets/CaloriRow.dart';
 import 'package:vitaflow/ui/widgets/DatePicker.dart';
@@ -9,31 +10,40 @@ import 'package:vitaflow/ui/widgets/top_bar.dart';
 
 import '../widgets/CustomAppBar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int point = 0;
+  String level = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      point = prefs.getInt('point') ?? 0;
+      level = prefs.getString('level') ?? '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: lightModeBgColor,
-        // appBar: AppBar(
-        //   backgroundColor: Colors.white,
-        //   elevation: 0,
-
-        //   leading: Row(
-        //     children: [
-        //       Text("90 point",
-        //           style: TextStyle(fontSize: 16, color: Colors.black)),
-        //       SizedBox(width: 10), // Menambahkan jarak antara dua text
-        //       Text("Level 1",
-        //           style: TextStyle(fontSize: 16, color: Colors.black)),
-        //     ],
-        //   ),
-        // ),
         body: SafeArea(
           child: Column(
             children: [
-              MainTopBar(),
+              MainTopBar(
+              ),
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -55,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text("1,500",
+                            Text(point.toString(),
                                 style: normalText.copyWith(
                                     fontSize: 37, fontWeight: FontWeight.w600)),
                             SizedBox(
@@ -94,6 +104,18 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       height: 16,
                     ),
+                    Row(
+                      children: [
+                        Text("$point point",
+                            style: TextStyle(fontSize: 16, color: Colors.black)),
+                        SizedBox(width: 10),
+                        Text(level,
+                            style: TextStyle(fontSize: 16, color: Colors.black)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
                     Mission(finishMisison: 0, totalMission: 6)
                   ],
                 ),
@@ -103,3 +125,4 @@ class HomeScreen extends StatelessWidget {
         ));
   }
 }
+

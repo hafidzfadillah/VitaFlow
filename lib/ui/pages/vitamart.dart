@@ -2,11 +2,16 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:chip_list/chip_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:vitaflow/core/viewmodels/categories/categories_provider.dart';
 import 'package:vitaflow/ui/home/theme.dart';
+import 'package:vitaflow/ui/widgets/SkeletonChipLoading.dart';
+import 'package:vitaflow/ui/widgets/loading/LoadingTypeHorizontal.dart';
 import 'package:vitaflow/ui/widgets/product_item.dart';
 
 import '../widgets/button.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class VitaMart extends StatefulWidget {
   const VitaMart({Key? key}) : super(key: key);
@@ -26,38 +31,89 @@ class _VitaMartState extends State<VitaMart> {
     'Vitamin',
     'Protein'
   ];
+Future<void> refreshHome(BuildContext context) async {
+    final categoryProv = Provider.of<CategoryProvider>(context, listen: false);
+    categoryProv.clearCategories();
+    print('refreshing home');
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightModeBgColor,
-      body: SafeArea(
-          child: Column(
-        children: [
-          _appbar(),
-          Expanded(
-              child: ListView(
-            padding: EdgeInsets.symmetric(vertical: defMargin),
-            children: [
-              _buildBanner(),
-              SizedBox(height: 2.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: ChipList(
-                  listOfChipNames: _dogeNames,
-                  activeBgColorList: [primaryColor],
-                  inactiveBgColorList: [Colors.white],
-                  activeTextColorList: [Colors.white],
-                  inactiveTextColorList: [neutral70],
-                  listOfChipIndicesCurrentlySeclected: [0],
-                  scrollPhysics: BouncingScrollPhysics(),
-                ),
-              ),
-              _buildProduct()
-            ],
-          ))
-        ],
-      )),
+      body: RefreshIndicator(
+          onRefresh: () => refreshHome(context),
+          child: SafeArea(
+            child: Column(
+              children: [
+                _appbar(),
+                Expanded(
+                    child: ListView(
+                  padding: EdgeInsets.symmetric(vertical: defMargin),
+                  children: [
+                    _buildBanner(),
+                    SizedBox(height: 2.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: ChangeNotifierProvider(
+                        create: (_) => CategoryProvider(),
+                        child: Consumer<CategoryProvider>(
+                          builder: (context, provider, _) {
+                            print(provider.categories);
+                            print('provider ${provider.categories}');
+                            if (provider.categories == null &&
+                                !provider.onSearch) {
+                              // get categories provider
+                              provider.getCategories();
+                              // if the categories haven't been loaded yet, show a skeleton loading
+                              return Container(
+                                margin: EdgeInsets.only(bottom: 10),
+                                child: LoadingTypeHorizontal(),
+                              );
+                            } else if (provider.categories == null &&
+                                provider.onSearch) {
+                              // if the categories are being searched, show a skeleton loading
+                              return Container(
+                                margin: EdgeInsets.only(bottom: 10),
+                                child: LoadingTypeHorizontal(),
+                              );
+                            } 
+                            if(provider.categories!.isEmpty) {
+                              // if the categories have been loaded, show the category chips
+                              return Container(
+                                margin: EdgeInsets.only(bottom: 10),
+                                child: Text('No categories found'),
+                              );
+                            }
+
+                            final allCategories = [
+                              'All',
+                              ...provider.categories!
+                                  .map((category) => category.name)
+                                  .toList()
+                            ];
+                            return ChipList(
+                              listOfChipNames: allCategories,
+                              listOfChipIndicesCurrentlySeclected: [
+                                _currentCategory,
+                              ],
+                              activeBgColorList: [primaryColor],
+                              inactiveBgColorList: [Colors.white],
+                              activeTextColorList: [Colors.white],
+                              inactiveTextColorList: [neutral70],
+                              scrollPhysics: BouncingScrollPhysics(),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    _buildProduct()
+                  ],
+                ))
+              ],
+            ),
+          )),
     );
   }
 
