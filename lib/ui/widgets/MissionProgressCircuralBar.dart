@@ -48,7 +48,7 @@ class MissionProgressCircuralBar extends StatelessWidget {
           
           Center(
             child: progress != 1.0
-                ? Image.asset(assetName,
+                ? Image.network(assetName,
                 width: 24, 
                 height: 24,
 

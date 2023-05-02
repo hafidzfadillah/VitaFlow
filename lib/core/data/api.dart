@@ -21,4 +21,6 @@ class Api {
   
 
   String login = "$_baseServer/auth/login";
+  String register = "$_baseServer/auth/register";
+  String getDailyData = "$_baseServer/getDailyData";
 }

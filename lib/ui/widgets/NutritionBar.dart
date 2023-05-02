@@ -20,7 +20,7 @@ class NutritionalBar extends StatelessWidget {
       height: 32,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: Color(0xffF6F8FA),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Stack(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vitaflow/core/viewmodels/user/user_provider.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/widgets/MissionCard.dart';
 
@@ -115,21 +117,44 @@ class Mission extends StatelessWidget {
         SizedBox(
           height: 16,
         ),
-        Column(
-          children: missions
-              .map((e) => MissionCard(
-                    progress: e["progress"],
-                    missionColor: e["missionColor"],
-                    title: e["title"],
-                    target: e["target"],
-                    current: e["current"],
-                    pointReward: e["pointReward"],
-                    unit: e["unit"],
-                    icon: e["icon"],
-                    backgroundColor: e["backgroundColor"],
-                    screen: e["screen"],
-                  ))
-              .toList(),
+        Container(
+          child: ChangeNotifierProvider(
+            create: (context) => UserProvider(),
+            child: Consumer<UserProvider>(
+              builder: (context, userProvider, _) {
+                if (userProvider.myMission == null &&
+                    !userProvider.onSearch) {
+                  userProvider.getMyMission();
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                if (userProvider.myMission == null && userProvider.onSearch) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                return Column(
+                  children: userProvider.myMission!
+                      .map((e) => MissionCard(
+
+                            progress: e.percentageSuccess.toDouble(),
+                            missionColor: e.colorTheme,
+                            title: e.name,
+                            target: e.target,
+                            current: e.current,
+                            pointReward: e.point,
+                            unit: e.typeTarget,
+                            icon: e.icon,
+                            backgroundColor: e.colorTheme,
+                            screen: e.name,
+
+                        
+                           
+                          ))
+                      .toList(),
+                );
+              },
+            ),
+          ),
         )
       ],
     );
