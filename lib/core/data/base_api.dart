@@ -16,12 +16,12 @@ class BaseAPI implements BaseAPIImpl {
   BaseAPI({Dio? dio}) {
     _dio = dio ?? Dio();
   }
-  Options getHeaders({bool? useToken}) {
+  Options getHeaders({String token = "" , bool? useToken}) {
     var header = <String, dynamic>{};
     header['Accept'] = 'application/json';
     header['Content-Type'] = 'application/json';
     if (useToken == true) {
-      header['Authorization'] = 'Bearer <token>';
+      header['Authorization'] = 'Bearer $token';
     }
     return Options(
       headers: header,
@@ -44,10 +44,11 @@ class BaseAPI implements BaseAPIImpl {
 
   @override
   Future<APIResponse> get(String url,
-      {Map<String, dynamic>? param, bool? useToken}) async {
+      {Map<String, dynamic>? param, bool? useToken , String? token ,data }) async {
     try {
       final result = await _dio?.get(url,
-          options: getHeaders(useToken: useToken), queryParameters: param);
+          data:  data,
+          options: getHeaders(useToken: useToken,token:  token ?? ''), queryParameters: param);
       print(result);
       return _parseResponse(result);
     } on DioError catch (e) {

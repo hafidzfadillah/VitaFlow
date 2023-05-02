@@ -5,6 +5,7 @@ import 'package:vitaflow/ui/pages/articleScreen.dart';
 import 'package:vitaflow/ui/pages/chatbot.dart';
 import 'package:vitaflow/ui/pages/inputWorkout.dart';
 import 'package:vitaflow/ui/pages/listSport.dart';
+import 'package:vitaflow/ui/pages/profileScreen.dart';
 import 'package:vitaflow/ui/pages/programScreen.dart';
 import 'package:vitaflow/ui/pages/recordFoodScreen.dart';
 import 'package:vitaflow/ui/pages/recordSportScreen.dart';
@@ -64,6 +65,8 @@ class RouteGenerator {
                 SportActionScreen(data: args as List<Map<String, dynamic>>));
       case '/input-sport':
         return MaterialPageRoute(builder: (_) => InputWorkoutScreen());
+      case '/profile' :
+        return MaterialPageRoute(builder: (_) => ProfileScreen());
 
       // case '/product-detail':
       //   return MaterialPageRoute(builder: (_) => ProductDetailScreen());

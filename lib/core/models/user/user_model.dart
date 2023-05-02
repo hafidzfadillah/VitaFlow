@@ -73,4 +73,6 @@ class UserModel extends Serializable {
         "recommend_calories": recommendCalories,
         "point": point,
       };
+
+      
 }

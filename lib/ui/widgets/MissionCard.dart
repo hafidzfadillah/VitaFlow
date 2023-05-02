@@ -32,9 +32,27 @@ class MissionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-         Navigator.of(context, rootNavigator: true).pushNamed(screen);
-      
-        
+        String titleLower = title.toLowerCase();
+
+        if (titleLower == 'catat aktivitas makanan') {
+          Navigator.of(context, rootNavigator: true).pushNamed('/food-record');
+        } else if (titleLower == 'catat aktivitas olahraga') {
+          Navigator.of(context, rootNavigator: true).pushNamed('/record-sport');
+        } else if (titleLower == 'catat aktivitas lari/ jalan') {
+          Navigator.of(context, rootNavigator: true)
+              .pushNamed('/record-sport-run');
+        } else if (titleLower == 'catat asupan minum') {
+          Navigator.of(context, rootNavigator: true).pushNamed('/water-record');
+        } else if (titleLower == 'catat berat badan') {
+          Navigator.of(context, rootNavigator: true)
+              .pushNamed('/record-weight');
+        } else if (titleLower == 'check kesehatan anda') {
+          Navigator.of(context, rootNavigator: true).pushNamed('/vita-pulse');
+        } else {
+          Navigator.of(context, rootNavigator: true)
+              .pushNamed(screen.toLowerCase());
+        }
+
       },
       child: Container(
         padding: EdgeInsets.all(16),
@@ -72,9 +90,16 @@ class MissionCard extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-    
                 Text(
-                target == 0 ?  current == 0 ? '-'  + ' ' + unit: current.toString()  + ' ' + unit:  current.toString() + "/" + target.toString() + " " + unit,
+                  target == 0
+                      ? current == 0
+                          ? '-' + ' ' + unit
+                          : current.toString() + ' ' + unit
+                      : current.toString() +
+                          "/" +
+                          target.toString() +
+                          " " +
+                          unit,
                   style: normalText.copyWith(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,

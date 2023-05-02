@@ -24,13 +24,13 @@ class NutritionInfoBox extends StatelessWidget {
       ),
       child: Column(
         children: [
-          NutrionRow(nutrionName: 'Karbohidrat', nutrionValue: 20 , nutrionColor: 0xff0BB576),
+          NutrionRow(nutrionName: 'Karbohidrat', nutrionValue: carbs , nutrionColor: 0xff0BB576),
           SizedBox(height: 10,),
-          NutrionRow(nutrionName: 'Protein', nutrionValue: 40 , nutrionColor: 0xffF39CFF),
+          NutrionRow(nutrionName: 'Protein', nutrionValue:  protein , nutrionColor: 0xffF39CFF),
                 SizedBox(
             height: 10,
           ),
-          NutrionRow(nutrionName: 'Lemak', nutrionValue: 32, nutrionColor: 0xffFFDD60, isLastItem: true),
+          NutrionRow(nutrionName: 'Lemak', nutrionValue:  fat, nutrionColor: 0xffFFDD60, isLastItem: true),
           
 
           
