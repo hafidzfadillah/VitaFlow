@@ -1,12 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:vitaflow/core/utils/navigation/nvaigation_utils.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 
 class MainTopBar extends StatelessWidget {
   const MainTopBar({
     Key? key,
   }) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +60,11 @@ class MainTopBar extends StatelessWidget {
             width: 2.h,
           ),
           InkWell(
-              onTap: () {}, child: Icon(Icons.menu, color: Color(0xff333333))),
+              onTap: () {
+                Navigator.of(context, rootNavigator: true)
+                    .pushNamed('/profile');
+
+              }, child: Icon(Icons.menu, color: Color(0xff333333))),
         ],
       ),
     );

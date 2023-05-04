@@ -20,19 +20,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   void initState() {
     // TODO: implement initState
     _checkIfLoggedIn();
+
+    
     super.initState();
   }
 
   void _checkIfLoggedIn() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var token = localStorage.getString('token');
+    var token = localStorage.getString('access_token');
+    print('onboarding $token');
     if (token != null) {
       if (mounted) {
         setState(() {
           isAuth = true;
         });
-
         Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+
+        // Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       }
     }
   }

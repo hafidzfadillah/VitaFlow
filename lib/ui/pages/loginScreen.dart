@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:vitaflow/core/viewmodels/user/user_provider.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/widgets/button.dart';
 
@@ -27,6 +28,33 @@ class _LoginScreenState extends State<LoginScreen> {
     RequiredValidator(errorText: 'Password wajib di isi'),
   ]);
   final _formKey = GlobalKey<FormState>();
+
+  final UserProvider _userProvider = UserProvider();
+
+  Future<void> _handleLogin() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        bool response = await _userProvider.login(email!.text, password!.text);
+
+        if(response == true){
+          Navigator.pushNamed(context, '/home');
+
+
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Email atau password salah'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } catch (error) {
+        // handle error here
+        
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: GoogleFonts.poppins(color: Colors.white , fontSize: 16 , fontWeight: FontWeight.w500),
                         background: primaryColor,
                         onClick: () {
-                          Navigator.pushNamed(context, '/home');
+                          _handleLogin();
                         },
                         width: double.infinity,
                         height:  54,

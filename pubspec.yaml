@@ -57,6 +57,7 @@ dependencies:
   page_transition: ^2.0.9
   fl_chart: ^0.62.0
   d_chart: ^2.2.11
+  shimmer_animation: ^2.1.0+1
 
 dev_dependencies:
   flutter_test:
