@@ -33,36 +33,36 @@ class _LoginScreenState extends State<LoginScreen> {
     return ResponsiveSizer(builder: (ctx, orient, type) {
       return Scaffold(
         backgroundColor: lightModeBgColor,
+        appBar:  AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: CustomBackButton(onClick:  () {
+            Navigator.pop(context);
+          },
+          )
+        ),
         body: SafeArea(
             child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: defMargin, vertical: 24),
+          padding:  EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16),
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  elevation: 2.0,
-                  shape: CircleBorder(),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: primaryColor,
-                        ),
-                      )),
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
+               
+              
                 Text(
                   'Masuk',
                   style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600, fontSize: 24),
+                      fontWeight: FontWeight.w600, fontSize: 28),
                 ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                Text('Masuk untuk melanjutkan ke Vitaflow',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff707070))),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -75,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: 'Masukan email anda',
                         state: email!,
                         labelText: 'Email',
+                        
                         inputType: TextInputType.emailAddress,
                         validator: emailValidator,
                       ),
@@ -95,7 +96,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Text(
                             "Lupa password?",
-                            style: secondaryText.copyWith(fontSize: captionSize,fontWeight: FontWeight.w500),
+                            style: secondaryText.copyWith(
+                                fontSize: captionSize,
+                                fontWeight: FontWeight.w500),
                             textAlign: TextAlign.right,
                           ),
                         ],
@@ -104,12 +107,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 4.h,
                       ),
                       RoundedButton(
-                          title: 'MASUK',
-                          style: GoogleFonts.poppins(color: Colors.white),
-                          background: primaryColor,
-                          onClick: () {
-                            Navigator.pushNamed(context, '/home');
-                          }),
+                        title: 'MASUK',
+                        style: GoogleFonts.poppins(color: Colors.white , fontSize: 16 , fontWeight: FontWeight.w500),
+                        background: primaryColor,
+                        onClick: () {
+                          Navigator.pushNamed(context, '/home');
+                        },
+                        width: double.infinity,
+                        height:  54,
+
+                      ),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -118,13 +125,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: TextSpan(
                                 text: 'Belum punya akun? ',
                                 style: blackTextStyle.copyWith(
-                                    fontSize: captionSize),
+                                    fontSize: 14),
                                 children: [
                               TextSpan(
                                 text: 'Daftar Sekarang',
                                 style: GoogleFonts.poppins(
                                     color: primaryColor,
-                                    fontSize: captionSize,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {

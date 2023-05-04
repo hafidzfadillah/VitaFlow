@@ -113,8 +113,7 @@ class _SplashScreenState extends State<SplashScreen> {
               padding: EdgeInsets.only(bottom: 4.h),
               child: Text(
                 'Version $appVersion',
-                style: GoogleFonts.poppins(
-                    color: Colors.white, fontSize: captionSize),
+                style: GoogleFonts.poppins(color: Colors.white),
               ),
             ),
             alignment: Alignment.bottomCenter,

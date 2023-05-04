@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 double defMargin = 16.0;
+double defRadius = 12.0;
 
 const Color primaryColor = Color(0xff18B279);
 const Color primaryDarkColor = Color(0xff173430);
+const Color primaryLightColor = Color(0xffD9FDD3);
 const Color lightModeBgColor = Color(0xffFFFFFF);
 const Color neutral100 = Color(0xff0A0A0A);
 const Color neutral90 = Color(0xff404040);
@@ -14,6 +16,7 @@ const Color neutral30 = Color(0xffEDEDED);
 const Color neutral20 = Color(0xffFFFFFF);
 const Color alertColor = Color(0xffED6363);
 const Color alertColorSurface = Color(0xffFFEEEE);
+const Color blackColor = Color(0xff333333);
 
 const Color headerColor = Color(0xff1B1C1E);
 
@@ -33,5 +36,12 @@ TextStyle whiteTextStyle = GoogleFonts.inter(color: neutral20);
 
 TextStyle subtitleTextStyle2 = GoogleFonts.poppins(color: neutral70);
 
+TextStyle normalText = GoogleFonts.poppins(color: blackColor, fontSize: 14);
+
 TextStyle typeHeading = GoogleFonts.dmSans(color: primaryColor);
 TextStyle typetitle = GoogleFonts.dmSans(color: neutral70);
+
+TextStyle surveyHeading = GoogleFonts.poppins(
+    fontSize: 24, fontWeight: FontWeight.w600, color: blackColor);
+TextStyle surveyOptionText =
+    GoogleFonts.poppins(fontSize: headerSize, fontWeight: FontWeight.w500 , color: blackColor);

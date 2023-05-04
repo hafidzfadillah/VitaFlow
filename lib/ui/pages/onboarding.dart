@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitaflow/ui/home/theme.dart';
+import 'package:vitaflow/ui/pages/survey/surveyScreen.dart';
 import 'package:vitaflow/ui/widgets/button.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -76,14 +77,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         height: 4.h,
                       ),
                       RoundedButton(
+                          width: double.infinity,
                           title: 'MULAI SEKARANG',
                           style: GoogleFonts.poppins(color: Colors.white),
                           background: primaryColor,
-                          onClick: () {}),
+                          onClick: () {
+                            Navigator.pushNamed(context, '/survey');
+                          }),
                       SizedBox(
                         height: 2.h,
                       ),
                       RoundedButton(
+                          width: double.infinity,
                           title: 'SAYA MEMPUNYAI AKUN',
                           style: GoogleFonts.poppins(color: primaryDarkColor),
                           background: Colors.white,
