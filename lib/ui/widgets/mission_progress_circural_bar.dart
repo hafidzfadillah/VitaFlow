@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
 
 class MissionProgressCircuralBar extends StatelessWidget {
   final IconData icon;
@@ -34,6 +33,8 @@ class MissionProgressCircuralBar extends StatelessWidget {
       child: Stack(
         children: [
           SizedBox(
+            width: 60,
+          height: 60,
             child: CircularProgressIndicator(
             value: progress,
             backgroundColor: backgroundColor,
@@ -41,13 +42,11 @@ class MissionProgressCircuralBar extends StatelessWidget {
             strokeWidth: strokeWidth,
             
           ),
-          width: 60,
-          height: 60,
 
           ),
           
           Center(
-            child: progress != 1.0
+            child: progress != 100
                 ? Image.network(assetName,
                 width: 24, 
                 height: 24,

@@ -7,10 +7,9 @@ class CategoryService {
   BaseAPI api;
   CategoryService(this.api);
 
-  Future<ApiResultList<CategoryModel>> getRestaurants() async {
+  Future<ApiResultList<CategoryModel>> getCategories() async {
     APIResponse response = await api.get(api.endpoint.getCategories);
 
-    print('response from service $response');
     return ApiResultList<CategoryModel>.fromJson(response.data,
         (data) => data.map((e) => CategoryModel.fromJson(e)).toList(), "data");
   }

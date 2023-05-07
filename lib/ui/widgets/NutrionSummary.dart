@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vitaflow/ui/widgets/CalorieBox.dart';
+import 'package:vitaflow/ui/widgets/calorie_box.dart';
 
 class NutrientSummary extends StatelessWidget {
   final double calories;

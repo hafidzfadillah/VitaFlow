@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:vitaflow/core/models/product/product_model.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/widgets/button.dart';
+import 'package:vitaflow/ui/widgets/product_price.dart';
 
 class ProductItem extends StatelessWidget {
+
+  const ProductItem({Key? key, required this.product});
+
+  final ProductModel product;
+
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
       onTap: () {},
       child: Container(
-          margin: EdgeInsets.symmetric(horizontal: defMargin),
+          margin: EdgeInsets.symmetric(horizontal: defMargin , vertical: 10),
           decoration: BoxDecoration(
               color: Color(0xffF6F8FA),
               borderRadius: BorderRadius.circular(defMargin)),
@@ -23,8 +32,13 @@ class ProductItem extends StatelessWidget {
                       flex: 2,
                       child: AspectRatio(
                         aspectRatio: 1,
-                        child: Image.asset(
-                          'assets/images/whey.png',
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.network(
+                            
+                           'https://freshmart.oss-ap-southeast-5.aliyuncs.com/images/images/${product.image}'
+                           , fit: BoxFit.cover,
+                          ),
                         ),
                       )),
                   Expanded(
@@ -34,11 +48,11 @@ class ProductItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Whey',
+                            product.category,
                             style: subtitleTextStyle2,
                           ),
                           Text(
-                            'Vita Whey Protein',
+                            product.name,
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w600,
                                 fontSize: subheaderSize),
@@ -47,7 +61,7 @@ class ProductItem extends StatelessWidget {
                             height: 2.h,
                           ),
                           Text(
-                            'cocok untuk kamu yang lagi bulking',
+                            product.description,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: subtitleTextStyle2,
@@ -57,12 +71,7 @@ class ProductItem extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Text(
-                                'Rp 290.000',
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: subheaderSize),
-                              ),
+                               ProductPrice(price: double.parse(product.price)),
                               Spacer(),
                               ElevatedButton(
                                 onPressed: () {},

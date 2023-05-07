@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vitaflow/dummy/PricePoint.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/widgets/CustomAppBar.dart';
-import 'package:vitaflow/ui/widgets/HistoryCard.dart';
+import 'package:vitaflow/ui/widgets/history_card.dart';
 import 'package:vitaflow/ui/widgets/LineChart.dart';
 import 'package:vitaflow/ui/widgets/button.dart';
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 
+
 class CalorieBox extends StatelessWidget {
   final double percentage;
 
@@ -54,3 +55,4 @@ class CalorieBox extends StatelessWidget {
     );
   }
 }
+
