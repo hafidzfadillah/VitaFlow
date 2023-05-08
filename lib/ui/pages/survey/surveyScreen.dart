@@ -86,7 +86,6 @@ class _SurveyScreenState extends State<SurveyScreen> {
                     style: GoogleFonts.poppins(color: Colors.white , fontWeight:  FontWeight.w600, fontSize:  16),
                     onClick: () {
                       if (percentage == 6 / 6 || currentPage == 5) {
-                        print('survey done');
                         survey.result();
                       } else {
                         setState(() {

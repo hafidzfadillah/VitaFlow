@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:vitaflow/ui/pages/FoodDetailScreen.dart';
 import 'package:vitaflow/ui/pages/FoodListScreen.dart';
-import 'package:vitaflow/ui/pages/articleScreen.dart';
+import 'package:vitaflow/ui/pages/article_screen.dart';
 import 'package:vitaflow/ui/pages/chatbot.dart';
 import 'package:vitaflow/ui/pages/inputWorkout.dart';
 import 'package:vitaflow/ui/pages/listSport.dart';
+import 'package:vitaflow/ui/pages/product_search_screen.dart';
 import 'package:vitaflow/ui/pages/profileScreen.dart';
 import 'package:vitaflow/ui/pages/programScreen.dart';
-import 'package:vitaflow/ui/pages/recordFoodScreen.dart';
+import 'package:vitaflow/ui/pages/record_food_screen.dart';
 import 'package:vitaflow/ui/pages/recordSportScreen.dart';
-import 'package:vitaflow/ui/pages/recordWaterScreen.dart';
+import 'package:vitaflow/ui/pages/record_water_screen.dart';
 import 'package:vitaflow/ui/pages/sportActionScreen.dart';
 import 'package:vitaflow/ui/pages/survey/surveyScreen.dart';
 import 'package:vitaflow/ui/pages/vitaPulseScreen.dart';
@@ -67,7 +68,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => InputWorkoutScreen());
       case '/profile' :
         return MaterialPageRoute(builder: (_) => ProfileScreen());
-
+case '/product-search':
+        return MaterialPageRoute(builder: (_) => ProductSearchScreen());
+      
       // case '/product-detail':
       //   return MaterialPageRoute(builder: (_) => ProductDetailScreen());
       // case '/cart':

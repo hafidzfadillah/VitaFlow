@@ -25,8 +25,8 @@ class BaseAPI implements BaseAPIImpl {
     }
     return Options(
       headers: header,
-      sendTimeout: Duration(seconds: 60),
-      receiveTimeout: Duration(seconds: 60),
+      sendTimeout: const Duration(seconds: 60),
+      receiveTimeout: const Duration(seconds: 60),
     );
   }
 
@@ -49,7 +49,6 @@ class BaseAPI implements BaseAPIImpl {
       final result = await _dio?.get(url,
           data:  data,
           options: getHeaders(useToken: useToken,token:  token ?? ''), queryParameters: param);
-      print(result);
       return _parseResponse(result);
     } on DioError catch (e) {
       if (e.error is SocketException) {
@@ -67,13 +66,12 @@ class BaseAPI implements BaseAPIImpl {
 
   @override
   Future<APIResponse> post(String url,
-      {Map<String, dynamic>? param, data, bool? useToken}) async {
+      {Map<String, dynamic>? param, data, bool? useToken , String? token}) async {
     try {
       final result = await _dio?.post(url,
-          options: getHeaders(useToken: useToken),
+          options: getHeaders(useToken: useToken , token:  token ?? ''),
           data: data,
           queryParameters: param);
-      print(result);
       return _parseResponse(result);
     } on DioError catch (e) {
       return APIResponse.failure(e.response?.statusCode ?? 500);

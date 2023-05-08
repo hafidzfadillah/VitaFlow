@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:vitaflow/core/models/category/category_model.dart';
-import 'package:vitaflow/core/services/categories_service.dart';
+import 'package:vitaflow/core/models/article/article_model.dart';
+import 'package:vitaflow/core/services/article_service.dart';
 import 'package:vitaflow/injection.dart';
 
-class CategoryProvider extends ChangeNotifier {
+class ArticleProvider extends ChangeNotifier {
   ///=========================
   /// Property Sections
   ///=========================
 
-  /// List of restaurants
-  List<CategoryModel>? _categories;
-  List<CategoryModel>? get categories => _categories;
+  /// List of articles
+  List<ArticleModel>? _articles;
+  List<ArticleModel>? get articles => _articles;
+
+  /// List of newest articles'
+  List<ArticleModel>? _newestArticles;
+  List<ArticleModel>? get newestArticles => _newestArticles;
 
   /// Dependency injection
-  final categoryService = locator<CategoryService>();
+  final articleService = locator<ArticleService>();
 
   /// Property to check mounted before notify
   bool isDisposed = false;
@@ -29,38 +32,43 @@ class CategoryProvider extends ChangeNotifier {
   ///=========================
 
   /// Instance provider
-  static CategoryProvider instance(BuildContext context) =>
+  static ArticleProvider instance(BuildContext context) =>
       Provider.of(context, listen: false);
 
-  Future<void> getCategories() async {
+Future<void> getArticles() async {
     await Future.delayed(const Duration(milliseconds: 100));
     setOnSearch(true);
     try {
-      final result = await categoryService.getCategories();
+      final result = await articleService.getArticles();
 
+      if (result.message == 'Success') {
+        _articles = result.data;
 
+        // take 3 newest articles
+         _newestArticles = _articles!.take(3).toList();
 
-      if (result.status == 'success') {
-        _categories = result.data;
+        // remove 3 newest articles from list
+        _articles!.removeRange(0, 3);
+
+        // merge newest articles and remaining articles
+        _articles = [ ..._articles!];
       } else {
-        _categories = [];
+        _articles = [];
       }
     } catch (e, stacktrace) {
       debugPrint("Error: ${e.toString()}");
       debugPrint("Stacktrace: ${stacktrace.toString()}");
-      _categories = [];
+      _articles = [];
     }
     setOnSearch(false);
   }
 
-  /// Get detail of restaurant
 
-  /// Search restaurant by keywords
+  /// Search articles by keywords
 
-  /// Finding list of city from local assets
-
-  void clearCategories() {
-    _categories = null;
+  void clearArticles() {
+    _articles = null;
+    _newestArticles = null;
     notifyListeners();
   }
 
@@ -69,12 +77,14 @@ class CategoryProvider extends ChangeNotifier {
     _onSearch = value;
     notifyListeners();
   }
+
   @override
   void notifyListeners() {
     if (!isDisposed) {
       super.notifyListeners();
     }
   }
+
   @override
   void dispose() {
     isDisposed = true;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vitaflow/GlobalProviders.dart';
 import 'package:vitaflow/core/viewmodels/categories/categories_provider.dart';
+import 'package:vitaflow/core/viewmodels/product/product_provider.dart';
 import 'package:vitaflow/core/viewmodels/user/user_provider.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:provider/single_child_widget.dart';
@@ -41,12 +42,13 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ...widget.providers,
         ChangeNotifierProvider(create: (create) => CategoryProvider()),
-        ChangeNotifierProvider(create: (create ) => UserProvider())
+        ChangeNotifierProvider(create: (create ) => UserProvider()),
+        ChangeNotifierProvider(create: (create) => ProductProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: locator<NavigationUtils>().navigatorKey,
-        title: 'Freshmarket',
+        title: 'Vitaflow',
         initialRoute: '/',
         theme: ThemeData(
           primarySwatch: Colors.green,

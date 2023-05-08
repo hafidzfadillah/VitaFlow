@@ -73,12 +73,12 @@ class NutrientChart extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(
             label,
-            style: TextStyle(fontSize: 14),
+            style: const TextStyle(fontSize: 14),
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             '${percentage.toStringAsFixed(0)}%',
             style: TextStyle(fontSize: 14),

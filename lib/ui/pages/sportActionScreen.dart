@@ -110,8 +110,7 @@ class _SportActionScreenState extends State<SportActionScreen>
                         currentIdx -= 1;
                         isFinished = false;
                       });
-                      print(currentIdx);
-                      print(isFinished);
+                 
                       setCountDown();
                     }
                   },
