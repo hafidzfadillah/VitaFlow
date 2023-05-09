@@ -2,15 +2,18 @@ import 'package:vitaflow/core/models/api/api_result_model.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 
 class FoodLiteModel extends Serializable {
+    final int id;
+
   final String name;
   final String defaultServing;
   final String defaultSize;
-  final int calories;
-  final int carbs;
-  final int fat;
-  final int protein;
+  final num calories;
+  final num carbs;
+  final num fat;
+  final num protein;
 
   FoodLiteModel({
+    required this.id,
     required this.name,
     required this.defaultServing,
     required this.defaultSize,
@@ -22,6 +25,7 @@ class FoodLiteModel extends Serializable {
   });
 
   factory FoodLiteModel.fromJson(Map<String, dynamic> json) => FoodLiteModel(
+        id: json['id'] ?? 0,
         name: json['name'] ?? "",
         defaultServing: json['default_serving'] ?? "",
         defaultSize: json['default_size'] ?? "",
@@ -33,6 +37,7 @@ class FoodLiteModel extends Serializable {
 
   @override
   Map<String, dynamic> toJson() => {
+        "id": id,
         "name": name,
         "default_serving": defaultServing,
         "default_size": defaultSize,

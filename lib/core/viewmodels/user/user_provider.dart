@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vitaflow/core/models/foods/food_lite.dart';
 import 'package:vitaflow/core/models/mission/my_mission.dart';
 import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
@@ -49,6 +53,12 @@ class UserProvider extends ChangeNotifier {
 
   List<UserFood>? _userSnacks;
   List<UserFood>? get userSnacks => _userSnacks;
+
+
+  List<String> _searchHistory = [];
+  List<String> get searchHistory => _searchHistory;
+
+
 
   // Login function
   Future<bool> login(String email, String password) async {
@@ -149,10 +159,8 @@ class UserProvider extends ChangeNotifier {
     final selectedDate = date ?? DateTime.now();
     final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
 
-   try {
-      final result = await userService.getUserHistoryMeal(
-          date: date
-      );
+    try {
+      final result = await userService.getUserHistoryMeal(date: date);
 
       if (result.data!.isNotEmpty) {
         _userLunchFood = [];
@@ -163,8 +171,7 @@ class UserProvider extends ChangeNotifier {
         for (final data in result.data!) {
           if (data.mealType == "lunch") {
             _userLunchFood!.add(UserFood(
-                            mealType: data.mealType,
-
+              mealType: data.mealType,
               foodName: data.foodName,
               calorieIntake: data.calorieIntake,
               carbohydrateIntake: data.carbohydrateIntake,
@@ -175,7 +182,7 @@ class UserProvider extends ChangeNotifier {
             ));
           } else if (data.mealType == "dinner") {
             _userDinnerFood!.add(UserFood(
-              mealType:  data.mealType,
+              mealType: data.mealType,
               foodName: data.foodName,
               calorieIntake: data.calorieIntake,
               carbohydrateIntake: data.carbohydrateIntake,
@@ -186,8 +193,7 @@ class UserProvider extends ChangeNotifier {
             ));
           } else if (data.mealType == "breakfast") {
             _userBreakfastFood!.add(UserFood(
-                            mealType: data.mealType,
-
+              mealType: data.mealType,
               foodName: data.foodName,
               calorieIntake: data.calorieIntake,
               carbohydrateIntake: data.carbohydrateIntake,
@@ -196,10 +202,9 @@ class UserProvider extends ChangeNotifier {
               size: data.size,
               unit: data.unit,
             ));
-          } else if (data.mealType == "snacks") {
+          } else if (data.mealType == "snack") {
             _userSnacks!.add(UserFood(
-                            mealType: data.mealType,
-
+              mealType: data.mealType,
               foodName: data.foodName,
               calorieIntake: data.calorieIntake,
               carbohydrateIntake: data.carbohydrateIntake,
@@ -216,7 +221,6 @@ class UserProvider extends ChangeNotifier {
         _userDinnerFood = [];
         _userBreakfastFood = [];
         _userSnacks = [];
-        
       }
     } catch (e, stacktrace) {
       debugPrint("Error: ${e.toString()}");
@@ -297,6 +301,40 @@ class UserProvider extends ChangeNotifier {
     }
     setOnSearch(false);
   }
+
+  void storeFoods(List<FoodLiteModel> foods, String mealType) async {
+    try {
+      await userService.storeFoods(mealType, foods);
+
+      notifyListeners();
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+    }
+    setOnSearch(false);
+  }
+  
+
+  Future<void> searchLastSearch(String keyword) async {
+    if (_searchHistory.contains(keyword)) return;
+
+    _searchHistory.add(keyword);
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('search_history', _searchHistory.toList());
+
+    notifyListeners();
+  }
+
+  Future<void> loadSearchHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    final history = prefs.getStringList('search_history') ?? [];
+
+    _searchHistory =  history.toSet().toList();
+
+    notifyListeners();
+  }
+
 
   // Set event login
   void setOnSearch(bool value) {

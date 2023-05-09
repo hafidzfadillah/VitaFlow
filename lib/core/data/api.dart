@@ -45,4 +45,7 @@ class Api {
   ///
   String getFoods = "$_baseServer/foods";
   String searchFood = "$_baseServer/food/search";
+  String storeFoods = "$_baseServer/foods-track/store";
+
+
 }

@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vitaflow/core/models/foods/food_lite.dart';
+import 'package:vitaflow/core/viewmodels/classify/classify_provider.dart';
 import 'package:vitaflow/core/viewmodels/connection/connection.dart';
 import 'package:vitaflow/core/viewmodels/food/food_provider.dart';
+import 'package:vitaflow/core/viewmodels/user/user_provider.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/widgets/CustomAppBar.dart';
 import 'package:vitaflow/ui/widgets/FoodItem.dart';
@@ -9,6 +14,7 @@ import 'package:vitaflow/ui/widgets/SearchHistoryItem.dart';
 import 'package:vitaflow/ui/widgets/button.dart';
 import 'package:vitaflow/ui/widgets/input_costume.dart';
 import 'package:vitaflow/ui/widgets/loading/LoadingSingleBox.dart';
+import 'package:vitaflow/ui/widgets/picker_image.dart';
 
 class FoodListScreen extends StatefulWidget {
   final String defaultMealType;
@@ -21,7 +27,8 @@ class FoodListScreen extends StatefulWidget {
   _FoodListScreenState createState() => _FoodListScreenState();
 }
 
-class _FoodListScreenState extends State<FoodListScreen> {
+class _FoodListScreenState extends State<FoodListScreen>
+    with TickerProviderStateMixin {
   TextEditingController? search = TextEditingController(text: "");
   TextEditingController? search2 = TextEditingController(text: "");
 
@@ -36,13 +43,82 @@ class _FoodListScreenState extends State<FoodListScreen> {
   @override
   void initState() {
     super.initState();
+
     _mealType = widget.defaultMealType;
+  }
+
+  Map<FoodLiteModel, bool> selectedFoods = {};
+  void _updateSelectedFoods(Map<FoodLiteModel, bool> selectedFoods) {
+    setState(() {
+      this.selectedFoods = selectedFoods;
+    });
+  }
+
+  // didupdate
+
+  /// Image result from picker image
+  File? image;
+
+  /// Pick some pictures
+  /// and scan the images
+  void choosePicture() async {
+    final classifyProv = Provider.of<ClassifyProvider>(context, listen: false);
+
+    /// Take picture just only availble on idle and complete state
+    if (classifyProv.scanState == ClassifyState.Idle ||
+        classifyProv.scanState == ClassifyState.Complete) {
+      await PickerImage.pick(context, (_image) {
+        setState(() {
+          image = _image;
+        });
+        classifyProv.scan(context, _image);
+      });
+    }
+  }
+
+  _loadClassiyData() {
+    final classiyProv = ClassifyProvider.instance(context);
+
+    FoodProvider.instance(context).clearFoods();
+    FoodProvider.instance(context)
+        .searchLastSearch(classiyProv.productResult?.substring(2) ?? '');
+
+    if (classiyProv.productResult != null &&
+        classiyProv.scanState == ClassifyState.Complete) {
+      print('aku diload');
+      // Reload the FoodProvider
+      FoodProvider.instance(context).getFoods();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightModeBgColor,
+      floatingActionButton: selectedFoods.isNotEmpty
+          ? FloatingActionButton(
+              onPressed: () {
+                List<FoodLiteModel> selected = selectedFoods.entries
+                    .where((element) => element.value)
+                    .map((e) => e.key)
+                    .toList();
+
+                final UserProvider userProvider = UserProvider();
+
+                userProvider.storeFoods(selected, _mealType);
+                // delay
+                Future.delayed(const Duration(seconds: 1), () {
+                  Navigator.popAndPushNamed(context, '/food-record');
+                });
+              },
+              backgroundColor: Colors.green,
+              child: const Icon(Icons.check),
+            )
+          : const FloatingActionButton(
+              onPressed: null,
+              backgroundColor: Colors.grey,
+              child: Icon(Icons.check),
+            ),
       appBar: AppBar(
         backgroundColor: lightModeBgColor,
         elevation: 0,
@@ -75,10 +151,24 @@ class _FoodListScreenState extends State<FoodListScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert, color: Color(0xff333333)),
-          ),
+          // if selected foods is not empty, show the delete icon button
+          if (selectedFoods.isNotEmpty)
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  selectedFoods.clear();
+                });
+              },
+              icon: const Icon(Icons.delete, color: Color(0xff333333)),
+            ),
+
+          if (selectedFoods.isEmpty)
+            IconButton(
+              onPressed: () {
+                choosePicture();
+              },
+              icon: const Icon(Icons.more_vert, color: Color(0xff333333)),
+            ),
         ],
         leading: CustomBackButton(
           onClick: () {
@@ -88,7 +178,12 @@ class _FoodListScreenState extends State<FoodListScreen> {
       ),
       body: ChangeNotifierProvider(
         create: (context) => FoodProvider(),
-        child: FoodListBody(search: search, search2: search2),
+        child: FoodListBody(
+          search: search,
+          search2: search2,
+          selectedFoods: selectedFoods,
+          updateSelectedFoods: _updateSelectedFoods,
+        ),
       ),
     );
   }
@@ -148,15 +243,26 @@ class _FoodListScreenState extends State<FoodListScreen> {
   }
 }
 
-class FoodListBody extends StatelessWidget {
-  const FoodListBody({
+// ignore: must_be_immutable
+class FoodListBody extends StatefulWidget {
+  FoodListBody({
     super.key,
     required this.search,
     required this.search2,
+    required this.selectedFoods,
+    required this.updateSelectedFoods,
   });
 
   final TextEditingController? search;
   final TextEditingController? search2;
+  Map<FoodLiteModel, bool> selectedFoods = {};
+  final Function(Map<FoodLiteModel, bool> selectedFoods) updateSelectedFoods;
+
+  @override
+  State<FoodListBody> createState() => _FoodListBodyState();
+}
+
+class _FoodListBodyState extends State<FoodListBody> {
   Future<void> refreshHome(BuildContext context) async {
     ConnectionProvider.instance(context).setConnection(true);
   }
@@ -198,12 +304,16 @@ class FoodListBody extends StatelessWidget {
                 child: TabBarView(
                   children: [
                     // Konten untuk tab 'Makanan yang terakhir dicari'
-                    _FoodSearch(search: search),
+                    _FoodSearch(
+                        search: widget.search,
+                        selectedFoods: widget.selectedFoods,
+                        updateSelectedFoods: widget.updateSelectedFoods),
                     // Konten untuk tab 'Terakhir dimakan'
-                 
-                         
-                        _TopFoodList(search: search2),
-                     
+
+                    _TopFoodList(
+                        search: widget.search2,
+                        selectedFoods: widget.selectedFoods,
+                        updateSelectedFoods: widget.updateSelectedFoods),
                   ],
                 ),
               ),
@@ -215,152 +325,27 @@ class FoodListBody extends StatelessWidget {
   }
 }
 
-class _FoodSearch extends StatelessWidget {
+class _FoodSearch extends StatefulWidget {
   const _FoodSearch({
-    super.key,
     required this.search,
+    required this.selectedFoods,
+    required this.updateSelectedFoods,
   });
 
   final TextEditingController? search;
-
+  final Map<FoodLiteModel, bool> selectedFoods;
+  final Function updateSelectedFoods;
   @override
-  Widget build(BuildContext context) {
-    return  Consumer<FoodProvider>(
-      builder: (context, foodProv, _) {
-        if (foodProv.foods == null && !foodProv.onSearch) {
-          foodProv.getFoods();
-
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: defMargin),
-            margin: const EdgeInsets.only(bottom: 10),
-            child: const CircularProgressIndicator(),
-          );
-        }
-        if (foodProv.foods == null && foodProv.onSearch) {
-          // if the categories are being searched, show a skeleton loading
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: defMargin),
-            margin: const EdgeInsets.only(bottom: 10),
-            child: const CircularProgressIndicator(),
-          );
-        }
-        if (foodProv.foods!.isEmpty) {
-          // if the categories have been loaded, show the category chips
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: Center(
-              child: Column(
-                children: [
-                  TextField(
-                    onSubmitted: (value) {
-                      FoodProvider.instance(context).search(value);
-                    },
-                    controller: search,
-                    decoration: InputDecoration(
-                      fillColor: Colors.transparent,
-                      filled: true,
-                      prefixIcon: Icon(Icons.search, color: Color(0xffB8B8B8)),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(11),
-                        borderSide: BorderSide(
-                          color: Color(0xffEAE7E7),
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(11),
-                        borderSide: BorderSide(
-                          color: Color(0xffEAE7E7),
-                        ),
-                      ),
-                      hintText: 'Cari makanan terakhir dimakan',
-                      contentPadding: EdgeInsets.all(18),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    child: const Text('Tidak ada produk yang ditemukan'),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
-    
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      children: [
-        TextFormField(
-          controller: search,
-          decoration: InputDecoration(
-            fillColor: Colors.transparent,
-            filled: true,
-            prefixIcon: const Icon(Icons.search, color: Color(0xffB8B8B8)),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(11),
-              borderSide: const BorderSide(
-                color: Color(0xffEAE7E7),
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(11),
-              borderSide: const BorderSide(
-                color: Color(0xffEAE7E7),
-              ),
-            ),
-            hintText: 'Makan apa yah',
-            contentPadding: EdgeInsets.all(18),
-          ),
-        ),
-        const SizedBox(height: 16),
-        if(search!.text.isNotEmpty)
-          SingleChildScrollView(
-            child:  Column(
-                  children: foodProv.foods
-                          ?.map((e) => FoodItem(
-                                title: e.name,
-                                size: int.parse(e.defaultSize),
-                                cal: e.calories,
-                                unit: e.defaultServing,
-                              ))
-                          .toList() ??
-                      [], // add null check operator and default empty list
-                ),
-          ),
-          
-        if(search!.text.isEmpty)
-          SingleChildScrollView(
-            child:  Column(
-                  children: [
-                    SearchHistoryItem(title:  'Nasi goreng',)
-                  ],
-                  
-                ),
-
-          )
-
-        
-      ],
-    );
-    
-      },
-    );
-  }
+  State<_FoodSearch> createState() => _FoodSearchState();
 }
 
-class _TopFoodList extends StatelessWidget {
-  const _TopFoodList({
-    super.key,
-    required this.search,
-  });
-
-  final TextEditingController? search;
-
+class _FoodSearchState extends State<_FoodSearch> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<FoodProvider>(
-      builder: (context, foodProv, _) {
-        if (foodProv.foods == null && !foodProv.onSearch) {
-          foodProv.getFoods();
+    return Consumer2<FoodProvider, UserProvider>(
+      builder: (context, foodProv, userProv, _) {
+        if (userProv.searchHistory == null && !userProv.onSearch) {
+          userProv.loadSearchHistory();
 
           return Container(
             padding: EdgeInsets.symmetric(horizontal: defMargin),
@@ -368,7 +353,7 @@ class _TopFoodList extends StatelessWidget {
             child: const CircularProgressIndicator(),
           );
         }
-        if (foodProv.foods == null && foodProv.onSearch) {
+        if (userProv.searchHistory == null && userProv.onSearch) {
           // if the categories are being searched, show a skeleton loading
           return Container(
             padding: EdgeInsets.symmetric(horizontal: defMargin),
@@ -376,7 +361,7 @@ class _TopFoodList extends StatelessWidget {
             child: const CircularProgressIndicator(),
           );
         }
-        if (foodProv.foods!.isEmpty) {
+        if (userProv.searchHistory.isEmpty) {
           // if the categories have been loaded, show the category chips
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -385,27 +370,28 @@ class _TopFoodList extends StatelessWidget {
                 children: [
                   TextField(
                     onSubmitted: (value) {
-                      FoodProvider.instance(context).search(value);
+                      FoodProvider.instance(context).searchLastSearch(value);
                     },
-                    controller: search,
+                    controller: widget.search,
                     decoration: InputDecoration(
                       fillColor: Colors.transparent,
                       filled: true,
-                      prefixIcon: Icon(Icons.search, color: Color(0xffB8B8B8)),
+                      prefixIcon:
+                          const Icon(Icons.search, color: Color(0xffB8B8B8)),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(11),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color(0xffEAE7E7),
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(11),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color(0xffEAE7E7),
                         ),
                       ),
                       hintText: 'Cari makanan terakhir dimakan',
-                      contentPadding: EdgeInsets.all(18),
+                      contentPadding: const EdgeInsets.all(18),
                     ),
                   ),
                   Container(
@@ -421,49 +407,241 @@ class _TopFoodList extends StatelessWidget {
         return ListView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           children: [
-             TextField(
+            TextField(
+              controller: widget.search,
               onSubmitted: (value) {
-                FoodProvider.instance(context).search(value);
+                FoodProvider.instance(context).searchLastSearch(value);
+                userProv.searchLastSearch(value);
               },
-              controller: search,
               decoration: InputDecoration(
                 fillColor: Colors.transparent,
                 filled: true,
-                prefixIcon: Icon(Icons.search, color: Color(0xffB8B8B8)),
+                prefixIcon: const Icon(Icons.search, color: Color(0xffB8B8B8)),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(11),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Color(0xffEAE7E7),
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(11),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Color(0xffEAE7E7),
                   ),
                 ),
-                hintText: 'Cari makanan terakhir dimakan',
-                contentPadding: EdgeInsets.all(18),
+                hintText: 'Makan apa yah',
+                contentPadding: const EdgeInsets.all(18),
               ),
             ),
-          
-            SizedBox(height: 16),
-            SingleChildScrollView(
-              child: Column(
-                children: foodProv.foods
-                        ?.map((e) => FoodItem(
-                              title: e.name,
-                              size: int.parse(e.defaultSize),
-                              cal: e.calories,
-                              unit: e.defaultServing,
-                            ))
-                        .toList() ??
-                    [], // add null check operator and default empty list
+            const SizedBox(height: 16),
+            if (foodProv.searchFoods?.isEmpty ?? true)
+              SingleChildScrollView(
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: userProv.searchHistory.map((e) {
+                    return GestureDetector(
+                      onTap: () {
+                        widget.search!.text = e;
+                        FoodProvider.instance(context).searchLastSearch(e);
+                      },
+                      child: SearchHistoryItem(title: e),
+                    );
+                  }).toList(),
+                ),
               ),
-            )
+            if (foodProv.searchFoods?.isNotEmpty ?? false)
+              SingleChildScrollView(
+                child: Column(
+                  children: foodProv.searchFoods
+                          ?.map((e) => FoodItem(
+                                title: e.name,
+                                size: int.parse(e.defaultSize),
+                                cal: e.calories.toInt(),
+                                unit: e.defaultServing,
+                                isChecked: widget.selectedFoods[e] ?? false,
+                                onSelect: (value) {
+                                  setState(() {
+                                    widget.selectedFoods[e] = value;
+                                    if (!value) {
+                                      widget.selectedFoods.remove(e);
+                                    }
+                                  });
+                                  widget.updateSelectedFoods(
+                                      widget.selectedFoods);
+                                }, // update value isChecked dari parent screen
+                              ))
+                          .toList() ??
+                      [], // add null check operator and default empty list
+                ),
+              ),
           ],
         );
       },
     );
+  }
+}
+
+class _TopFoodList extends StatefulWidget {
+  const _TopFoodList({
+    Key? key,
+    required this.search,
+    required this.selectedFoods,
+    required this.updateSelectedFoods,
+  }) : super(key: key);
+
+  final TextEditingController? search;
+  final Map<FoodLiteModel, bool> selectedFoods;
+  final Function updateSelectedFoods;
+
+  @override
+  State<_TopFoodList> createState() => _TopFoodListState();
+}
+
+class _TopFoodListState extends State<_TopFoodList> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+        builder: (context) => Consumer2<FoodProvider, ClassifyProvider>(
+              builder: (context, foodProv, classifyProvider, _) {
+                if (foodProv.foods == null && !foodProv.onSearch) {
+                  foodProv.getFoods();
+
+                  return Container(
+                    padding: EdgeInsets.symmetric(horizontal: defMargin),
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: const CircularProgressIndicator(),
+                  );
+                }
+                if (foodProv.foods == null && foodProv.onSearch) {
+                  // if the categories are being searched, show a skeleton loading
+                  return Container(
+                    padding: EdgeInsets.symmetric(horizontal: defMargin),
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: const CircularProgressIndicator(),
+                  );
+                }
+                if (foodProv.foods!.isEmpty) {
+                  // if the categories have been loaded, show the category chips
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          TextField(
+                            onSubmitted: (value) {
+                              FoodProvider.instance(context).search(value);
+                            },
+                            controller: widget.search,
+                            decoration: InputDecoration(
+                              fillColor: Colors.transparent,
+                              filled: true,
+                              prefixIcon: const Icon(Icons.search,
+                                  color: Color(0xffB8B8B8)),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(11),
+                                borderSide: const BorderSide(
+                                  color: Color(0xffEAE7E7),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(11),
+                                borderSide: const BorderSide(
+                                  color: Color(0xffEAE7E7),
+                                ),
+                              ),
+                              hintText: 'Cari makanan terakhir dimakan',
+                              contentPadding: const EdgeInsets.all(18),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            child:
+                                const Text('Tidak ada produk yang ditemukan'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+                // di dalam widget
+                if (classifyProvider.scanState == ClassifyState.Scanning) {
+                  print(classifyProvider.productResult?.substring(2));
+                  // FoodProvider.instance(context).search(
+                  //     classifyProvider.productResult?.substring(2) ?? "");
+                  return Container(
+                    padding: EdgeInsets.symmetric(horizontal: defMargin),
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: const CircularProgressIndicator(),
+                  );
+                }
+
+                return ListView(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  children: [
+                    TextField(
+                      onSubmitted: (value) {
+                        FoodProvider.instance(context).search(value);
+                      },
+                      controller: widget.search,
+                      decoration: InputDecoration(
+                        fillColor: Colors.transparent,
+                        filled: true,
+                        prefixIcon:
+                            const Icon(Icons.search, color: Color(0xffB8B8B8)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(11),
+                          borderSide: const BorderSide(
+                            color: Color(0xffEAE7E7),
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(11),
+                          borderSide: const BorderSide(
+                            color: Color(0xffEAE7E7),
+                          ),
+                        ),
+                        hintText: 'Cari makanan terakhir dimakan',
+                        contentPadding: const EdgeInsets.all(18),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SingleChildScrollView(
+                      child: Column(
+                        children: foodProv.foods
+                                ?.map((e) => FoodItem(
+                                      title: e.name,
+                                      size: int.parse(e.defaultSize),
+                                      cal: e.calories.toInt(),
+                                      unit: e.defaultServing,
+                                      isChecked:
+                                          widget.selectedFoods[e] ?? false,
+                                      onSelect: (value) {
+                                        setState(() {
+                                          widget.selectedFoods[e] = value;
+                                          if (!value) {
+                                            widget.selectedFoods.remove(e);
+                                          }
+                                        });
+                                        widget.updateSelectedFoods(
+                                            widget.selectedFoods);
+                                      }, // update value isChecked dari parent screen
+                                    ))
+                                .toList() ??
+                            [], // add null check operator and default empty list
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ));
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vitaflow/ui/pages/FoodDetailScreen.dart';
-import 'package:vitaflow/ui/pages/FoodListScreen.dart';
 import 'package:vitaflow/ui/pages/article_screen.dart';
 import 'package:vitaflow/ui/pages/chatbot.dart';
+import 'package:vitaflow/ui/pages/food_list_screen.dart';
 import 'package:vitaflow/ui/pages/inputWorkout.dart';
 import 'package:vitaflow/ui/pages/listSport.dart';
 import 'package:vitaflow/ui/pages/product_search_screen.dart';
@@ -45,6 +45,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RecordFoodScreen());
       case '/food-detail':
         return MaterialPageRoute(builder: (_) => FoodDetailScreen());
+      case '/food-list':
+        return MaterialPageRoute(builder: (_) => FoodListScreen(
+          defaultMealType:  'Makan Pagi',
+        ));
       case '/article':
         return MaterialPageRoute(builder: (_) => ArticleScreen());
 

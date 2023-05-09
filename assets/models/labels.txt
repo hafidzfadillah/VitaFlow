@@ -1,0 +1,3 @@
+0 Burger
+1 Ayam goreng
+2 Nasi 

@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitaflow/core/data/base_api.dart';
 import 'package:vitaflow/core/models/api/api_response.dart';
 import 'package:vitaflow/core/models/api/api_result_model.dart';
+import 'package:vitaflow/core/models/foods/food_lite.dart';
 import 'package:vitaflow/core/models/mission/my_mission.dart';
 import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
 import 'package:vitaflow/core/models/user/user_drink.dart';
@@ -121,4 +124,59 @@ class UserService {
     return ApiResultList<UserFood>.fromJson(response.data?['data'],
         (data) => data.map((e) => UserFood.fromJson(e)).toList(), "foods");
   }
+
+  
+  Future<ApiResult<FoodLiteModel>?> storeFoods(
+      String mealType, List<FoodLiteModel> foods) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    final foodMaps = foods
+        .map((food) => {
+              'food_id': food.id,
+              'calorie_intake': food.calories,
+              'carbohydrate_intake': food.carbs,
+              'protein_intake': food.protein,
+              'fat_intake': food.fat,
+              'size': food.defaultSize,
+              'unit': food.defaultServing,
+            })
+        .toList();
+
+    if (mealType == 'Makan Pagi')
+      mealType = 'breakfast';
+    else if (mealType == 'Makan Siang')
+      mealType = 'lunch';
+    else if (mealType == 'Makan Malam')
+      mealType = 'dinner';
+    else
+      mealType = 'snack';
+
+    final requestBody = json.encode({
+      'meal_type': mealType,
+      'foods': foodMaps,
+    });
+
+    print(requestBody);
+
+    APIResponse response = await api.post(api.endpoint.storeFoods,
+        useToken: true,
+        token: token,
+        data: requestBody,
+      );
+
+    print(api.endpoint.storeFoods);
+    final data = response.data;
+    print(data);
+
+    if (response.statusCode == 200) {
+      final data = response.data;
+      final result = ApiResult<FoodLiteModel>.fromJson(
+          data, (data) => FoodLiteModel.fromJson(data), "data");
+      return result;
+    } else {
+      return null;
+    }
+  }
+
 }
