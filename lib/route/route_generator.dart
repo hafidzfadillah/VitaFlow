@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vitaflow/ui/pages/FoodDetailScreen.dart';
 import 'package:vitaflow/ui/pages/article_screen.dart';
-import 'package:vitaflow/ui/pages/chatbot.dart';
+import 'package:vitaflow/ui/pages/chat_bot.dart';
 import 'package:vitaflow/ui/pages/food_list_screen.dart';
 import 'package:vitaflow/ui/pages/inputWorkout.dart';
 import 'package:vitaflow/ui/pages/listSport.dart';
@@ -13,7 +13,7 @@ import 'package:vitaflow/ui/pages/recordSportScreen.dart';
 import 'package:vitaflow/ui/pages/record_water_screen.dart';
 import 'package:vitaflow/ui/pages/sportActionScreen.dart';
 import 'package:vitaflow/ui/pages/survey/surveyScreen.dart';
-import 'package:vitaflow/ui/pages/vitaPulseScreen.dart';
+import 'package:vitaflow/ui/pages/vita_pulse_screen.dart';
 
 import '../ui/pages/daftarScreen.dart';
 import '../ui/pages/loginScreen.dart';

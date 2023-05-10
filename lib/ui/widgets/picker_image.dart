@@ -25,25 +25,28 @@ class PickerImage {
   /// gallery or camera
   static pick(BuildContext context, Function(File) callback) {
     ModalBottomSheet.show(
-      title: "Pilih Lokasi Gambar",
+      title: "Cari makanan dengan gambar",
+      
       context: context,
       radiusCircle: 40,
       children: [
         SizedBox(height: 20),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             pickWidget(
                 iconPath: Icon(Icons.camera_alt, color: Colors.white, size: 30),
-                title: "Kamera",
+                title: "Scan makanan lewat camera",
                 onClick: () async {
                   await callback(await pickImage(PickType.Camera));
                   Navigator.pop(context);
                 }),
+
+            
             pickWidget(
                 iconPath:
                     Icon(Icons.browse_gallery, color: Colors.white, size: 30),
-                title: "Galeri",
+                title: "Scan lewat gallery",
                 onClick: () async {
                   await callback(await pickImage(PickType.Gallery));
                   Navigator.pop(context);
@@ -59,21 +62,23 @@ class PickerImage {
       required String title,
       required Function onClick}) {
     return Column(
+      mainAxisAlignment:  MainAxisAlignment.center,
+      crossAxisAlignment:  CrossAxisAlignment.center,
       children: [
         Container(
-            width: 100,
+            width: double.infinity,
+            margin: EdgeInsets.only(bottom:  10),
             height: 100,
             decoration:
-                BoxDecoration(shape: BoxShape.circle, color: primaryColor),
+                BoxDecoration( color: primaryColor),
             child: GestureDetector(
               onTap: () => onClick(),
               child: Padding(
                 padding: EdgeInsets.all(20),
-                child: iconPath,
+                child: Center(child: Text(title, style:  normalText.copyWith( fontSize: 16, color: Colors.white),)),
               ),
             )),
-        SizedBox(height: 10),
-        Text(title, style: subtitleTextStyle.copyWith(fontSize: 18)),
+      
       ],
     );
   }

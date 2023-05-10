@@ -47,5 +47,9 @@ class Api {
   String searchFood = "$_baseServer/food/search";
   String storeFoods = "$_baseServer/foods-track/store";
 
+  String vitabot = "$_baseServer/vitabot";
+
+
+
 
 }

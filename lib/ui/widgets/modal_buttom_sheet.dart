@@ -31,8 +31,15 @@ class ModalBottomSheet {
                 children: <Widget>[
                   Text(
                     title,
-                    style: normalText.copyWith(fontSize: 20),
+                    style: normalText.copyWith(fontSize: 16, fontWeight:  FontWeight.w600),
                   ),
+                  
+                  SizedBox(
+                    height: 10,
+                  ),
+                                    Text(
+                      "Kamu bisa cari makanan yang sedang kamu makan lewat photo (Untuk sekarang hanya beberapa makanan yang tersedia)" ),
+
                   SizedBox(
                     height: 10,
                   ),

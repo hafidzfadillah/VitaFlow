@@ -25,6 +25,8 @@ class VitaPulseScreen extends StatelessWidget {
             Navigator.pop(context);
           }),
         ),
+        
+        
         body: SafeArea(
           child: Container(
             margin: EdgeInsets.only(bottom: 100),
@@ -57,6 +59,14 @@ class VitaPulseScreen extends StatelessWidget {
     }
     return Scaffold(
       backgroundColor: lightModeBgColor,
+       floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        backgroundColor: Color(0xffF5D6D0),
+        child: const Icon(Icons.add , color: Color(0xff372534)),
+      ),
+  
       appBar: CustomAppBar(
           title: 'Hearth Rate',
           backgroundColor: Color(0xffF5D6D0),
@@ -74,7 +84,7 @@ class VitaPulseScreen extends StatelessWidget {
                   child: Icon(
                     Icons.arrow_back,
                     color: Color(0xff372534),
-                  ),
+                  ),  
                 )),
           )),
       body: SafeArea(
@@ -132,7 +142,9 @@ class VitaPulseScreen extends StatelessWidget {
                     withTarget: false)
               ],
             ),
-          )
+          ),
+
+         
         ],
       )),
     );
