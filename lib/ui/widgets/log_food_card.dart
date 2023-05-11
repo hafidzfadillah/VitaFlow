@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 import 'package:vitaflow/ui/home/theme.dart';
-import 'package:vitaflow/ui/pages/FoodListScreen.dart';
+
+import '../pages/food_list_screen.dart';
 
 class LogFoodCard extends StatelessWidget {
   const LogFoodCard({

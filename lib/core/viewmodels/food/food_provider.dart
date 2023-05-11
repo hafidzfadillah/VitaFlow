@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +33,10 @@ class FoodProvider extends ChangeNotifier {
   /// List of search result restaurants
   List<FoodLiteModel>? _searchFoods;
   List<FoodLiteModel>? get searchFoods => _searchFoods;
+
+  /// List of selected foods
+  List<FoodLiteModel> _selectedFoods = [];
+  List<FoodLiteModel> get selectedFoods => _selectedFoods;
 
   ///=========================
   /// Function Logic Sections
@@ -90,6 +96,46 @@ class FoodProvider extends ChangeNotifier {
       setOnSearch(false);
     }
   }
+
+  void searchLastSearch(String keyword) async {
+    print('in provider' + keyword);
+    _searchFoods = null;
+    if (keyword.isEmpty) {
+      _searchFoods = null;
+      setOnSearch(false);
+    } else {
+      await Future.delayed(const Duration(milliseconds: 100));
+      setOnSearch(true);
+      _latestKeyword = keyword;
+      try {
+        final result = await foodService.searchFoods(keyword);
+        if (result.message == "Success") {
+          _searchFoods = result.data;
+        } else {
+          _searchFoods = [];
+        }
+      } catch (e) {
+        debugPrint("Error: ${e.toString()}");
+        _foods = [];
+      }
+      setOnSearch(false);
+    }
+  }
+
+  void addSelectedFood(FoodLiteModel food, bool isSelected) {
+    if (isSelected) {
+      if (!selectedFoods.contains(food)) {
+        selectedFoods.add(food);
+      }
+    } else {
+      selectedFoods.remove(food);
+    }
+    notifyListeners();
+  }
+
+
+
+  /// Clear foods
 
   void clearFoods() {
     _foods = null;

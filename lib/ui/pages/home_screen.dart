@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getData() async {
+    // get data from user_proivder
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       point = prefs.getInt('point') ?? 0;
@@ -80,34 +84,56 @@ class HomeScreenBody extends StatelessWidget {
         );
       }
 
-       return SafeArea(
-            child: RefreshIndicator(
-          onRefresh: () => refreshHome(context),
-          child: Column(
-            children: [
-              const MainTopBar(),
-              Expanded(
-                  child: ListView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                children: [
-                  DateSelector(
-                    userProvider: userProvider,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  const UserNutrion(),
-                  const MyMisssion()
-                ],
-              ))
-            ],
-          ),
-        )
-      );
+      return SafeArea(
+          child: RefreshIndicator(
+        onRefresh: () => refreshHome(context),
+        child: Column(
+          children: [
+            MainTopBar(),
+            Expanded(
+                child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              children: [
+                DateSelector(
+                  userProvider: userProvider,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const UserNutrion(),
+                const MyMisssion()
+              ],
+            ))
+          ],
+        ),
+      ));
     });
   }
 }
+
+// class _MainTopBar extends StatelessWidget {
+//   const _MainTopBar({
+//     super.key,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Consumer<UserProvider>(builder: (context, userProvider, _) {
+//       if (userProvider.user == null && !userProvider.onSearch) {
+//         userProvider.getUserData(
+
+//         );
+
+//         return const LoadingSingleBox();
+//       }
+//       if (userProvider.user == null && userProvider.onSearch) {
+//         // if the categories are being searched, show a skeleton loading
+//         return const LoadingSingleBox();
+//       }
+//       return const MainTopBar();
+//     });
+//   }
+// }
 
 class UserNutrion extends StatelessWidget {
   const UserNutrion({Key? key}) : super(key: key);

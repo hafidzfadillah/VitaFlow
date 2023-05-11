@@ -33,14 +33,14 @@ class CustomChatBubble extends StatelessWidget {
           SizedBox(
             height: 4,
           ),
-          Padding(
-            padding: isSender
-                ? EdgeInsets.only(right: defMargin)
-                : EdgeInsets.only(left: defMargin),
-            child: Text(date,
-                style: GoogleFonts.poppins(
-                    fontSize: captionSize, color: neutral70)),
-          )
+          // Padding(
+          //   padding: isSender
+          //       ? EdgeInsets.only(right: defMargin)
+          //       : EdgeInsets.only(left: defMargin),
+          //   child: Text(date,
+          //       style: GoogleFonts.poppins(
+          //           fontSize: captionSize, color: neutral70)),
+          // )
         ],
       ),
     );

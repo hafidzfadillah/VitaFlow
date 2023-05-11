@@ -22,6 +22,7 @@ class Api {
 
   String login = "$_baseServer/auth/login";
   String register = "$_baseServer/auth/register";
+  String getUser = "$_baseServer/auth/me";
   String getDailyData = "$_baseServer/getDailyData";
   String storeDrink = "$_baseServer/drink/store";
   String historyDrink = "$_baseServer/drink/history";
@@ -45,4 +46,14 @@ class Api {
   ///
   String getFoods = "$_baseServer/foods";
   String searchFood = "$_baseServer/food/search";
+  String storeFoods = "$_baseServer/foods-track/store";
+
+  String vitabot = "$_baseServer/vitabot";
+  String storeBpm = "$_baseServer/health-track/store";
+  String getBpm = "$_baseServer/health-track/history?days=1";
+
+
+
+
+
 }

@@ -9,33 +9,22 @@ class FoodItem extends StatefulWidget {
     required this.unit,
     required this.cal,
     required this.size,
-
-
+    required this.isChecked,
+    required this.onSelect,
   }) : super(key: key);
-
+  
   final String title;
   final String unit;
   final int cal;
   final int size;
-
+  final bool isChecked;
+  final ValueChanged<bool> onSelect;
 
   @override
   State<FoodItem> createState() => _FoodItemState();
 }
 
 class _FoodItemState extends State<FoodItem> {
-  bool isChecked = false; // tambahkan variabel boolean
-
-  void onSelect(bool newValue) => setState(() {
-        if (newValue == true) {
-          isChecked = true;
-        } else {
-          isChecked = false;
-        }
-
-        // gunakan fungsi setState untuk mengubah nilai variabel isChecked
-      });
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -89,12 +78,12 @@ class _FoodItemState extends State<FoodItem> {
                 ),
                 // checkbox
                 Checkbox(
-                  value:
-                      isChecked, // gunakan variabel isChecked sebagai nilai checkbox
-                  onChanged: (value) => {
-                    onSelect(value!)
-                  }, // gunakan fungsi toggleChecked sebagai event onChanged
-                ),
+                    value: widget.isChecked,
+                    onChanged: (bool? newValue) {
+                      if (newValue != null) {
+                        widget.onSelect(newValue);
+                      }
+                    }),
               ],
             ),
             Divider()
