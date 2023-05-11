@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitaflow/core/data/base_api.dart';
 import 'package:vitaflow/core/models/api/api_response.dart';
 import 'package:vitaflow/core/models/api/api_result_model.dart';
+import 'package:vitaflow/core/models/bpm/bpm_model.dart';
+import 'package:vitaflow/core/models/bpm/healt_data_model.dart';
 import 'package:vitaflow/core/models/foods/food_lite.dart';
 import 'package:vitaflow/core/models/mission/my_mission.dart';
 import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
@@ -47,7 +49,20 @@ class UserService {
     return ApiResult<UserModel>.fromJson(
         userData, (data) => UserModel.fromJson(data), "user");
   }
+  Future<ApiResult<UserModel>> getUserData() async {
+       final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
 
+
+    APIResponse response = await api.post(api.endpoint.getUser,
+        useToken: true, token: token);
+
+    final userData = response.data;
+
+
+    return ApiResult<UserModel>.fromJson(
+        userData, (data) => UserModel.fromJson(data), "data");
+  }
   Future<ApiResult<NutrionModel>> getUserNutrition({DateTime? date}) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access_token');
@@ -96,6 +111,24 @@ class UserService {
     }
   }
 
+  Future<ApiResultList<BpmModel>?> storeBpm(int bpm) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    APIResponse response = await api.post(api.endpoint.storeBpm,
+        useToken: true, token: token, data: {'bpm': bpm});
+
+    if (response.statusCode == 200) {
+      final data = response.data;
+      final userBpm = ApiResultList<BpmModel>.fromJson(data,
+          (data) => data.map((e) => BpmModel.fromJson(e)).toList(), "data");
+
+      return userBpm;
+    } else {
+      return null;
+    }
+  }
+
   Future<ApiResultList<UserDrinkModel>> getUserHistoryDrink(
       {DateTime? date}) async {
     final prefs = await SharedPreferences.getInstance();
@@ -109,6 +142,41 @@ class UserService {
 
     return ApiResultList<UserDrinkModel>.fromJson(response.data,
         (data) => data.map((e) => UserDrinkModel.fromJson(e)).toList(), "data");
+  }
+
+  Future<ApiResult<HealthDataModel>> getHealthData({DateTime? date}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    String dateStr = DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
+
+    APIResponse response = await api.get(api.endpoint.getBpm,
+        useToken: true, token: token, data: {"date": dateStr});
+
+    print("==============");
+    print(response.data);
+        print("==============");
+
+    return ApiResult<HealthDataModel>.fromJson(
+        response.data, (data) => HealthDataModel.fromJson(data), "data");
+  }
+  Future<ApiResultList<BpmModel>> getHistoryHealth({DateTime? date}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    String dateStr = DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
+
+    APIResponse response = await api.get(api.endpoint.getBpm,
+        useToken: true, token: token, data: {"date": dateStr});
+
+    print("==============");
+    print(response.data);
+        print("==============");
+
+    return ApiResultList<BpmModel>.fromJson(
+        response.data?['data'],
+        (data) => data.map((e) => BpmModel.fromJson(e)).toList(),
+        "health_data");
   }
 
   Future<ApiResultList<UserFood>> getUserHistoryMeal({DateTime? date}) async {
@@ -125,7 +193,6 @@ class UserService {
         (data) => data.map((e) => UserFood.fromJson(e)).toList(), "foods");
   }
 
-  
   Future<ApiResult<FoodLiteModel>?> storeFoods(
       String mealType, List<FoodLiteModel> foods) async {
     final prefs = await SharedPreferences.getInstance();
@@ -159,11 +226,12 @@ class UserService {
 
     print(requestBody);
 
-    APIResponse response = await api.post(api.endpoint.storeFoods,
-        useToken: true,
-        token: token,
-        data: requestBody,
-      );
+    APIResponse response = await api.post(
+      api.endpoint.storeFoods,
+      useToken: true,
+      token: token,
+      data: requestBody,
+    );
 
     print(api.endpoint.storeFoods);
     final data = response.data;
@@ -178,5 +246,4 @@ class UserService {
       return null;
     }
   }
-
 }
