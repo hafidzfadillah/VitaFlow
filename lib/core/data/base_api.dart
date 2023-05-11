@@ -67,10 +67,10 @@ class BaseAPI implements BaseAPIImpl {
 
   @override
   Future<APIResponse> post(String url,
-      {Map<String, dynamic>? param, data, bool? useToken}) async {
+      {Map<String, dynamic>? param, data, bool? useToken, String? token}) async {
     try {
       final result = await _dio?.post(url,
-          options: getHeaders(useToken: useToken),
+          options: getHeaders(useToken: useToken, token: token ?? ''),
           data: data,
           queryParameters: param);
       print(result);

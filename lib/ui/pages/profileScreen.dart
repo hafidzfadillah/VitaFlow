@@ -19,18 +19,35 @@ class ProfileScreen extends StatelessWidget {
         }),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () async{
-            // delete token 
-            SharedPreferences preferences = await SharedPreferences.getInstance();
-            await preferences.clear();
-            Navigator.pushNamed(context, '/login');
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () async{
+                // delete token 
+                SharedPreferences preferences = await SharedPreferences.getInstance();
+                await preferences.clear();
+                Navigator.pushNamed(context, '/login');
 
-            
+                
 
 
-          },
-          child: Text('logout'),
+              },
+              child: Text('logout'),
+            ),
+            ElevatedButton(
+              onPressed: () async{
+                // delete token 
+                // SharedPreferences preferences = await SharedPreferences.getInstance();
+                // await preferences.clear();
+                Navigator.pushNamed(context, '/survey');
+
+                
+
+
+              },
+              child: Text('Survey'),
+            ),
+          ],
         ),
       ),
     );

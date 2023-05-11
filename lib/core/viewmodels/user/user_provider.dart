@@ -46,6 +46,24 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
+  // Daftar function
+  Future<bool> daftar(String name, String email, String password) async {
+    setOnSearch(true);
+    try {
+      final result = await userService.daftar(name, email, password);
+      if (result.data.id != null) {
+        _user = result.data;
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+      return false;
+    }
+  }
+
   Future<void> getNutrion() async {
     await Future.delayed(const Duration(milliseconds: 100));
     setOnSearch(true);

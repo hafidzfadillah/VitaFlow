@@ -18,7 +18,7 @@ class Survey2 extends StatefulWidget {
 class _Survey2State extends State<Survey2> {
   @override
   Widget build(BuildContext context) {
-    final survey = Provider.of<Survey>(context);
+    final survey = Provider.of<SurveyProvider>(context);
 
     return  Column(
         children: [

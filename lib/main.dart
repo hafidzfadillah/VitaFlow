@@ -5,6 +5,7 @@ import 'package:vitaflow/core/viewmodels/categories/categories_provider.dart';
 import 'package:vitaflow/core/viewmodels/user/user_provider.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:vitaflow/ui/pages/survey/surveyProvider.dart';
 
 import 'injection.dart';
 import 'navigation/navigation_utils.dart';
@@ -41,7 +42,8 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ...widget.providers,
         ChangeNotifierProvider(create: (create) => CategoryProvider()),
-        ChangeNotifierProvider(create: (create ) => UserProvider())
+        ChangeNotifierProvider(create: (create) => UserProvider()),
+        ChangeNotifierProvider(create: (create) => SurveyProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

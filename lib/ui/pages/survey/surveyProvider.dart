@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vitaflow/core/models/survey/survey_model.dart';
+import 'package:vitaflow/core/services/survey_services.dart';
+
+import '../../../injection.dart';
 
 enum Gender { Pria, Wanita }
 
@@ -8,7 +13,10 @@ enum HeightFormat { cm, ft }
 
 enum WeightFormat { kg, lbs }
 
-class Survey extends ChangeNotifier {
+class SurveyProvider extends ChangeNotifier {
+  SurveyModel? _survey;
+  SurveyModel? get survey => _survey;
+
   Gender _gender = Gender.Pria;
   HeightFormat _heightFormat = HeightFormat.cm;
   WeightFormat _weightFormat = WeightFormat.kg;
@@ -71,5 +79,26 @@ class Survey extends ChangeNotifier {
         timeInSecForIosWeb: 1,
         msg: 'Survey{ gender = ${_gender.name}, age = $_umur, tujuan = $_tujuan,' +
             ' tinggi = $_tingi ${_heightFormat.name}, berat = $_berat ${_weightFormat.name}, targetBB = $_targetBB ${_weightFormat.name}}');
+  }
+
+  final surveyService = locator<SurveyService>();
+  Future<bool> store() async {
+    try {
+      print("Age: ${this._umur}");
+      final result = await surveyService.submitData(this);
+      print("Result Data : ${result.data}");
+
+      if (result.data != null) {
+        _survey = result.data;
+
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+      return false;
+    }
   }
 }

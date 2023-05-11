@@ -19,7 +19,7 @@ class _Survey5State extends State<Survey5> {
   int _selected = 0;
   @override
   Widget build(BuildContext context) {
-    final survey = Provider.of<Survey>(context);
+    final survey = Provider.of<SurveyProvider>(context);
     return 
          Column(children: [
           Text(

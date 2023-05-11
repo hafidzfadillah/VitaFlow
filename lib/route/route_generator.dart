@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vitaflow/core/models/survey/survey_model.dart';
 import 'package:vitaflow/ui/pages/FoodDetailScreen.dart';
 import 'package:vitaflow/ui/pages/FoodListScreen.dart';
 import 'package:vitaflow/ui/pages/articleScreen.dart';
@@ -11,6 +12,9 @@ import 'package:vitaflow/ui/pages/recordFoodScreen.dart';
 import 'package:vitaflow/ui/pages/recordSportScreen.dart';
 import 'package:vitaflow/ui/pages/recordWaterScreen.dart';
 import 'package:vitaflow/ui/pages/sportActionScreen.dart';
+import 'package:vitaflow/ui/pages/survey/loadingScreen.dart';
+import 'package:vitaflow/ui/pages/survey/resultScreen.dart';
+import 'package:vitaflow/ui/pages/survey/surveyProvider.dart';
 import 'package:vitaflow/ui/pages/survey/surveyScreen.dart';
 import 'package:vitaflow/ui/pages/vitaPulseScreen.dart';
 
@@ -35,6 +39,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => DaftarScreen());
       case '/survey':
         return MaterialPageRoute(builder: (_) => SurveyScreen());
+      case '/loading-survey':
+        return MaterialPageRoute(builder: (_) => LoadingScreen());
+      case SurveyResultScreen.routeName:
+        return MaterialPageRoute(builder: (_) => SurveyResultScreen(result: args as SurveyModel,));
 
       case '/home':
         return MaterialPageRoute(builder: (_) => MainPages());
@@ -65,7 +73,7 @@ class RouteGenerator {
                 SportActionScreen(data: args as List<Map<String, dynamic>>));
       case '/input-sport':
         return MaterialPageRoute(builder: (_) => InputWorkoutScreen());
-      case '/profile' :
+      case '/profile':
         return MaterialPageRoute(builder: (_) => ProfileScreen());
 
       // case '/product-detail':

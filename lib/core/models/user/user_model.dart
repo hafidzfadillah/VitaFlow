@@ -11,10 +11,10 @@ class UserModel extends Serializable {
   final String gender;
   final int height;
   final int weight;
-  final double bmi;
+  final num bmi;
   final String goal;
   final int targetWeight;
-  final int recommendCalories;
+  final num recommendCalories;
   final int point;
 
   UserModel({
@@ -48,7 +48,7 @@ class UserModel extends Serializable {
         gender: json['gender'] ?? "",
         height: json['height'] ?? 0,
         weight: json['weight'] ?? 0,
-        bmi: json['bmi'] ?? 0,
+        bmi: json['bmi'] ?? 0.0,
         goal: json['goal'] ?? "",
         targetWeight: json['target_weight'] ?? 0,
         recommendCalories: json['recommend_calories'] ?? 0,
@@ -73,6 +73,4 @@ class UserModel extends Serializable {
         "recommend_calories": recommendCalories,
         "point": point,
       };
-
-      
 }

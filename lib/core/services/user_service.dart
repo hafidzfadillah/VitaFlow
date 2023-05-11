@@ -17,16 +17,26 @@ class UserService {
     await prefs.setString('email', userData['user']['email']);
     await prefs.setString('created_at', userData['user']['created_at']);
     await prefs.setString('updated_at', userData['user']['updated_at']);
-    await prefs.setInt('age', userData['user']['age']);
-    await prefs.setString('gender', userData['user']['gender']);
-    await prefs.setInt('height', userData['user']['height']);
-    await prefs.setInt('weight', userData['user']['weight']);
-    await prefs.setDouble('bmi', userData['user']['bmi']);
-    await prefs.setString('goal', userData['user']['goal']);
-    await prefs.setInt('target_weight', userData['user']['target_weight']);
+    await prefs.setInt('age', userData['user']['age']  ?? 0);
+    await prefs.setString('gender', userData['user']['gender'] ?? 'laki-laki');
+    await prefs.setInt('height', userData['user']['height'] ?? 0);
+    await prefs.setInt('weight', userData['user']['weight'] ?? 0);
+    await prefs.setDouble('bmi', userData['user']['bmi'] ?? 0);
+    await prefs.setString('goal', userData['user']['goal'] ?? 'maintain');
+    await prefs.setInt('target_weight', userData['user']['target_weight'] ?? 0);
     await prefs.setInt(
-        'recommend_calories', userData['user']['recommend_calories']);
-    await prefs.setInt('point', userData['user']['point']);
+        'recommend_calories', userData['user']['recommend_calories'] ?? 0);
+    await prefs.setInt('point', userData['user']['point'] ?? 0);
+  }
+
+  Future<void> saveUserDaftar(Map<String, dynamic> userData) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('access_token', userData['access_token']);
+    await prefs.setInt('id', userData['user']['id']);
+    await prefs.setString('name', userData['user']['name']);
+    await prefs.setString('email', userData['user']['email']);
+    await prefs.setString('created_at', userData['user']['created_at']);
+    await prefs.setString('updated_at', userData['user']['updated_at']);
   }
 
   Future<ApiResult<UserModel>> login(String email, String password) async {
@@ -39,6 +49,21 @@ class UserService {
 
     // Save user data to shared preference.
     await saveUserData(userData!);
+
+    return ApiResult<UserModel>.fromJson(
+        userData, (data) => UserModel.fromJson(data), "user");
+  }
+
+  Future<ApiResult<UserModel>> daftar(String name, String email, String password) async {
+    Map<String, dynamic> data = {"name":name,"email": email, "password": password};
+    APIResponse response = await api.post(api.endpoint.register, data: data);
+
+    final userData = response.data;
+
+    print(userData?['access_token'] ?? 'no token');
+
+    // Save user data to shared preference.
+    await saveUserDaftar(userData!);
 
     return ApiResult<UserModel>.fromJson(
         userData, (data) => UserModel.fromJson(data), "user");

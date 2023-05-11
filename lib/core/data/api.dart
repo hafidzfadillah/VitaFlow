@@ -19,7 +19,7 @@ class Api {
   /// * some user endpoint
   /// */
   
-
+  String submitSurvey = "$_baseServer/survey";
   String login = "$_baseServer/auth/login";
   String register = "$_baseServer/auth/register";
   String getDailyData = "$_baseServer/getDailyData";
