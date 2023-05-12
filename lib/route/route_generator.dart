@@ -11,7 +11,7 @@ import 'package:vitaflow/ui/pages/product_search_screen.dart';
 import 'package:vitaflow/ui/pages/profileScreen.dart';
 import 'package:vitaflow/ui/pages/programScreen.dart';
 import 'package:vitaflow/ui/pages/record_food_screen.dart';
-import 'package:vitaflow/ui/pages/recordSportScreen.dart';
+import 'package:vitaflow/ui/pages/record_sport_screen.dart';
 import 'package:vitaflow/ui/pages/record_water_screen.dart';
 import 'package:vitaflow/ui/pages/sportActionScreen.dart';
 import 'package:vitaflow/ui/pages/survey/loadingScreen.dart';

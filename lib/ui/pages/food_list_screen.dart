@@ -40,6 +40,8 @@ class _FoodListScreenState extends State<FoodListScreen>
     'Cemilan'
   ]; // list of meal types
   int _selectedMealTypeIndex = 0;
+
+  String? foodPrediction;
   @override
   void initState() {
     super.initState();
@@ -62,9 +64,9 @@ class _FoodListScreenState extends State<FoodListScreen>
   /// Pick some pictures
   /// and scan the images
   void choosePicture() async {
-    final classifyProv = Provider.of<ClassifyProvider>(context, listen: false);
+    ClassifyProvider classifyProv = ClassifyProvider.instance(context);
 
-    /// Take picture just only availble on idle and complete state
+    // Take picture only when the provider is in Idle or Complete state
     if (classifyProv.scanState == ClassifyState.Idle ||
         classifyProv.scanState == ClassifyState.Complete) {
       await PickerImage.pick(context, (_image) {
@@ -73,6 +75,22 @@ class _FoodListScreenState extends State<FoodListScreen>
         });
         classifyProv.scan(context, _image);
       });
+
+      // Wait for classifyProv.productResult to be set
+      while (classifyProv.productResult == null) {
+        await Future.delayed(Duration(milliseconds: 100));
+      }
+
+      print("====================================");
+      print(classifyProv.productResult);
+      setState(() {
+        foodPrediction = classifyProv.productResult?.substring(2) ?? '';
+        search = TextEditingController(text: foodPrediction);
+        search2 = TextEditingController(text: foodPrediction);
+        FoodProvider foodProv = FoodProvider.instance(context);
+        foodProv.searchLastSearch(foodPrediction ?? '');
+      });
+      print("====================================");
     }
   }
 
@@ -183,6 +201,7 @@ class _FoodListScreenState extends State<FoodListScreen>
           search2: search2,
           selectedFoods: selectedFoods,
           updateSelectedFoods: _updateSelectedFoods,
+          predictFood: foodPrediction,
         ),
       ),
     );
@@ -251,10 +270,12 @@ class FoodListBody extends StatefulWidget {
     required this.search2,
     required this.selectedFoods,
     required this.updateSelectedFoods,
+    required this.predictFood,
   });
 
   final TextEditingController? search;
   final TextEditingController? search2;
+  final String? predictFood;
   Map<FoodLiteModel, bool> selectedFoods = {};
   final Function(Map<FoodLiteModel, bool> selectedFoods) updateSelectedFoods;
 
@@ -307,7 +328,8 @@ class _FoodListBodyState extends State<FoodListBody> {
                     _FoodSearch(
                         search: widget.search,
                         selectedFoods: widget.selectedFoods,
-                        updateSelectedFoods: widget.updateSelectedFoods),
+                        updateSelectedFoods: widget.updateSelectedFoods,
+                        predictFood: widget.predictFood),
                     // Konten untuk tab 'Terakhir dimakan'
 
                     _TopFoodList(
@@ -330,11 +352,13 @@ class _FoodSearch extends StatefulWidget {
     required this.search,
     required this.selectedFoods,
     required this.updateSelectedFoods,
+    required this.predictFood,
   });
 
   final TextEditingController? search;
   final Map<FoodLiteModel, bool> selectedFoods;
   final Function updateSelectedFoods;
+  final String? predictFood;
   @override
   State<_FoodSearch> createState() => _FoodSearchState();
 }
@@ -344,23 +368,6 @@ class _FoodSearchState extends State<_FoodSearch> {
   Widget build(BuildContext context) {
     return Consumer2<FoodProvider, UserProvider>(
       builder: (context, foodProv, userProv, _) {
-        if (userProv.searchHistory == null && !userProv.onSearch) {
-          userProv.loadSearchHistory();
-
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: defMargin),
-            margin: const EdgeInsets.only(bottom: 10),
-            child: const CircularProgressIndicator(),
-          );
-        }
-        if (userProv.searchHistory == null && userProv.onSearch) {
-          // if the categories are being searched, show a skeleton loading
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: defMargin),
-            margin: const EdgeInsets.only(bottom: 10),
-            child: const CircularProgressIndicator(),
-          );
-        }
         if (userProv.searchHistory.isEmpty) {
           // if the categories have been loaded, show the category chips
           return Padding(
@@ -371,6 +378,7 @@ class _FoodSearchState extends State<_FoodSearch> {
                   TextField(
                     onSubmitted: (value) {
                       FoodProvider.instance(context).searchLastSearch(value);
+                      userProv.searchLastSearch(value);
                     },
                     controller: widget.search,
                     decoration: InputDecoration(
@@ -394,9 +402,15 @@ class _FoodSearchState extends State<_FoodSearch> {
                       contentPadding: const EdgeInsets.all(18),
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  if (widget.predictFood != null)
+                    Text("Mungkin kamu cari : ${widget.predictFood}")
+                  else
+                    Container(),
+                  const SizedBox(height: 20),
                   Container(
                     margin: const EdgeInsets.only(bottom: 10),
-                    child: const Text('Tidak ada produk yang ditemukan'),
+                    child: const Text('Tidak ada riwayat pencarian'),
                   ),
                 ],
               ),
@@ -450,7 +464,12 @@ class _FoodSearchState extends State<_FoodSearch> {
                   }).toList(),
                 ),
               ),
-            if (foodProv.searchFoods?.isNotEmpty ?? false)
+            if (widget.predictFood != null)
+              Text("Mungkin kamu cari : ${widget.predictFood}")
+            else
+              Container(),
+            SizedBox(height: 16,)
+,            if (foodProv.searchFoods?.isNotEmpty ?? false)
               SingleChildScrollView(
                 child: Column(
                   children: foodProv.searchFoods

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:vitaflow/core/utils/navigation/navigation_utils.dart';
+
 /// State list
 enum ClassifyState { Idle, Scanning, Complete }
 
@@ -23,7 +24,7 @@ class ClassifyProvider extends ChangeNotifier {
   String? get errorMessage => _errorMessage;
 
   String modelAsset = "assets/models";
-  String modelPath = "assets/models/model.tflite";
+  String modelPath = "assets/models/model_unquant.tflite";
   String labelPath = "assets/models/labels.txt";
 
   static ClassifyProvider instance(BuildContext context) =>
@@ -64,19 +65,20 @@ class ClassifyProvider extends ChangeNotifier {
 
     /// We must validate confidence rate to above 0.98
     /// to make sure the result is correct
-    print(output);
+    print(output ); 
     if (output!.length > 0 &&
-        double.parse(output[0]['confidence'].toString()) > 0.98) {
+        double.parse(output[0]['confidence'].toString()) > 0.90) {
       _productResult = output[0]["label"].toString();
       _errorMessage = null;
+      print("in provider");
       print(_productResult);
-    
+      print("=====");
     } else {
       print('ok');
       _errorMessage = 'Upss sepertinya product yang di input tidak tersedia';
       _productResult = null;
     }
-    
+
     notifyListeners();
   }
 
