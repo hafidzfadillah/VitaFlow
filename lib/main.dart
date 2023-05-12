@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
         ...widget.providers,
         ChangeNotifierProvider(create: (create) => CategoryProvider()),
         ChangeNotifierProvider(create: (create) => UserProvider()),
-        ChangeNotifierProvider(create: (create) => SurveyProvider())
+        ChangeNotifierProvider(create: (create) => SurveyProvider()),
         ChangeNotifierProvider(create: (create ) => ClassifyProvider()),
         ChangeNotifierProvider(create: (create ) => FoodProvider()),
         ChangeNotifierProvider(create: (create) => ProductProvider())

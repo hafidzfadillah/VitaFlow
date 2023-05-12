@@ -274,8 +274,7 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_tflite
-      sha256: "0d6b622af0fe90d92bd4d9bd28b98c3b213217f36ccb7b444d7104a742b03363"
-      url: "https://pub.dev"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
   flutter_toggle_tab:

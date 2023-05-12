@@ -203,18 +203,22 @@ class RecordFoodScreen extends StatelessWidget {
                   LogFoodCard(
                     title: "Makan Pagi",
                     icon: 'assets/images/icon_breakfast.png',
+                    foods: [],
                   ),
                   LogFoodCard(
                     title: "Makan Siang",
                     icon: 'assets/images/icon_lunch.png',
+                    foods: [],
                   ),
                   LogFoodCard(
                     title: "Makan Malam",
                     icon: 'assets/images/icon_dinner.png',
+                    foods: [],
                   ),
                   LogFoodCard(
                     title: "Cemilan ",
                     icon: 'assets/images/icon_snack.png',
+                    foods: [],
                   ),
                 ],
               )

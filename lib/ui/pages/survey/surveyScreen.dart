@@ -14,7 +14,7 @@ import 'package:vitaflow/ui/pages/survey/surveyProvider.dart';
 import 'package:vitaflow/ui/widgets/button.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import '../../../core/utils/navigation/nvaigation_utils.dart';
+import '../../../core/utils/navigation/navigation_utils.dart';
 
 class SurveyScreen extends StatefulWidget {
   const SurveyScreen({Key? key}) : super(key: key);

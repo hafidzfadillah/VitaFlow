@@ -101,42 +101,60 @@ class UserProvider extends ChangeNotifier {
       debugPrint("Stacktrace: ${stacktrace.toString()}");
       return false;
     }
-    
-  Future<bool> getUserData() async {
-    setOnSearch(true);
-    try {
-      final result = await userService.getUserData();
-      if (result.data.id != null) {
-        _user = result.data;
-            notifyListeners();
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e, stacktrace) {
-      debugPrint("Error: ${e.toString()}");
-      debugPrint("Stacktrace: ${stacktrace.toString()}");
-      return false;
-    }
   }
 
-  Future<void> getNutrion({DateTime? date}) async {
-    await Future.delayed(const Duration(milliseconds: 100));
-    setOnSearch(true);
+  Future<bool> getUserData() async {
+      setOnSearch(true);
+      try {
+        final result = await userService.getUserData();
+        if (result.data.id != null) {
+          _user = result.data;
+          notifyListeners();
+          return true;
+        } else {
+          return false;
+        }
+      } catch (e, stacktrace) {
+        debugPrint("Error: ${e.toString()}");
+        debugPrint("Stacktrace: ${stacktrace.toString()}");
+        return false;
+      }
+    }
 
-    final selectedDate = date ?? DateTime.now();
+    Future<void> getNutrion({DateTime? date}) async {
+      await Future.delayed(const Duration(milliseconds: 100));
+      setOnSearch(true);
 
-    // Initialize DateFormatting for the default locale
-    await initializeDateFormatting();
+      final selectedDate = date ?? DateTime.now();
 
-    final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      // Initialize DateFormatting for the default locale
+      await initializeDateFormatting();
 
-    try {
-      final result = await userService.getUserNutrition(date: date);
+      final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
 
-      if (result.data.date != null) {
-        _myNutrition = result.data;
-      } else {
+      try {
+        final result = await userService.getUserNutrition(date: date);
+
+        if (result.data.date != null) {
+          _myNutrition = result.data;
+        } else {
+          _myNutrition = NutrionModel(
+              date: formattedDate,
+              targetCalories: 0,
+              calorieLeft: 0,
+              activityCalories: 0,
+              carbohydrate: 0,
+              protein: 0,
+              fat: 0,
+              intakeCalories: 0,
+              proteinPercentage: 0,
+              carbPercentage: 0,
+              fatPercentage: 0,
+              akg: 0);
+        }
+      } catch (e, stacktrace) {
+        debugPrint("Error: ${e.toString()}");
+        debugPrint("Stacktrace: ${stacktrace.toString()}");
         _myNutrition = NutrionModel(
             date: formattedDate,
             targetCalories: 0,
@@ -151,130 +169,113 @@ class UserProvider extends ChangeNotifier {
             fatPercentage: 0,
             akg: 0);
       }
-    } catch (e, stacktrace) {
-      debugPrint("Error: ${e.toString()}");
-      debugPrint("Stacktrace: ${stacktrace.toString()}");
-      _myNutrition = NutrionModel(
-          date: formattedDate,
-          targetCalories: 0,
-          calorieLeft: 0,
-          activityCalories: 0,
-          carbohydrate: 0,
-          protein: 0,
-          fat: 0,
-          intakeCalories: 0,
-          proteinPercentage: 0,
-          carbPercentage: 0,
-          fatPercentage: 0,
-          akg: 0);
+      setOnSearch(false);
     }
-    setOnSearch(false);
-  }
 
-  Future<void> getMyMission({DateTime? date}) async {
-    await Future.delayed(const Duration(milliseconds: 100));
-    setOnSearch(true);
+    Future<void> getMyMission({DateTime? date}) async {
+      await Future.delayed(const Duration(milliseconds: 100));
+      setOnSearch(true);
 
-    final selectedDate = date ?? DateTime.now();
-    final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      final selectedDate = date ?? DateTime.now();
+      final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
 
-    try {
-      final result = await userService.getUserMission(date: date);
+      try {
+        final result = await userService.getUserMission(date: date);
 
-      if (result.data!.isNotEmpty) {
-        _myMission = result.data;
-      } else {
+        if (result.data!.isNotEmpty) {
+          _myMission = result.data;
+        } else {
+          _myMission = [];
+        }
+      } catch (e, stacktrace) {
+        debugPrint("Error: ${e.toString()}");
+        debugPrint("Stacktrace: ${stacktrace.toString()}");
         _myMission = [];
       }
-    } catch (e, stacktrace) {
-      debugPrint("Error: ${e.toString()}");
-      debugPrint("Stacktrace: ${stacktrace.toString()}");
-      _myMission = [];
+      setOnSearch(false);
     }
-    setOnSearch(false);
-  }
 
-  Future<void> getUserFood({DateTime? date}) async {
-    await Future.delayed(const Duration(milliseconds: 100));
-    setOnSearch(true);
+    Future<void> getUserFood({DateTime? date}) async {
+      await Future.delayed(const Duration(milliseconds: 100));
+      setOnSearch(true);
 
-    final selectedDate = date ?? DateTime.now();
-    final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      final selectedDate = date ?? DateTime.now();
+      final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
 
-    try {
-      final result = await userService.getUserHistoryMeal(date: date);
+      try {
+        final result = await userService.getUserHistoryMeal(date: date);
 
-      if (result.data!.isNotEmpty) {
-        _userLunchFood = [];
-        _userDinnerFood = [];
-        _userBreakfastFood = [];
-        _userSnacks = [];
+        if (result.data!.isNotEmpty) {
+          _userLunchFood = [];
+          _userDinnerFood = [];
+          _userBreakfastFood = [];
+          _userSnacks = [];
 
-        for (final data in result.data!) {
-          if (data.mealType == "lunch") {
-            _userLunchFood!.add(UserFood(
-              mealType: data.mealType,
-              foodName: data.foodName,
-              calorieIntake: data.calorieIntake,
-              carbohydrateIntake: data.carbohydrateIntake,
-              proteinIntake: data.proteinIntake,
-              fatIntake: data.fatIntake,
-              size: data.size,
-              unit: data.unit,
-            ));
-          } else if (data.mealType == "dinner") {
-            _userDinnerFood!.add(UserFood(
-              mealType: data.mealType,
-              foodName: data.foodName,
-              calorieIntake: data.calorieIntake,
-              carbohydrateIntake: data.carbohydrateIntake,
-              proteinIntake: data.proteinIntake,
-              fatIntake: data.fatIntake,
-              size: data.size,
-              unit: data.unit,
-            ));
-          } else if (data.mealType == "breakfast") {
-            _userBreakfastFood!.add(UserFood(
-              mealType: data.mealType,
-              foodName: data.foodName,
-              calorieIntake: data.calorieIntake,
-              carbohydrateIntake: data.carbohydrateIntake,
-              proteinIntake: data.proteinIntake,
-              fatIntake: data.fatIntake,
-              size: data.size,
-              unit: data.unit,
-            ));
-          } else if (data.mealType == "snack") {
-            _userSnacks!.add(UserFood(
-              mealType: data.mealType,
-              foodName: data.foodName,
-              calorieIntake: data.calorieIntake,
-              carbohydrateIntake: data.carbohydrateIntake,
-              proteinIntake: data.proteinIntake,
-              fatIntake: data.fatIntake,
-              size: data.size,
-              unit: data.unit,
-            ));
+          for (final data in result.data!) {
+            if (data.mealType == "lunch") {
+              _userLunchFood!.add(UserFood(
+                mealType: data.mealType,
+                foodName: data.foodName,
+                calorieIntake: data.calorieIntake,
+                carbohydrateIntake: data.carbohydrateIntake,
+                proteinIntake: data.proteinIntake,
+                fatIntake: data.fatIntake,
+                size: data.size,
+                unit: data.unit,
+              ));
+            } else if (data.mealType == "dinner") {
+              _userDinnerFood!.add(UserFood(
+                mealType: data.mealType,
+                foodName: data.foodName,
+                calorieIntake: data.calorieIntake,
+                carbohydrateIntake: data.carbohydrateIntake,
+                proteinIntake: data.proteinIntake,
+                fatIntake: data.fatIntake,
+                size: data.size,
+                unit: data.unit,
+              ));
+            } else if (data.mealType == "breakfast") {
+              _userBreakfastFood!.add(UserFood(
+                mealType: data.mealType,
+                foodName: data.foodName,
+                calorieIntake: data.calorieIntake,
+                carbohydrateIntake: data.carbohydrateIntake,
+                proteinIntake: data.proteinIntake,
+                fatIntake: data.fatIntake,
+                size: data.size,
+                unit: data.unit,
+              ));
+            } else if (data.mealType == "snack") {
+              _userSnacks!.add(UserFood(
+                mealType: data.mealType,
+                foodName: data.foodName,
+                calorieIntake: data.calorieIntake,
+                carbohydrateIntake: data.carbohydrateIntake,
+                proteinIntake: data.proteinIntake,
+                fatIntake: data.fatIntake,
+                size: data.size,
+                unit: data.unit,
+              ));
+            }
           }
+        } else {
+          // handle empty data
+          _userLunchFood = [];
+          _userDinnerFood = [];
+          _userBreakfastFood = [];
+          _userSnacks = [];
         }
-      } else {
-        // handle empty data
+      } catch (e, stacktrace) {
+        debugPrint("Error: ${e.toString()}");
+        debugPrint("Stacktrace: ${stacktrace.toString()}");
         _userLunchFood = [];
         _userDinnerFood = [];
         _userBreakfastFood = [];
         _userSnacks = [];
       }
-    } catch (e, stacktrace) {
-      debugPrint("Error: ${e.toString()}");
-      debugPrint("Stacktrace: ${stacktrace.toString()}");
-      _userLunchFood = [];
-      _userDinnerFood = [];
-      _userBreakfastFood = [];
-      _userSnacks = [];
-    }
 
-    setOnSearch(false);
-  }
+      setOnSearch(false);
+    }
 // Future<void> addDrink() async {
 //     final lastDrink = _userDrink?.isEmpty == true ? null : _userDrink!.last;
 //     final now = DateTime.now();
@@ -304,186 +305,186 @@ class UserProvider extends ChangeNotifier {
 //     }
 //   }
 
-  void storeDrink() async {
-    setOnSearch(true);
-
-    notifyListeners();
-    try {
-      final result = await userService.storeDrink();
-
-      if (result?.message == 'Success') {
-        _userDrink = result?.data;
-      }
+    void storeDrink() async {
+      setOnSearch(true);
 
       notifyListeners();
-    } catch (e, stacktrace) {
-      debugPrint("Error: ${e.toString()}");
-      debugPrint("Stacktrace: ${stacktrace.toString()}");
-    }
-    setOnSearch(false);
-  }
+      try {
+        final result = await userService.storeDrink();
 
-  void storeBpm(int bpm) async {
-    setOnSearch(true);
+        if (result?.message == 'Success') {
+          _userDrink = result?.data;
+        }
 
-    notifyListeners();
-    try {
-      final result = await userService.storeBpm(
-        bpm,
-      );
-
-      if (result?.message == 'Success') {
-        _userBpm = result?.data;
+        notifyListeners();
+      } catch (e, stacktrace) {
+        debugPrint("Error: ${e.toString()}");
+        debugPrint("Stacktrace: ${stacktrace.toString()}");
       }
+      setOnSearch(false);
+    }
+
+    void storeBpm(int bpm) async {
+      setOnSearch(true);
 
       notifyListeners();
-    } catch (e, stacktrace) {
-      debugPrint("Error: ${e.toString()}");
-      debugPrint("Stacktrace: ${stacktrace.toString()}");
+      try {
+        final result = await userService.storeBpm(
+          bpm,
+        );
+
+        if (result?.message == 'Success') {
+          _userBpm = result?.data;
+        }
+
+        notifyListeners();
+      } catch (e, stacktrace) {
+        debugPrint("Error: ${e.toString()}");
+        debugPrint("Stacktrace: ${stacktrace.toString()}");
+      }
+      setOnSearch(false);
     }
-    setOnSearch(false);
-  }
 
-  Future<void> getUserHistoryDrink({DateTime? date}) async {
-    await Future.delayed(const Duration(milliseconds: 100));
-    setOnSearch(true);
+    Future<void> getUserHistoryDrink({DateTime? date}) async {
+      await Future.delayed(const Duration(milliseconds: 100));
+      setOnSearch(true);
 
-    final selectedDate = date ?? DateTime.now();
-    final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
-    try {
-      final result = await userService.getUserHistoryDrink(date: date);
-      if (result.data!.isNotEmpty) {
-        _userDrink = result.data;
-      } else {
+      final selectedDate = date ?? DateTime.now();
+      final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      try {
+        final result = await userService.getUserHistoryDrink(date: date);
+        if (result.data!.isNotEmpty) {
+          _userDrink = result.data;
+        } else {
+          _userDrink = [];
+        }
+      } catch (e, stacktrace) {
+        debugPrint("Error: ${e.toString()}");
+        debugPrint("Stacktrace: ${stacktrace.toString()}");
         _userDrink = [];
       }
-    } catch (e, stacktrace) {
-      debugPrint("Error: ${e.toString()}");
-      debugPrint("Stacktrace: ${stacktrace.toString()}");
-      _userDrink = [];
+      setOnSearch(false);
     }
-    setOnSearch(false);
-  }
 
-  Future<void> getUserHistoryHealth({DateTime? date}) async {
-    await Future.delayed(const Duration(milliseconds: 100));
-    setOnSearch(true);
+    Future<void> getUserHistoryHealth({DateTime? date}) async {
+      await Future.delayed(const Duration(milliseconds: 100));
+      setOnSearch(true);
 
-    final selectedDate = date ?? DateTime.now();
-    final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
-    try {
-      final result = await userService.getHistoryHealth(date: date);
-      if (result.data!.isNotEmpty) {
-        _userBpm = result.data;
-      } else {
+      final selectedDate = date ?? DateTime.now();
+      final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+      try {
+        final result = await userService.getHistoryHealth(date: date);
+        if (result.data!.isNotEmpty) {
+          _userBpm = result.data;
+        } else {
+          _userBpm = [];
+        }
+      } catch (e, stacktrace) {
+        debugPrint("Error: ${e.toString()}");
+        debugPrint("Stacktrace: ${stacktrace.toString()}");
         _userBpm = [];
       }
-    } catch (e, stacktrace) {
-      debugPrint("Error: ${e.toString()}");
-      debugPrint("Stacktrace: ${stacktrace.toString()}");
-      _userBpm = [];
+      setOnSearch(false);
     }
-    setOnSearch(false);
-  }
 
-  // Future<void> getHealthData({DateTime? date}) async {
-  //   await Future.delayed(const Duration(milliseconds: 100));
-  //   setOnSearch(true);
+    // Future<void> getHealthData({DateTime? date}) async {
+    //   await Future.delayed(const Duration(milliseconds: 100));
+    //   setOnSearch(true);
 
-  //   try {
-  //     final result = await userService.getHealthData(date: date);
-  //     print("xxxxxxxxx");
-  //     print(result);
-  //           print("xxxxxxxxx");
+    //   try {
+    //     final result = await userService.getHealthData(date: date);
+    //     print("xxxxxxxxx");
+    //     print(result);
+    //           print("xxxxxxxxx");
 
-  //     if (result.message == 'Success') {
-  //       print("get health data ");
-  //       _healthData = result.data;
-  //     } else {
-  //       _healthData = HealthDataModel(averageBpm: 0, healthData: [], chart: []);
-  //     }
-  //   } catch (e, stacktrace) {
-  //     debugPrint("Error: ${e.toString()}");
-  //     debugPrint("Stacktrace: ${stacktrace.toString()}");
-  //     _userDrink = [];
-  //   }
-  //   setOnSearch(false);
-  // }
+    //     if (result.message == 'Success') {
+    //       print("get health data ");
+    //       _healthData = result.data;
+    //     } else {
+    //       _healthData = HealthDataModel(averageBpm: 0, healthData: [], chart: []);
+    //     }
+    //   } catch (e, stacktrace) {
+    //     debugPrint("Error: ${e.toString()}");
+    //     debugPrint("Stacktrace: ${stacktrace.toString()}");
+    //     _userDrink = [];
+    //   }
+    //   setOnSearch(false);
+    // }
 
-  void storeFoods(List<FoodLiteModel> foods, String mealType) async {
-    try {
-      await userService.storeFoods(mealType, foods);
+    void storeFoods(List<FoodLiteModel> foods, String mealType) async {
+      try {
+        await userService.storeFoods(mealType, foods);
+
+        notifyListeners();
+      } catch (e, stacktrace) {
+        debugPrint("Error: ${e.toString()}");
+        debugPrint("Stacktrace: ${stacktrace.toString()}");
+      }
+      setOnSearch(false);
+    }
+
+    Future<void> searchLastSearch(String keyword) async {
+      if (_searchHistory.contains(keyword)) return;
+
+      _searchHistory.add(keyword);
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList('search_history', _searchHistory.toList());
 
       notifyListeners();
-    } catch (e, stacktrace) {
-      debugPrint("Error: ${e.toString()}");
-      debugPrint("Stacktrace: ${stacktrace.toString()}");
     }
-    setOnSearch(false);
-  }
 
-  Future<void> searchLastSearch(String keyword) async {
-    if (_searchHistory.contains(keyword)) return;
+    Future<void> loadSearchHistory() async {
+      final prefs = await SharedPreferences.getInstance();
+      final history = prefs.getStringList('search_history') ?? [];
 
-    _searchHistory.add(keyword);
+      _searchHistory = history.toSet().toList();
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('search_history', _searchHistory.toList());
-
-    notifyListeners();
-  }
-
-  Future<void> loadSearchHistory() async {
-    final prefs = await SharedPreferences.getInstance();
-    final history = prefs.getStringList('search_history') ?? [];
-
-    _searchHistory = history.toSet().toList();
-
-    notifyListeners();
-  }
-
-  // Set event login
-  void setOnSearch(bool value) {
-    _onSearch = value;
-    notifyListeners();
-  }
-
-  // clear my nutrition
-  void clearMyNutrition() {
-    _myNutrition = null;
-    notifyListeners();
-  }
-
-  // clear my mission
-  void clearMyMission() {
-    _myMission = null;
-    notifyListeners();
-  }
-
-  // clear my drink
-  void clearMyDrink() {
-    _userDrink = null;
-    notifyListeners();
-  }
-
-  void clearMyFood() {
-    _userLunchFood = null;
-    _userDinnerFood = null;
-    _userBreakfastFood = null;
-    _userSnacks = null;
-    notifyListeners();
-  }
-
-  @override
-  void notifyListeners() {
-    if (!isDisposed) {
-      super.notifyListeners();
+      notifyListeners();
     }
-  }
 
-  @override
-  void dispose() {
-    isDisposed = true;
-    super.dispose();
-  }
+    // Set event login
+    void setOnSearch(bool value) {
+      _onSearch = value;
+      notifyListeners();
+    }
+
+    // clear my nutrition
+    void clearMyNutrition() {
+      _myNutrition = null;
+      notifyListeners();
+    }
+
+    // clear my mission
+    void clearMyMission() {
+      _myMission = null;
+      notifyListeners();
+    }
+
+    // clear my drink
+    void clearMyDrink() {
+      _userDrink = null;
+      notifyListeners();
+    }
+
+    void clearMyFood() {
+      _userLunchFood = null;
+      _userDinnerFood = null;
+      _userBreakfastFood = null;
+      _userSnacks = null;
+      notifyListeners();
+    }
+
+    @override
+    void notifyListeners() {
+      if (!isDisposed) {
+        super.notifyListeners();
+      }
+    }
+
+    @override
+    void dispose() {
+      isDisposed = true;
+      super.dispose();
+    }
 }

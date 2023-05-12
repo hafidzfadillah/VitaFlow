@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:vitaflow/core/utils/navigation/nvaigation_utils.dart';
+import 'package:vitaflow/core/utils/navigation/navigation_utils.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/pages/survey/surveyProvider.dart';
 
