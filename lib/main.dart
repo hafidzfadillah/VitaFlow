@@ -5,6 +5,7 @@ import 'package:vitaflow/core/viewmodels/categories/categories_provider.dart';
 import 'package:vitaflow/core/viewmodels/classify/classify_provider.dart';
 import 'package:vitaflow/core/viewmodels/food/food_provider.dart';
 import 'package:vitaflow/core/viewmodels/product/product_provider.dart';
+import 'package:vitaflow/core/viewmodels/program/program_provider.dart';
 import 'package:vitaflow/core/viewmodels/user/user_provider.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:provider/single_child_widget.dart';
@@ -49,7 +50,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (create) => SurveyProvider()),
         ChangeNotifierProvider(create: (create ) => ClassifyProvider()),
         ChangeNotifierProvider(create: (create ) => FoodProvider()),
-        ChangeNotifierProvider(create: (create) => ProductProvider())
+        ChangeNotifierProvider(create: (create) => ProductProvider()),
+        ChangeNotifierProvider(create: (create) => ProgramProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
