@@ -6,6 +6,7 @@ import 'package:vitaflow/ui/pages/chat_bot.dart';
 import 'package:vitaflow/ui/pages/food_list_screen.dart';
 import 'package:vitaflow/ui/pages/inputWorkout.dart';
 import 'package:vitaflow/ui/pages/listSport.dart';
+import 'package:vitaflow/ui/pages/premium_screen.dart';
 import 'package:vitaflow/ui/pages/product_search_screen.dart';
 import 'package:vitaflow/ui/pages/profileScreen.dart';
 import 'package:vitaflow/ui/pages/programScreen.dart';
@@ -87,10 +88,13 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ProductSearchScreen());
       case '/add-user-health-rate':
         return MaterialPageRoute(builder: (_) => const VitaAddHealthScreen());
-          case '/record-weight':
+      case '/record-weight':
         return MaterialPageRoute(builder: (_) => const RecordWeightScreen());
       case '/record-add-weight':
         return MaterialPageRoute(builder: (_) => const WeightAddScreen());
+      case '/premium':
+        return MaterialPageRoute(builder: (_) => const PremiumScreen());
+      
       // case '/product-detail':
       //   return MaterialPageRoute(builder: (_) => ProductDetailScreen());
       // case '/cart':

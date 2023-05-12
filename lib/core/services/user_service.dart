@@ -10,6 +10,7 @@ import 'package:vitaflow/core/models/bpm/healt_data_model.dart';
 import 'package:vitaflow/core/models/foods/food_lite.dart';
 import 'package:vitaflow/core/models/mission/my_mission.dart';
 import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
+import 'package:vitaflow/core/models/transaction/transaction_model.dart';
 import 'package:vitaflow/core/models/user/user_drink.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 import 'package:vitaflow/core/models/user/user_model.dart';
@@ -27,7 +28,7 @@ class UserService {
     await prefs.setString('email', userData['user']['email']);
     await prefs.setString('created_at', userData['user']['created_at']);
     await prefs.setString('updated_at', userData['user']['updated_at']);
-    await prefs.setInt('age', userData['user']['age']  ?? 0);
+    await prefs.setInt('age', userData['user']['age'] ?? 0);
     await prefs.setString('gender', userData['user']['gender'] ?? 'laki-laki');
     await prefs.setInt('height', userData['user']['height'] ?? 0);
     await prefs.setInt('weight', userData['user']['weight'] ?? 0);
@@ -61,22 +62,26 @@ class UserService {
     return ApiResult<UserModel>.fromJson(
         userData, (data) => UserModel.fromJson(data), "user");
   }
+
   Future<ApiResult<UserModel>> getUserData() async {
-       final prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access_token');
 
-
-    APIResponse response = await api.post(api.endpoint.getUser,
-        useToken: true, token: token);
+    APIResponse response =
+        await api.post(api.endpoint.getUser, useToken: true, token: token);
     final userData = response.data;
-
 
     return ApiResult<UserModel>.fromJson(
         userData, (data) => UserModel.fromJson(data), "data");
   }
 
-  Future<ApiResult<UserModel>> daftar(String name, String email, String password) async {
-    Map<String, dynamic> data = {"name":name,"email": email, "password": password};
+  Future<ApiResult<UserModel>> daftar(
+      String name, String email, String password) async {
+    Map<String, dynamic> data = {
+      "name": name,
+      "email": email,
+      "password": password
+    };
     APIResponse response = await api.post(api.endpoint.register, data: data);
 
     final userData = response.data;
@@ -155,7 +160,8 @@ class UserService {
       return null;
     }
   }
-Future<ApiResultList<WeightModel>?> storeWeight(int bpm) async {
+
+  Future<ApiResultList<WeightModel>?> storeWeight(int bpm) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access_token');
 
@@ -172,6 +178,7 @@ Future<ApiResultList<WeightModel>?> storeWeight(int bpm) async {
       return null;
     }
   }
+
   Future<ApiResultList<UserDrinkModel>> getUserHistoryDrink(
       {DateTime? date}) async {
     final prefs = await SharedPreferences.getInstance();
@@ -198,11 +205,12 @@ Future<ApiResultList<WeightModel>?> storeWeight(int bpm) async {
 
     print("==============");
     print(response.data);
-        print("==============");
+    print("==============");
 
     return ApiResult<HealthDataModel>.fromJson(
         response.data, (data) => HealthDataModel.fromJson(data), "data");
   }
+
   Future<ApiResultList<BpmModel>> getHistoryHealth({DateTime? date}) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access_token');
@@ -214,7 +222,7 @@ Future<ApiResultList<WeightModel>?> storeWeight(int bpm) async {
 
     print("==============");
     print(response.data);
-        print("==============");
+    print("==============");
 
     return ApiResultList<BpmModel>.fromJson(
         response.data?['data'],
@@ -290,7 +298,7 @@ Future<ApiResultList<WeightModel>?> storeWeight(int bpm) async {
     }
   }
 
-   Future<ApiResultList<WeightModel>> getWeightData({DateTime? date}) async {
+  Future<ApiResultList<WeightModel>> getWeightData({DateTime? date}) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access_token');
 
@@ -303,4 +311,30 @@ Future<ApiResultList<WeightModel>?> storeWeight(int bpm) async {
         (data) => data.map((e) => WeightModel.fromJson(e)).toList(), "data");
   }
 
+  Future<ApiResultList<void>?> activeFreeTrial() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    await api.post(api.endpoint.activeFreeTrial, useToken: true, token: token);
+  }
+
+  Future<ApiResult<TransactionModel>> paymentPremium(String? planType) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    APIResponse response = await api.post(api.endpoint.payPremium,
+        useToken: true, token: token, data: {"plan_type": planType});
+
+    return ApiResult<TransactionModel>.fromJson(
+        response.data, (data) => TransactionModel.fromJson(data), "data");
+  }
+
+   Future<ApiResult<TransactionModel>> verifyPayment(String? transaction_id) async {
+  
+
+    APIResponse response = await api.post(api.endpoint.verifyPayment, data: {"transaction_id": transaction_id});
+
+    return ApiResult<TransactionModel>.fromJson(
+        response.data, (data) => TransactionModel.fromJson(data), "data");
+  }
 }
