@@ -19,7 +19,7 @@ class Api {
   /// * In this field will exists
   /// * some user endpoint
   /// */
-
+  String submitSurvey = "$_baseServer/survey";
   String login = "$_baseServer/auth/login";
   String register = "$_baseServer/auth/register";
   String getUser = "$_baseServer/auth/me";

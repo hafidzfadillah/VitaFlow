@@ -18,7 +18,7 @@ class _Survey3State extends State<Survey3> {
 
   @override
   Widget build(BuildContext context) {
-    final survey = Provider.of<Survey>(context);
+    final survey = Provider.of<SurveyProvider>(context);
 
     return
       Column(

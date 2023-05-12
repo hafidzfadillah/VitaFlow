@@ -84,14 +84,14 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> getUserData() async {
+  // Daftar function
+  Future<bool> daftar(String name, String email, String password) async {
     setOnSearch(true);
     try {
-      final result = await userService.getUserData();
+      final result = await userService.daftar(name, email, password);
       if (result.data.id != null) {
         _user = result.data;
-            notifyListeners();
-
+        notifyListeners();
         return true;
       } else {
         return false;
@@ -101,7 +101,23 @@ class UserProvider extends ChangeNotifier {
       debugPrint("Stacktrace: ${stacktrace.toString()}");
       return false;
     }
-
+    
+  Future<bool> getUserData() async {
+    setOnSearch(true);
+    try {
+      final result = await userService.getUserData();
+      if (result.data.id != null) {
+        _user = result.data;
+            notifyListeners();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+      return false;
+    }
   }
 
   Future<void> getNutrion({DateTime? date}) async {
