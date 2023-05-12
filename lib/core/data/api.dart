@@ -52,8 +52,7 @@ class Api {
   String storeBpm = "$_baseServer/health-track/store";
   String getBpm = "$_baseServer/health-track/history?days=1";
 
-
-
-
-
+  /// * -------------------
+  /// * Program Endpoint
+  String getProgram = "$_baseServer/programs";
 }
