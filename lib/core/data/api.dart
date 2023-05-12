@@ -62,4 +62,8 @@ class Api {
   /// * Weight endpoint
   String getWeight = "$_baseServer/weight-track/history";
   String storeWeight = "$_baseServer/weight-track/store";
+
+  String activeFreeTrial = "$_baseServer/premium/trial";
+  String payPremium = "$_baseServer/premium/pay/bca";
+  String verifyPayment = "$_baseServer/verify";
 }

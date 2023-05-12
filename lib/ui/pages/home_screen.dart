@@ -101,6 +101,7 @@ class HomeScreenBody extends StatelessWidget {
                   height: 16,
                 ),
                 const UserNutrion(),
+            
                 const MyMisssion()
               ],
             ))

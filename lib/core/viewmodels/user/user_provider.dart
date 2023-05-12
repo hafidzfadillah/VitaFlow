@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vitaflow/core/models/api/api_result_model.dart';
 import 'package:vitaflow/core/models/bpm/bpm_model.dart';
 import 'package:vitaflow/core/models/bpm/healt_data_model.dart';
 import 'package:vitaflow/core/models/foods/food_lite.dart';
 import 'package:vitaflow/core/models/mission/my_mission.dart';
 import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
+import 'package:vitaflow/core/models/transaction/transaction_model.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 import 'package:vitaflow/core/models/user/user_model.dart';
 import 'package:vitaflow/core/models/weight/weight_model.dart';
@@ -431,6 +433,115 @@ class UserProvider extends ChangeNotifier {
       _userWeight = [];
     }
     setOnSearch(false);
+  }
+
+  void activeTrial() async {
+    setOnSearch(true);
+
+    notifyListeners();
+    try {
+      await userService.activeFreeTrial();
+
+      notifyListeners();
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+    }
+    setOnSearch(false);
+  }
+
+  Future<TransactionModel> paymentPremium(String? planType) async {
+    setOnSearch(true);
+   try {
+      final ApiResult<TransactionModel> result =
+          await userService.paymentPremium(planType);
+
+      late TransactionModel data;
+      if (result.message == 'Success') {
+        data = result.data;
+      } else {
+        debugPrint("Error: ${result.message}");
+        data = TransactionModel(
+          grossAmount: 0.0,
+          transactionId: "",
+          paymentType: "",
+          bank: "",
+          vaNumber: "",
+          expireTimeUnix: 0,
+          expireTimeStr: "",
+          serviceName: "",
+                  status: 2
+
+        );
+      }
+
+      notifyListeners();
+
+      return data;
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+
+      return  TransactionModel(
+        grossAmount: 0.0,
+        transactionId: "",
+        paymentType: "",
+        bank: "",
+        vaNumber: "",
+        expireTimeUnix: 0,
+        expireTimeStr: "",
+        serviceName: "",
+                status: 2
+
+      );
+    }
+
+  }
+  Future<TransactionModel> verifyPayment(String? transaction_id) async {
+    setOnSearch(true);
+   try {
+      final ApiResult<TransactionModel> result =
+          await userService.verifyPayment(transaction_id);
+
+      late TransactionModel data;
+      if (result.message == 'Success') {
+        data = result.data;
+      } else {
+        debugPrint("Error: ${result.message}");
+        data = TransactionModel(
+          grossAmount: 0.0,
+          transactionId: "",
+          paymentType: "",
+          bank: "",
+          vaNumber: "",
+          expireTimeUnix: 0,
+          expireTimeStr: "",
+          serviceName: "",
+                  status: 2
+
+        );
+      }
+
+      notifyListeners();
+
+      return data;
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+
+      return  TransactionModel(
+        grossAmount: 0.0,
+        transactionId: "",
+        paymentType: "",
+        bank: "",
+        vaNumber: "",
+        expireTimeUnix: 0,
+        expireTimeStr: "",
+        serviceName: "",
+        status:  2
+      );
+    }
+
   }
 
   // Future<void> getHealthData({DateTime? date}) async {
