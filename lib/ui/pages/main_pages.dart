@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:vitaflow/ui/home/theme.dart';
-import 'package:vitaflow/ui/pages/HomeScreen.dart';
-import 'package:vitaflow/ui/pages/articleScreen.dart';
-import 'package:vitaflow/ui/pages/chatbot.dart';
-import 'package:vitaflow/ui/pages/vitamart.dart';
+import 'package:vitaflow/ui/pages/home_screen.dart';
+import 'package:vitaflow/ui/pages/article_screen.dart';
+import 'package:vitaflow/ui/pages/chat_bot.dart';
+import 'package:vitaflow/ui/pages/vita_mart.dart';
 import 'package:vitaflow/ui/pages/programScreen.dart';
 
 class MainPages extends StatefulWidget {
@@ -48,7 +48,7 @@ class _MainPagesState extends State<MainPages> {
   List<Widget> _screens = [
     HomeScreen(),
     ProgramScreen(),
-    VitaMart(),
+    VitaMartScreen(),
     ArticleScreen()
   ];
 

@@ -16,7 +16,7 @@ class BaseAPI implements BaseAPIImpl {
   BaseAPI({Dio? dio}) {
     _dio = dio ?? Dio();
   }
-  Options getHeaders({String token = "" , bool? useToken}) {
+  Options getHeaders({String token = "", bool? useToken}) {
     var header = <String, dynamic>{};
     header['Accept'] = 'application/json';
     header['Content-Type'] = 'application/json';
@@ -25,8 +25,8 @@ class BaseAPI implements BaseAPIImpl {
     }
     return Options(
       headers: header,
-      sendTimeout: Duration(seconds: 60),
-      receiveTimeout: Duration(seconds: 60),
+      sendTimeout: const Duration(seconds: 60),
+      receiveTimeout: const Duration(seconds: 60),
     );
   }
 
@@ -44,12 +44,15 @@ class BaseAPI implements BaseAPIImpl {
 
   @override
   Future<APIResponse> get(String url,
-      {Map<String, dynamic>? param, bool? useToken , String? token ,data }) async {
+      {Map<String, dynamic>? param,
+      bool? useToken,
+      String? token,
+      data}) async {
     try {
       final result = await _dio?.get(url,
-          data:  data,
-          options: getHeaders(useToken: useToken,token:  token ?? ''), queryParameters: param);
-      print(result);
+          data: data,
+          options: getHeaders(useToken: useToken, token: token ?? ''),
+          queryParameters: param);
       return _parseResponse(result);
     } on DioError catch (e) {
       if (e.error is SocketException) {
@@ -67,7 +70,10 @@ class BaseAPI implements BaseAPIImpl {
 
   @override
   Future<APIResponse> post(String url,
-      {Map<String, dynamic>? param, data, bool? useToken, String? token}) async {
+      {Map<String, dynamic>? param,
+      data,
+      bool? useToken,
+      String? token}) async {
     try {
       final result = await _dio?.post(url,
           options: getHeaders(useToken: useToken, token: token ?? ''),

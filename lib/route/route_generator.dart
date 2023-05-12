@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:vitaflow/core/models/survey/survey_model.dart';
 import 'package:vitaflow/ui/pages/FoodDetailScreen.dart';
-import 'package:vitaflow/ui/pages/FoodListScreen.dart';
-import 'package:vitaflow/ui/pages/articleScreen.dart';
-import 'package:vitaflow/ui/pages/chatbot.dart';
+import 'package:vitaflow/ui/pages/article_screen.dart';
+import 'package:vitaflow/ui/pages/chat_bot.dart';
+import 'package:vitaflow/ui/pages/food_list_screen.dart';
 import 'package:vitaflow/ui/pages/inputWorkout.dart';
 import 'package:vitaflow/ui/pages/listSport.dart';
+import 'package:vitaflow/ui/pages/product_search_screen.dart';
 import 'package:vitaflow/ui/pages/profileScreen.dart';
 import 'package:vitaflow/ui/pages/programScreen.dart';
-import 'package:vitaflow/ui/pages/recordFoodScreen.dart';
+import 'package:vitaflow/ui/pages/record_food_screen.dart';
 import 'package:vitaflow/ui/pages/recordSportScreen.dart';
-import 'package:vitaflow/ui/pages/recordWaterScreen.dart';
+import 'package:vitaflow/ui/pages/record_water_screen.dart';
 import 'package:vitaflow/ui/pages/sportActionScreen.dart';
 import 'package:vitaflow/ui/pages/survey/loadingScreen.dart';
 import 'package:vitaflow/ui/pages/survey/resultScreen.dart';
 import 'package:vitaflow/ui/pages/survey/surveyProvider.dart';
 import 'package:vitaflow/ui/pages/survey/surveyScreen.dart';
-import 'package:vitaflow/ui/pages/vitaPulseScreen.dart';
+import 'package:vitaflow/ui/pages/vita_add_hearth_rate.dart';
+import 'package:vitaflow/ui/pages/vita_pulse_screen.dart';
 
 import '../ui/pages/daftarScreen.dart';
 import '../ui/pages/loginScreen.dart';
@@ -42,7 +44,7 @@ class RouteGenerator {
       case '/loading-survey':
         return MaterialPageRoute(builder: (_) => LoadingScreen());
       case SurveyResultScreen.routeName:
-        return MaterialPageRoute(builder: (_) => SurveyResultScreen(result: args as SurveyModel,));
+        return MaterialPageRoute(builder: (_) => SurveyResultScreen(result: args as SurveyModel));
 
       case '/home':
         return MaterialPageRoute(builder: (_) => MainPages());
@@ -52,6 +54,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RecordFoodScreen());
       case '/food-detail':
         return MaterialPageRoute(builder: (_) => FoodDetailScreen());
+      case '/food-list':
+        return MaterialPageRoute(builder: (_) => FoodListScreen(
+          defaultMealType:  'Makan Pagi',
+        ));
       case '/article':
         return MaterialPageRoute(builder: (_) => ArticleScreen());
 
@@ -72,10 +78,13 @@ class RouteGenerator {
             builder: (_) =>
                 SportActionScreen(data: args as List<Map<String, dynamic>>));
       case '/input-sport':
-        return MaterialPageRoute(builder: (_) => InputWorkoutScreen());
-      case '/profile':
-        return MaterialPageRoute(builder: (_) => ProfileScreen());
-
+        return MaterialPageRoute(builder: (_) => const InputWorkoutScreen());
+      case '/profile' :
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+      case '/product-search':
+        return MaterialPageRoute(builder: (_) => const ProductSearchScreen());
+      case '/add-user-health-rate':
+        return MaterialPageRoute(builder: (_) => const VitaAddHealthScreen());
       // case '/product-detail':
       //   return MaterialPageRoute(builder: (_) => ProductDetailScreen());
       // case '/cart':

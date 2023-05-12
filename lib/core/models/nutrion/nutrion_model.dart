@@ -9,10 +9,10 @@ class NutrionModel extends Serializable {
   final int protein;
   final int fat;
   final int intakeCalories;
-  final int proteinPercentage;
-  final int carbPercentage;
-  final int fatPercentage;
-  final int akg;
+  final num proteinPercentage;
+  final num carbPercentage;
+  final num fatPercentage;
+  final num akg;
 
   NutrionModel({
     required this.date,

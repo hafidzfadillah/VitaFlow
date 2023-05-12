@@ -122,9 +122,6 @@ class _SurveyScreenState extends State<SurveyScreen> {
                       if (percentage == 6 / 6 || currentPage == 5) {
                         print('survey done');
                         // survey.result();
-
-                        // Navigator.pushReplacementNamed(context, '/loading-survey');
-
                         _storeSurvey();
                       } else {
                         setState(() {

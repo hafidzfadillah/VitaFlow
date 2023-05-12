@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vitaflow/ui/home/theme.dart';
-import 'package:vitaflow/ui/widgets/MissionProgressCircuralBar.dart';
+import 'package:vitaflow/ui/widgets/mission_progress_circural_bar.dart';
 
 class MissionCard extends StatelessWidget {
   const MissionCard({

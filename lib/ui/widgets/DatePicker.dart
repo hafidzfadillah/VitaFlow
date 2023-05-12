@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
+import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
+import 'package:vitaflow/core/viewmodels/user/user_provider.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 
 class DateSelector extends StatefulWidget {
-  const DateSelector({Key? key}) : super(key: key);
+   DateSelector({Key? key , required this.userProvider}) : super(key: key);
 
+  UserProvider userProvider;
   @override
+  // ignore: library_private_types_in_public_api
   _DateSelectorState createState() => _DateSelectorState();
 }
 
 class _DateSelectorState extends State<DateSelector> {
   late DateTime _selectedDate;
   late DateTime _firstDayOfSelectedMonth;
+  int _selectedDateIndex = DateTime.now().weekday - 1;
 
   @override
   void initState() {
@@ -36,6 +42,14 @@ class _DateSelectorState extends State<DateSelector> {
   void _nextWeek() {
     setState(() {
       _selectedDate = _selectedDate.add(Duration(days: 7));
+      _firstDayOfSelectedMonth =
+          DateTime(_selectedDate.year, _selectedDate.month, 1);
+    });
+  }
+
+  void _onDateSelected(DateTime date) {
+    setState(() {
+      _selectedDate = date;
       _firstDayOfSelectedMonth =
           DateTime(_selectedDate.year, _selectedDate.month, 1);
     });
@@ -89,19 +103,40 @@ class _DateSelectorState extends State<DateSelector> {
       final bool isToday = date.year == now.year &&
           date.month == now.month &&
           date.day == now.day;
+
+      final bool isSelectDay = date.year == _selectedDate.year &&
+          date.month == _selectedDate.month &&
+          date.day == _selectedDate.day;
       final Widget dateWidget = Expanded(
         child: TextButton(
-          onPressed: () {
-            // TODO: handle date selection
+          onPressed: () async {
+            _onDateSelected(date);
+
+            widget.userProvider.getNutrion(
+                date: date // call getNutrion and getUserMission provider
+            );
+            widget.userProvider.getMyMission(date: date);
+                        widget.userProvider.getUserFood(date: date);
+
+
+            /// call getNutrion and getUserMission provider
+            ///
+            ///
+
+            // UserProvider userProvider = UserProvider();
+            // userProvider.clearMyNutrition();
+            // userProvider.clearMyMission();
+
+            // await userProvider.getNutrion(date: date);
+            // await userProvider.getMyMission(date: date);
           },
-          
           child: Text(
             dateFormat.format(date),
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: isSameMonth ? FontWeight.w500 : FontWeight.w300,
               color: isSameMonth
-                  ? (isToday ? primaryColor : Color(0xfffB4B8BB))
+                  ? (isSelectDay ? primaryColor : Color(0xfffB4B8BB))
                   : Colors.grey,
             ),
           ),
@@ -136,16 +171,13 @@ class _DateSelectorState extends State<DateSelector> {
                 ),
               ],
             ),
-            
             Row(
-              
               children: [
                 IconButton(
                   onPressed: _previousWeek,
                   iconSize: 16,
                   icon: Icon(Icons.arrow_back_ios),
                 ),
-
                 IconButton(
                   onPressed: _nextWeek,
                   iconSize: 16,
@@ -167,10 +199,8 @@ class _DateSelectorState extends State<DateSelector> {
         ),
         Container(
           decoration: BoxDecoration(
-                      color: Color(0xffF6F8FA),
-
-            borderRadius : BorderRadius.circular(12)
-          ),
+              color: Color(0xffF6F8FA),
+              borderRadius: BorderRadius.circular(12)),
           child: Row(
             children: _buildDates(),
           ),

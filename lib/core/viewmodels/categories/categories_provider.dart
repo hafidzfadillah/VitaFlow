@@ -32,16 +32,13 @@ class CategoryProvider extends ChangeNotifier {
   static CategoryProvider instance(BuildContext context) =>
       Provider.of(context, listen: false);
 
-  /// Finding list of restaurant from API
   Future<void> getCategories() async {
     await Future.delayed(const Duration(milliseconds: 100));
     setOnSearch(true);
     try {
-      final result = await categoryService.getRestaurants();
+      final result = await categoryService.getCategories();
 
-      print('trigger');
 
-      print(' from $result');
 
       if (result.status == 'success') {
         _categories = result.data;

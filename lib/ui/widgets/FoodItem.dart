@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vitaflow/core/models/foods/food_lite.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 
 class FoodItem extends StatefulWidget {
@@ -7,31 +8,23 @@ class FoodItem extends StatefulWidget {
     required this.title,
     required this.unit,
     required this.cal,
-    required this.akg,
+    required this.size,
+    required this.isChecked,
+    required this.onSelect,
   }) : super(key: key);
-
+  
   final String title;
   final String unit;
   final int cal;
-  final int akg;
+  final int size;
+  final bool isChecked;
+  final ValueChanged<bool> onSelect;
 
   @override
   State<FoodItem> createState() => _FoodItemState();
 }
 
 class _FoodItemState extends State<FoodItem> {
-  bool isChecked = false; // tambahkan variabel boolean
-
-  void onSelect(bool newValue) => setState(() {
-        if (newValue == true) {
-          isChecked = true;
-        } else {
-          isChecked = false;
-        }
-
-        // gunakan fungsi setState untuk mengubah nilai variabel isChecked
-      });
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -63,7 +56,7 @@ class _FoodItemState extends State<FoodItem> {
                     Row(
                       children: [
                         Text(
-                          widget.unit,
+                          '${widget.size}  ${widget.unit} ',
                           style: normalText.copyWith(
                             fontSize: 13,
                             color: primaryColor,
@@ -73,7 +66,7 @@ class _FoodItemState extends State<FoodItem> {
                           width: 10,
                         ),
                         Text(
-                          "AKG ${widget.akg}% - ${widget.cal} Kkal",
+                          " ${widget.cal} Kalori",
                           style: normalText.copyWith(
                             fontSize: 13,
                             color: Color(0xffB4B8BB),
@@ -85,12 +78,12 @@ class _FoodItemState extends State<FoodItem> {
                 ),
                 // checkbox
                 Checkbox(
-                  value:
-                      isChecked, // gunakan variabel isChecked sebagai nilai checkbox
-                  onChanged: (value) => {
-                    onSelect(value!)
-                  }, // gunakan fungsi toggleChecked sebagai event onChanged
-                ),
+                    value: widget.isChecked,
+                    onChanged: (bool? newValue) {
+                      if (newValue != null) {
+                        widget.onSelect(newValue);
+                      }
+                    }),
               ],
             ),
             Divider()
