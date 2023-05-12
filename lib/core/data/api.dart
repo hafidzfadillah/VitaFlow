@@ -55,4 +55,11 @@ class Api {
   /// * -------------------
   /// * Program Endpoint
   String getProgram = "$_baseServer/programs";
+
+  /// * -------------------
+
+   /// * -------------------
+  /// * Weight endpoint
+  String getWeight = "$_baseServer/weight-track/history";
+  String storeWeight = "$_baseServer/weight-track/store";
 }

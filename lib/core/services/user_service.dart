@@ -14,6 +14,8 @@ import 'package:vitaflow/core/models/user/user_drink.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 import 'package:vitaflow/core/models/user/user_model.dart';
 
+import '../models/weight/weight_model.dart';
+
 class UserService {
   BaseAPI api;
   UserService(this.api);
@@ -153,7 +155,23 @@ class UserService {
       return null;
     }
   }
+Future<ApiResultList<WeightModel>?> storeWeight(int bpm) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
 
+    APIResponse response = await api.post(api.endpoint.storeWeight,
+        useToken: true, token: token, data: {'weight': bpm});
+
+    if (response.statusCode == 200) {
+      final data = response.data;
+      final userWeight = ApiResultList<WeightModel>.fromJson(data,
+          (data) => data.map((e) => WeightModel.fromJson(e)).toList(), "data");
+
+      return userWeight;
+    } else {
+      return null;
+    }
+  }
   Future<ApiResultList<UserDrinkModel>> getUserHistoryDrink(
       {DateTime? date}) async {
     final prefs = await SharedPreferences.getInstance();
@@ -271,4 +289,18 @@ class UserService {
       return null;
     }
   }
+
+   Future<ApiResultList<WeightModel>> getWeightData({DateTime? date}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    String dateStr = DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
+
+    APIResponse response = await api.get(api.endpoint.getWeight,
+        useToken: true, token: token, data: {"date": dateStr});
+
+    return ApiResultList<WeightModel>.fromJson(response.data,
+        (data) => data.map((e) => WeightModel.fromJson(e)).toList(), "data");
+  }
+
 }

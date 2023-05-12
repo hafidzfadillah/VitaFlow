@@ -24,7 +24,9 @@ import '../ui/pages/daftarScreen.dart';
 import '../ui/pages/loginScreen.dart';
 import '../ui/pages/main_pages.dart';
 import '../ui/pages/onboarding.dart';
+import '../ui/pages/record_weight_screen.dart';
 import '../ui/pages/splashScreen.dart';
+import '../ui/pages/weight_add_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -85,6 +87,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ProductSearchScreen());
       case '/add-user-health-rate':
         return MaterialPageRoute(builder: (_) => const VitaAddHealthScreen());
+          case '/record-weight':
+        return MaterialPageRoute(builder: (_) => const RecordWeightScreen());
+      case '/record-add-weight':
+        return MaterialPageRoute(builder: (_) => const WeightAddScreen());
       // case '/product-detail':
       //   return MaterialPageRoute(builder: (_) => ProductDetailScreen());
       // case '/cart':
