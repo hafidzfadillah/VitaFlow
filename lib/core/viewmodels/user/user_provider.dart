@@ -69,6 +69,24 @@ class UserProvider extends ChangeNotifier {
 
   HealthDataModel? _healthData;
   HealthDataModel? get healthData => _healthData;
+  // Daftar function
+  Future<bool> daftar(String name, String email, String password) async {
+    setOnSearch(true);
+    try {
+      final result = await userService.daftar(name, email, password);
+      if (result.data.id != null) {
+        _user = result.data;
+        notifyListeners();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+      return false;
+    }
+  }
 
   // Login function
   Future<bool> login(String email, String password) async {
