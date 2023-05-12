@@ -135,7 +135,7 @@ class _ExerciseScheduleState extends State<ExerciseSchedule> {
             height: 2.h,
           ),
           RoundedOutlineButton(
-              title: 'Catat aktivitas',
+              title: 'Catat aktivitas Manual',
               style: GoogleFonts.poppins(color: primaryColor),
               color: primaryColor,
               onClick: () {

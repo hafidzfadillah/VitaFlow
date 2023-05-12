@@ -23,12 +23,22 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
               floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       
         floatingActionButton: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           width: double.infinity,
           height: 70,
           child: FloatingActionButton.extended(
-             backgroundColor: Color(0xff18B279),
-              onPressed: () {},
+             backgroundColor: const Color(0xff18B279),
+              onPressed: () {
+                // show snack bacr
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Dalam pengembangan"),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+
+              },
               label: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [Text("Tambahkan ke asupan" , style: normalText.copyWith(
@@ -45,13 +55,13 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
             'Ayam Bakar',
             style: normalText.copyWith(
                 fontSize: 16,
-                color: Color(0xff333333),
+                color: const Color(0xff333333),
                 fontWeight: FontWeight.w600),
           ),
           actions: [
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.more_vert, color: Color(0xff333333)),
+              icon: const Icon(Icons.more_vert, color: Color(0xff333333)),
             ),
           ],
           leading: CustomBackButton(
@@ -62,20 +72,20 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
         ),
         body: SafeArea(
           child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Ayam Bakar",
+                    "Ayam Goreng",
                     style: GoogleFonts.poppins(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff333333)),
+                        color: const Color(0xff333333)),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Row(
@@ -86,33 +96,33 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                         style: GoogleFonts.poppins(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)),
+                            color: const Color(0xff333333)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
-                      Text("100 gram"),
+                      const Text("100 gram"),
                     ],
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              FoodRating(
+              const FoodRating(
                 rating: 'A',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Text(
                 'Pilih Porsi',
                 style: normalText.copyWith(
                     fontSize: 16,
-                    color: Color(0xff333333),
+                    color: const Color(0xff333333),
                     fontWeight: FontWeight.w600),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Row(
@@ -126,26 +136,26 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                         filled: true,
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xffEAE7E7),
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xffEAE7E7),
                           ),
                         ),
                         hintText: '100',
-                        contentPadding: EdgeInsets.all(18),
+                        contentPadding: const EdgeInsets.all(18),
                       ),
                     ),
                   ),
                   Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: Color(0xffEAE7E7))),
+                          border: Border.all(color: const Color(0xffEAE7E7))),
                       width: MediaQuery.of(context).size.width * 0.42,
                       child: DropdownButton<String>(
                         value: dropdownValue,
@@ -173,13 +183,13 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                       )),
                 ],
               ),
-              NutrientChart(
+              const NutrientChart(
                 carbsPercentage: 75,
                 fatPercentage: 20,
                 proteinPercentage: 5,
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
 
@@ -192,7 +202,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                     'Mikronutrisi',
                     style: normalText.copyWith(
                         fontSize: 16,
-                        color: Color(0xff333333),
+                        color: const Color(0xff333333),
                         fontWeight: FontWeight.w600),
                   ),
                   Row(
@@ -204,14 +214,14 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                             color: primaryColor,
                             fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
                       Image.asset(
                         'assets/images/arrow_down.png',
                         width: 12,
                         height: 12,
-                        color: Color(0xff333333),
+                        color: const Color(0xff333333),
                       )
                     ],
                   )

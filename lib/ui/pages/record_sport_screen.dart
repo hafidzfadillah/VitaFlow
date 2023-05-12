@@ -143,7 +143,7 @@ class _RecordSportScreenState extends State<RecordSportScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Record Makanan',
+        title: 'Aktivitas Olahraga',
         backgroundColor: lightModeBgColor,
         elevation: 0,
         leading: CustomBackButton(onClick: () {
@@ -163,7 +163,7 @@ class _RecordSportScreenState extends State<RecordSportScreen> {
                 SizedBox(
                   height: 4.h,
                 ),
-                Center(
+                const Center(
                   child: Text(
                     "Target: 300 kalori",
                     style: TextStyle(
@@ -176,7 +176,7 @@ class _RecordSportScreenState extends State<RecordSportScreen> {
                 SizedBox(
                   height: 8.h,
                 ),
-                Text(
+                const Text(
                   "Exercise Plan",
                   style: TextStyle(
                     fontSize: headerSize,

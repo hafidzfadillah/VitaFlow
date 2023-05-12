@@ -10,6 +10,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.backgroundColor,
     this.elevation,
+    this.bottom,
   }) : super(key: key);
 
   final String title;
@@ -17,6 +18,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final Color? backgroundColor;
   final double? elevation;
+  // bottom
+  final PreferredSizeWidget? bottom;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: elevation ?? 0,
       leading: leading,
       centerTitle: true,
+      bottom:  bottom,
       title: Text(
         title,
         style: GoogleFonts.poppins(
