@@ -11,10 +11,12 @@ import 'package:vitaflow/ui/pages/programScreen.dart';
 import 'package:vitaflow/ui/pages/record_food_screen.dart';
 import 'package:vitaflow/ui/pages/recordSportScreen.dart';
 import 'package:vitaflow/ui/pages/record_water_screen.dart';
+import 'package:vitaflow/ui/pages/record_weight_screen.dart';
 import 'package:vitaflow/ui/pages/sportActionScreen.dart';
 import 'package:vitaflow/ui/pages/survey/surveyScreen.dart';
 import 'package:vitaflow/ui/pages/vita_add_hearth_rate.dart';
 import 'package:vitaflow/ui/pages/vita_pulse_screen.dart';
+import 'package:vitaflow/ui/pages/weight_add_screen.dart';
 
 import '../ui/pages/daftarScreen.dart';
 import '../ui/pages/loginScreen.dart';
@@ -77,6 +79,10 @@ case '/product-search':
         return MaterialPageRoute(builder: (_) => const ProductSearchScreen());
       case '/add-user-health-rate':
         return MaterialPageRoute(builder: (_) => const VitaAddHealthScreen());
+      case '/record-weight':
+        return MaterialPageRoute(builder: (_) => const RecordWeightScreen());
+      case '/record-add-weight':
+        return MaterialPageRoute(builder: (_) => const WeightAddScreen());
       // case '/product-detail':
       //   return MaterialPageRoute(builder: (_) => ProductDetailScreen());
       // case '/cart':

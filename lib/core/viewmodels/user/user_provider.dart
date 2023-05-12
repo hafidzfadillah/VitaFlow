@@ -11,6 +11,7 @@ import 'package:vitaflow/core/models/mission/my_mission.dart';
 import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 import 'package:vitaflow/core/models/user/user_model.dart';
+import 'package:vitaflow/core/models/weight/weight_model.dart';
 import 'package:vitaflow/core/services/user_service.dart';
 import 'package:vitaflow/injection.dart';
 
@@ -46,6 +47,9 @@ class UserProvider extends ChangeNotifier {
   // User drink data
   List<BpmModel>? _userBpm;
   List<BpmModel>? get userBpm => _userBpm;
+  // User drink data
+  List<WeightModel>? _userWeight;
+  List<WeightModel>? get userWeight => _userWeight;
 
   // user food data
   List<UserFood>? _userLunchFood;
@@ -327,6 +331,26 @@ class UserProvider extends ChangeNotifier {
     }
     setOnSearch(false);
   }
+  void storeWeight(int weight) async {
+    setOnSearch(true);
+
+    notifyListeners();
+    try {
+      final result = await userService.storeWeight(
+        weight,
+      );
+
+      if (result?.message == 'Success') {
+        _userWeight = result?.data;
+      }
+
+      notifyListeners();
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+    }
+    setOnSearch(false);
+  }
 
   Future<void> getUserHistoryDrink({DateTime? date}) async {
     await Future.delayed(const Duration(milliseconds: 100));
@@ -366,6 +390,26 @@ class UserProvider extends ChangeNotifier {
       debugPrint("Error: ${e.toString()}");
       debugPrint("Stacktrace: ${stacktrace.toString()}");
       _userBpm = [];
+    }
+    setOnSearch(false);
+  }
+  Future<void> getUserWeightHistory({DateTime? date}) async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    setOnSearch(true);
+
+    final selectedDate = date ?? DateTime.now();
+    final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+    try {
+      final result = await userService.getWeightData(date: date);
+      if (result.data!.isNotEmpty) {
+        _userWeight = result.data;
+      } else {
+        _userWeight = [];
+      }
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+      _userWeight = [];
     }
     setOnSearch(false);
   }

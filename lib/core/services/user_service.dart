@@ -13,6 +13,7 @@ import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
 import 'package:vitaflow/core/models/user/user_drink.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 import 'package:vitaflow/core/models/user/user_model.dart';
+import 'package:vitaflow/core/models/weight/weight_model.dart';
 
 class UserService {
   BaseAPI api;
@@ -128,6 +129,23 @@ class UserService {
       return null;
     }
   }
+  Future<ApiResultList<WeightModel>?> storeWeight(int bpm) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    APIResponse response = await api.post(api.endpoint.storeWeight,
+        useToken: true, token: token, data: {'weight': bpm});
+
+    if (response.statusCode == 200) {
+      final data = response.data;
+      final userWeight = ApiResultList<WeightModel>.fromJson(data,
+          (data) => data.map((e) => WeightModel.fromJson(e)).toList(), "data");
+
+      return userWeight;
+    } else {
+      return null;
+    }
+  }
 
   Future<ApiResultList<UserDrinkModel>> getUserHistoryDrink(
       {DateTime? date}) async {
@@ -153,13 +171,12 @@ class UserService {
     APIResponse response = await api.get(api.endpoint.getBpm,
         useToken: true, token: token, data: {"date": dateStr});
 
-    print("==============");
-    print(response.data);
-        print("==============");
+  
 
     return ApiResult<HealthDataModel>.fromJson(
         response.data, (data) => HealthDataModel.fromJson(data), "data");
   }
+
   Future<ApiResultList<BpmModel>> getHistoryHealth({DateTime? date}) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access_token');
@@ -177,6 +194,21 @@ class UserService {
         response.data?['data'],
         (data) => data.map((e) => BpmModel.fromJson(e)).toList(),
         "health_data");
+  }
+  Future<ApiResultList<WeightModel>> getWeightData({DateTime? date}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    String dateStr = DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
+
+    APIResponse response = await api.get(api.endpoint.getWeight,
+        useToken: true, token: token, data: {"date": dateStr});
+
+   
+    return ApiResultList<WeightModel>.fromJson(
+        response.data,
+        (data) => data.map((e) => WeightModel.fromJson(e)).toList(),
+        "data");
   }
 
   Future<ApiResultList<UserFood>> getUserHistoryMeal({DateTime? date}) async {

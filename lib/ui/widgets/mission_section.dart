@@ -27,9 +27,11 @@ class Mission extends StatelessWidget {
         // Filter data yang memiliki status 'on-going'
 
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Menampilkan jumlah tugas yang belum selesai
             Row(
+              
               children: [
                 Text(
                   "Misi kamu hari ini ",
@@ -49,6 +51,12 @@ class Mission extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 16),
+
+            GestureDetector(child: Text("Jooin premium") , onTap: () {
+              Navigator.pushNamed(context, '/premium');
+          
+            },),
 
             const SizedBox(height: 16),
 

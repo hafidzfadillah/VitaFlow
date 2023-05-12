@@ -50,7 +50,12 @@ class Api {
 
   String vitabot = "$_baseServer/vitabot";
   String storeBpm = "$_baseServer/health-track/store";
+
   String getBpm = "$_baseServer/health-track/history?days=1";
+  String getWeight = "$_baseServer/weight-track/history";
+
+  
+  String storeWeight = "$_baseServer/weight-track/store";
 
 
 
