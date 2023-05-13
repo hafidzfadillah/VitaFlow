@@ -122,7 +122,7 @@ class _FoodListScreenState extends State<FoodListScreen>
                     .toList();
 
                 final UserProvider userProvider = UserProvider();
-
+  
                 userProvider.storeFoods(selected, _mealType);
                 // delay
                 Future.delayed(const Duration(seconds: 1), () {

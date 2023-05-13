@@ -42,6 +42,22 @@ class _ListSportState extends State<ListSport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation:  FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          width: double.infinity,
+          height: 70,
+          child: FloatingActionButton.extended(
+            onPressed: () {
+              Navigator.pushNamed(context, '/action-sport',
+                  arguments: widget.data['exercises']);          
+            },
+            label: Text("Mulai",
+                style: normalText.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600)),
+            backgroundColor: primaryColor,
+          )),
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [

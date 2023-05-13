@@ -9,6 +9,8 @@ import 'package:vitaflow/core/viewmodels/exercise/exercie_provider.dart';
 import 'package:vitaflow/core/viewmodels/food/food_provider.dart';
 import 'package:vitaflow/core/viewmodels/user/user_provider.dart';
 import 'package:vitaflow/ui/home/theme.dart';
+import 'package:vitaflow/ui/pages/main_pages.dart';
+import 'package:vitaflow/ui/pages/record_sport_screen.dart';
 import 'package:vitaflow/ui/widgets/CustomAppBar.dart';
 import 'package:vitaflow/ui/widgets/FoodItem.dart';
 import 'package:vitaflow/ui/widgets/SearchHistoryItem.dart';
@@ -68,7 +70,15 @@ class _InputWorkoutScreen extends State<InputWorkoutScreen>
                 userProvider.storeExercise(selected);
                 // delay
                 Future.delayed(const Duration(seconds: 1), () {
-                  Navigator.popAndPushNamed(context, '/food-record');
+                 Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MainPages()))
+                      .then((value) {
+                    if (value != null && value == true) {
+                      // Refresh widget disini
+                    }
+                  });
                 });
               },
               backgroundColor: Colors.green,
@@ -167,7 +177,7 @@ class _ExerciseBody extends State<ExerciseBody> {
                     Colors.green, // Warna indicator untuk tab yang aktif
                 tabs: [
                   Tab(text: 'Terakhir dicari'),
-                  Tab(text: 'Makanan Populer'),
+                  Tab(text: 'Olahraga Populer'),
                 ],
               ),
               Expanded(
@@ -247,15 +257,12 @@ class _ExerciseSearchState extends State<_ExerciseSearch> {
                           color: Color(0xffEAE7E7),
                         ),
                       ),
-                      hintText: 'Cari makanan terakhir dimakan',
+                      hintText: 'Cari Kegiatan olahraga  ',
                       contentPadding: const EdgeInsets.all(18),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  if (widget.predictFood != null)
-                    Text("Mungkin kamu cari : ${widget.predictFood}")
-                  else
-                    Container(),
+                 
                   const SizedBox(height: 20),
                   Container(
                     margin: const EdgeInsets.only(bottom: 10),
@@ -313,10 +320,8 @@ class _ExerciseSearchState extends State<_ExerciseSearch> {
                   }).toList(),
                 ),
               ),
-            if (widget.predictFood != null)
-              Text("Mungkin kamu cari : ${widget.predictFood}")
-            else
-              Container(),
+            
+       
             SizedBox(
               height: 16,
             ),
@@ -480,7 +485,7 @@ class _PopulerExerciseState extends State<_PopulerExercise> {
                             color: Color(0xffEAE7E7),
                           ),
                         ),
-                        hintText: 'Cari makanan terakhir dimakan',
+                        hintText: 'Cari kegiatan olahraga',
                         contentPadding: const EdgeInsets.all(18),
                       ),
                     ),

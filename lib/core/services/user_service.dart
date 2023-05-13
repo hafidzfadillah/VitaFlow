@@ -7,7 +7,6 @@ import 'package:vitaflow/core/models/api/api_response.dart';
 import 'package:vitaflow/core/models/api/api_result_model.dart';
 import 'package:vitaflow/core/models/bpm/bpm_model.dart';
 import 'package:vitaflow/core/models/bpm/healt_data_model.dart';
-import 'package:vitaflow/core/models/exercise/exercise_model.dart';
 import 'package:vitaflow/core/models/foods/food_lite.dart';
 import 'package:vitaflow/core/models/mission/my_mission.dart';
 import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
@@ -16,6 +15,7 @@ import 'package:vitaflow/core/models/user/user_drink.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 import 'package:vitaflow/core/models/user/user_model.dart';
 
+import '../models/exercise/exercise_model.dart';
 import '../models/weight/weight_model.dart';
 
 class UserService {
@@ -245,6 +245,61 @@ class UserService {
         (data) => data.map((e) => UserFood.fromJson(e)).toList(), "foods");
   }
 
+  Future<ApiResult<FoodLiteModel>?> storeFoods(
+      String mealType, List<FoodLiteModel> foods) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    final foodMaps = foods
+        .map((food) => {
+              'food_id': food.id,
+              'calorie_intake': food.calories,
+              'carbohydrate_intake': food.carbs,
+              'protein_intake': food.protein,
+              'fat_intake': food.fat,
+              'size': food.defaultSize,
+              'unit': food.defaultServing,
+            })
+        .toList();
+
+    if (mealType == 'Makan Pagi')
+      mealType = 'breakfast';
+    else if (mealType == 'Makan Siang')
+      mealType = 'lunch';
+    else if (mealType == 'Makan Malam')
+      mealType = 'dinner';
+    else
+      mealType = 'snack';
+
+    final requestBody = json.encode({
+      'meal_type': mealType,
+      'foods': foodMaps,
+    });
+
+    print(requestBody);
+
+    APIResponse response = await api.post(
+      api.endpoint.storeFoods,
+      useToken: true,
+      token: token,
+      data: requestBody,
+    );
+
+    print(api.endpoint.storeFoods);
+    final data = response.data;
+    print(data);
+
+    if (response.statusCode == 200) {
+      final data = response.data;
+      final result = ApiResult<FoodLiteModel>.fromJson(
+          data, (data) => FoodLiteModel.fromJson(data), "data");
+      return result;
+    } else {
+      return null;
+    }
+  }
+
+
   Future<ApiResult<ExerciseModel>?> storeExercise(
       List<ExerciseModel> exercises) async {
     final prefs = await SharedPreferences.getInstance();
@@ -279,78 +334,46 @@ class UserService {
       return null;
     }
   }
-  Future<ApiResult<FoodLiteModel>?> storeFoods(
-      String mealType, List<FoodLiteModel> foods) async {
+
+
+
+  Future<ApiResultList<WeightModel>> getWeightData({DateTime? date}) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access_token');
 
-    final foodMaps = foods
-        .map((food) => {
-              'food_id': food.id,
-              'calorie_intake': food.calories,
-              'carbohydrate_intake': food.carbs,
-              'protein_intake': food.protein,
-              'fat_intake': food.fat,
-              'size': food.defaultSize,
-              'unit': food.defaultServing,
-            })
-        .toList();
+    String dateStr = DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
 
-    if (mealType == 'Makan Pagi')
-      mealType = 'breakfast';
-    else if (mealType == 'Makan Siang')
-      mealType = 'lunch';
-    else if (mealType == 'Makan Malam')
-      mealType = 'dinner';
-    else
-      mealType = 'snack';
+    APIResponse response = await api.get(api.endpoint.getWeight,
+        useToken: true, token: token, data: {"date": dateStr});
 
-    final requestBody = json.encode({
-      'meal_type': mealType,
-      'foods': foodMaps,
-    });
-      }
-  
-
-    Future<ApiResultList<WeightModel>> getWeightData({DateTime? date}) async {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('access_token');
-
-      String dateStr = DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
-
-      APIResponse response = await api.get(api.endpoint.getWeight,
-          useToken: true, token: token, data: {"date": dateStr});
-
-      return ApiResultList<WeightModel>.fromJson(response.data,
-          (data) => data.map((e) => WeightModel.fromJson(e)).toList(), "data");
-    }
-
-    Future<ApiResultList<void>?> activeFreeTrial() async {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('access_token');
-
-      await api.post(api.endpoint.activeFreeTrial,
-          useToken: true, token: token);
-    }
-
-    Future<ApiResult<TransactionModel>> paymentPremium(String? planType) async {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('access_token');
-
-      APIResponse response = await api.post(api.endpoint.payPremium,
-          useToken: true, token: token, data: {"plan_type": planType});
-
-      return ApiResult<TransactionModel>.fromJson(
-          response.data, (data) => TransactionModel.fromJson(data), "data");
-    }
-
-    Future<ApiResult<TransactionModel>> verifyPayment(
-        String? transaction_id) async {
-      APIResponse response = await api.post(api.endpoint.verifyPayment,
-          data: {"transaction_id": transaction_id});
-
-      return ApiResult<TransactionModel>.fromJson(
-          response.data, (data) => TransactionModel.fromJson(data), "data");
-    }
+    return ApiResultList<WeightModel>.fromJson(response.data,
+        (data) => data.map((e) => WeightModel.fromJson(e)).toList(), "data");
   }
 
+  Future<ApiResultList<void>?> activeFreeTrial() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    await api.post(api.endpoint.activeFreeTrial, useToken: true, token: token);
+  }
+
+  Future<ApiResult<TransactionModel>> paymentPremium(String? planType) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    APIResponse response = await api.post(api.endpoint.payPremium,
+        useToken: true, token: token, data: {"plan_type": planType});
+
+    return ApiResult<TransactionModel>.fromJson(
+        response.data, (data) => TransactionModel.fromJson(data), "data");
+  }
+
+   Future<ApiResult<TransactionModel>> verifyPayment(String? transaction_id) async {
+  
+
+    APIResponse response = await api.post(api.endpoint.verifyPayment, data: {"transaction_id": transaction_id});
+
+    return ApiResult<TransactionModel>.fromJson(
+        response.data, (data) => TransactionModel.fromJson(data), "data");
+  }
+}
