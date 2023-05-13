@@ -4,6 +4,7 @@ import 'package:vitaflow/core/data/base_api.dart';
 import 'package:vitaflow/core/services/article_service.dart';
 import 'package:vitaflow/core/services/categories_service.dart';
 import 'package:vitaflow/core/services/chat_service.dart';
+import 'package:vitaflow/core/services/exercise_service.dart';
 import 'package:vitaflow/core/services/food_service.dart';
 import 'package:vitaflow/core/services/product_service.dart';
 import 'package:vitaflow/core/services/program_service.dart';
@@ -37,4 +38,5 @@ Future<void> setupLocator() async {
   locator.registerSingleton(FoodService(locator<BaseAPI>()));
   locator.registerSingleton(ChatService(locator<BaseAPI>()));
   locator.registerSingleton(ProgramService(locator<BaseAPI>()));
+  locator.registerSingleton(ExerciseService(locator<BaseAPI>()));
 }

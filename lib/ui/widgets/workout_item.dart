@@ -7,12 +7,15 @@ class WorkoutItem extends StatefulWidget {
   final String title;
   final int durasiDetik, jmlKkal;
   bool? isChecked = false;
+  final ValueChanged<bool> onSelect;
 
   WorkoutItem(
       {super.key,
       required this.title,
       required this.durasiDetik,
       required this.jmlKkal,
+          required this.onSelect,
+
       this.isChecked = false});
 
   @override
@@ -36,7 +39,7 @@ class _WorkoutItemState extends State<WorkoutItem> {
               RichText(
                   text: TextSpan(children: [
                 TextSpan(
-                  text: '${widget.durasiDetik ~/ 60} jam',
+                  text: '${widget.durasiDetik ~/ 60} menit',
                   style: GoogleFonts.poppins(
                       color: primaryColor, fontSize: captionSize),
                 ),
@@ -50,10 +53,10 @@ class _WorkoutItemState extends State<WorkoutItem> {
           )),
           Checkbox(
               value: widget.isChecked,
-              onChanged: (value) {
-                setState(() {
-                  widget.isChecked = value;
-                });
+              onChanged: (bool? newValue) {
+                if (newValue != null) {
+                  widget.onSelect(newValue);
+                }
               })
         ],
       ),

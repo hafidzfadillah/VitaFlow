@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:vitaflow/ui/home/theme.dart';
 import 'package:vitaflow/ui/widgets/CustomAppBar.dart';
+import 'package:vitaflow/ui/widgets/burned_calori_bar.dart';
 import 'package:vitaflow/ui/widgets/exercise_schedule.dart';
 
 import '../widgets/KaloriProgressBar.dart';
@@ -158,16 +159,15 @@ class _RecordSportScreenState extends State<RecordSportScreen> {
             child: ListView(
               padding: EdgeInsets.all(defMargin),
               children: [
-                KaloriProgressBar(
-                    currentCalories: 115, goalCalories: 300, width: 40.w),
+                Center(child: BurnCaloriBar(value: 300, width: 200)),
                 SizedBox(
-                  height: 4.h,
+                  height: 6.h,
                 ),
                 const Center(
                   child: Text(
                     "Target: 300 kalori",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff333333),
                     ),
@@ -180,7 +180,7 @@ class _RecordSportScreenState extends State<RecordSportScreen> {
                   "Exercise Plan",
                   style: TextStyle(
                     fontSize: headerSize,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     color: Color(0xff333333),
                   ),
                 ),

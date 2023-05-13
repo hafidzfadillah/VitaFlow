@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitaflow/core/models/api/api_result_model.dart';
 import 'package:vitaflow/core/models/bpm/bpm_model.dart';
 import 'package:vitaflow/core/models/bpm/healt_data_model.dart';
+import 'package:vitaflow/core/models/exercise/exercise_model.dart';
 import 'package:vitaflow/core/models/foods/food_lite.dart';
 import 'package:vitaflow/core/models/mission/my_mission.dart';
 import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
@@ -571,6 +572,18 @@ class UserProvider extends ChangeNotifier {
   void storeFoods(List<FoodLiteModel> foods, String mealType) async {
     try {
       await userService.storeFoods(mealType, foods);
+
+      notifyListeners();
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+    }
+    setOnSearch(false);
+  }
+  void storeExercise(List<ExerciseModel> exercises) async {
+    try {
+      await userService.storeExercise(
+        exercises);
 
       notifyListeners();
     } catch (e, stacktrace) {
