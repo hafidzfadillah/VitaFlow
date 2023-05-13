@@ -14,9 +14,10 @@ import 'package:vitaflow/core/models/transaction/transaction_model.dart';
 import 'package:vitaflow/core/models/user/user_drink.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 import 'package:vitaflow/core/models/user/user_model.dart';
-
+import '../models/exercise/exercise_model.dart';
 import '../models/step/step_model.dart';
 import '../models/weight/weight_model.dart';
+
 
 class UserService {
   BaseAPI api;
@@ -316,6 +317,44 @@ class UserService {
       return null;
     }
   }
+
+
+  Future<ApiResult<ExerciseModel>?> storeExercise(
+      List<ExerciseModel> exercises) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    final exerciseMaps = exercises
+        .map((exercise) => {
+              'exercise_type_id': exercise.id,
+              'duration': exercise.exerciseDuration,
+            })
+        .toList();
+
+    final requestBody = json.encode({
+      'exercises': exerciseMaps,
+    });
+
+    print(requestBody);
+
+    APIResponse response = await api.post(
+      api.endpoint.storeExercise,
+      useToken: true,
+      token: token,
+      data: requestBody,
+    );
+
+    if (response.statusCode == 200) {
+      final data = response.data;
+      final result = ApiResult<ExerciseModel>.fromJson(
+          data, (data) => ExerciseModel.fromJson(data), "data");
+      return result;
+    } else {
+      return null;
+    }
+  }
+
+
 
   Future<ApiResultList<WeightModel>> getWeightData({DateTime? date}) async {
     final prefs = await SharedPreferences.getInstance();

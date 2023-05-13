@@ -69,4 +69,8 @@ class Api {
   String activeFreeTrial = "$_baseServer/premium/trial";
   String payPremium = "$_baseServer/premium/pay/bca";
   String verifyPayment = "$_baseServer/verify";
+
+  String getExercise = "$_baseServer/exercise";
+  String searchExercise = "$_baseServer/exercise/search";
+  String storeExercise = "$_baseServer/exercise-track/store";
 }

@@ -20,13 +20,14 @@ class SportItem extends StatelessWidget {
     return InkWell(
       onTap: onClick,
       child: Card(
+        margin:   EdgeInsets.only(bottom: 40),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-              child: Image.asset(
+              child: Image.network(
                 imgAddress,
                 height: 20.h,
                 width: double.infinity,

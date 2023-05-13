@@ -59,7 +59,8 @@ dependencies:
   d_chart: ^2.2.11
   shimmer_animation: ^2.1.0+1
   flutter_tflite: ^1.0.1
-  
+  chewie: ^1.5.0
+
   
 
 dev_dependencies:

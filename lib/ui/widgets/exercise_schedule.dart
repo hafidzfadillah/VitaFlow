@@ -7,8 +7,10 @@ import 'package:vitaflow/ui/widgets/button.dart';
 
 class ExerciseSchedule extends StatefulWidget {
   final List<Map<String, dynamic>> exercises;
+  final int isPremium;
 
-  const ExerciseSchedule({super.key, required this.exercises});
+  const ExerciseSchedule(
+      {super.key, required this.exercises, required this.isPremium});
 
   @override
   State<ExerciseSchedule> createState() => _ExerciseScheduleState();
@@ -31,19 +33,19 @@ class _ExerciseScheduleState extends State<ExerciseSchedule> {
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600, fontSize: subheaderSize),
               ),
-              Spacer(),
+              const Spacer(),
               Visibility(
                   child: Row(
                 children: [
                   IconButton(
                     onPressed: () {},
                     iconSize: 16,
-                    icon: Icon(Icons.arrow_back_ios),
+                    icon: const Icon(Icons.arrow_back_ios),
                   ),
                   IconButton(
                     onPressed: () {},
                     iconSize: 16,
-                    icon: Icon(Icons.arrow_forward_ios),
+                    icon: const Icon(Icons.arrow_forward_ios),
                   ),
                 ],
               ))
@@ -65,7 +67,8 @@ class _ExerciseScheduleState extends State<ExerciseSchedule> {
                     });
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(defRadius),
                         color:
@@ -73,7 +76,7 @@ class _ExerciseScheduleState extends State<ExerciseSchedule> {
                     child: Column(
                       children: [
                         widget.exercises[currentWeek]["days"][i]['status'] == 0
-                            ? Icon(
+                            ? const Icon(
                                 Icons.lock,
                                 color: Color(0xffCECECE),
                                 size: 32,
@@ -82,14 +85,17 @@ class _ExerciseScheduleState extends State<ExerciseSchedule> {
                                 Icons.check_circle,
                                 color: status == 2
                                     ? primaryColor
-                                    : Color(0xffCECECE),
+                                    : const Color(0xffCECECE),
                                 size: 32,
                               ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           "Hari $day",
-                          style:
-                              GoogleFonts.poppins(fontWeight: FontWeight.w600),
+                          style: i == selectedDay
+                              ? GoogleFonts.poppins(fontWeight: FontWeight.w600)
+                              : GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xffC8C8C8)),
                         ),
                         SizedBox(
                           height: 1.h,
@@ -119,12 +125,20 @@ class _ExerciseScheduleState extends State<ExerciseSchedule> {
               style: GoogleFonts.poppins(color: Colors.white),
               background: primaryColor,
               onClick: () {
+                print(widget.isPremium);
                 if (widget.exercises[currentWeek]['days'][selectedDay]
                         ['status'] !=
                     0) {
-                  Navigator.pushNamed(context, '/list-sport',
-                      arguments: widget.exercises[currentWeek]['days']
-                          [selectedDay]);
+                  if (widget.isPremium == 0) {
+                    Navigator.pushNamed(
+                      context,
+                      '/premium',
+                    );
+                  } else {
+                    Navigator.pushNamed(context, '/list-sport',
+                        arguments: widget.exercises[currentWeek]['days']
+                            [selectedDay]);
+                  }
                 } else {
                   Fluttertoast.showToast(
                       msg: 'Selesaikan sesi sebelumnya terlebih dahulu');

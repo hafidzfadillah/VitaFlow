@@ -101,7 +101,6 @@ class HomeScreenBody extends StatelessWidget {
                   height: 16,
                 ),
                 const UserNutrion(),
-            
                 const MyMisssion()
               ],
             ))
@@ -229,6 +228,7 @@ class MyMisssion extends StatelessWidget {
     return Consumer<UserProvider>(builder: (context, userProvider, _) {
       if (userProvider.myMission == null && !userProvider.onSearch) {
         userProvider.getMyMission();
+        userProvider.getUserData();
 
         return const LoadingSingleBox();
       }
@@ -246,7 +246,7 @@ class MyMisssion extends StatelessWidget {
         );
       }
 
-      return Mission(myMission: userProvider.myMission);
+      return Mission(myMission: userProvider.myMission , isPremium:  userProvider.user?.isPremium  ?? 0 ,);
     });
   }
 }

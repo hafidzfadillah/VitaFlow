@@ -16,6 +16,10 @@ class UserModel extends Serializable {
   final int targetWeight;
   final num recommendCalories;
   final int point;
+  final int isPremium;
+  final DateTime? premiumExpiredAt;
+  final int credit;
+
 
   UserModel({
     required this.id,
@@ -33,6 +37,10 @@ class UserModel extends Serializable {
     required this.targetWeight,
     required this.recommendCalories,
     required this.point,
+    required this.isPremium,
+    this.premiumExpiredAt,
+    required this.credit,
+
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -53,6 +61,11 @@ class UserModel extends Serializable {
         targetWeight: json['target_weight'] ?? 0,
         recommendCalories: json['recommend_calories'] ?? 0,
         point: json['point'] ?? 0,
+        isPremium: json['is_premium'] ?? 0,
+        premiumExpiredAt: json['premium_expired_at'] != null
+            ? DateTime.parse(json['premium_expired_at'])
+            : null,
+        credit: json['credit'] ?? 0,
       );
 
   @override
@@ -72,5 +85,8 @@ class UserModel extends Serializable {
         "target_weight": targetWeight,
         "recommend_calories": recommendCalories,
         "point": point,
+        "is_premium": isPremium,
+        "premium_expired_at": premiumExpiredAt?.toIso8601String(),
+        "credit": credit,
       };
 }
