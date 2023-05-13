@@ -11,9 +11,11 @@ import 'package:vitaflow/ui/pages/product_search_screen.dart';
 import 'package:vitaflow/ui/pages/profileScreen.dart';
 import 'package:vitaflow/ui/pages/programScreen.dart';
 import 'package:vitaflow/ui/pages/record_food_screen.dart';
+import 'package:vitaflow/ui/pages/record_run_screen.dart';
 import 'package:vitaflow/ui/pages/record_sport_screen.dart';
 import 'package:vitaflow/ui/pages/record_water_screen.dart';
 import 'package:vitaflow/ui/pages/sportActionScreen.dart';
+import 'package:vitaflow/ui/pages/step_add_screen.dart';
 import 'package:vitaflow/ui/pages/survey/loadingScreen.dart';
 import 'package:vitaflow/ui/pages/survey/resultScreen.dart';
 import 'package:vitaflow/ui/pages/survey/surveyProvider.dart';
@@ -94,6 +96,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const WeightAddScreen());
       case '/premium':
         return MaterialPageRoute(builder: (_) => const PremiumScreen());
+      case '/record-sport-run':
+        return MaterialPageRoute(builder: (_) => const RecordRunScreen());
+      case '/record-add-step':
+        return MaterialPageRoute(builder: (_) => const StepAddScren());
       
       // case '/product-detail':
       //   return MaterialPageRoute(builder: (_) => ProductDetailScreen());

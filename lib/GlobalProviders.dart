@@ -4,6 +4,7 @@ import 'package:vitaflow/core/viewmodels/connection/connection.dart';
 import 'package:vitaflow/ui/pages/survey/surveyProvider.dart';
 
 import 'core/viewmodels/program/program_provider.dart';
+import 'core/viewmodels/user/user_provider.dart';
 
 class GlobalProviders {
   /// Register your provider here
@@ -12,6 +13,7 @@ class GlobalProviders {
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
         ChangeNotifierProvider(create: (context) => SurveyProvider()),
         ChangeNotifierProvider(create: (context) => ProgramProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
         
       ];
 }

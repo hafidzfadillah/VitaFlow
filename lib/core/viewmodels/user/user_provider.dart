@@ -10,6 +10,7 @@ import 'package:vitaflow/core/models/bpm/healt_data_model.dart';
 import 'package:vitaflow/core/models/foods/food_lite.dart';
 import 'package:vitaflow/core/models/mission/my_mission.dart';
 import 'package:vitaflow/core/models/nutrion/nutrion_model.dart';
+import 'package:vitaflow/core/models/step/step_model.dart';
 import 'package:vitaflow/core/models/transaction/transaction_model.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 import 'package:vitaflow/core/models/user/user_model.dart';
@@ -52,6 +53,9 @@ class UserProvider extends ChangeNotifier {
   // User drink data
   List<WeightModel>? _userWeight;
   List<WeightModel>? get userWeight => _userWeight;
+  // User step data
+  List<StepModel>? _userStep;
+  List<StepModel>? get userStep => _userStep;
 
   // user food data
   List<UserFood>? _userLunchFood;
@@ -372,6 +376,27 @@ class UserProvider extends ChangeNotifier {
     setOnSearch(false);
   }
 
+  void storeStep(int step) async {
+    setOnSearch(true);
+
+    notifyListeners();
+    try {
+      final result = await userService.storeStep(
+        step,
+      );
+
+      if (result?.message == 'Success') {
+        _userStep = result?.data;
+      }
+
+      notifyListeners();
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+    }
+    setOnSearch(false);
+  }
+
   Future<void> getUserHistoryDrink({DateTime? date}) async {
     await Future.delayed(const Duration(milliseconds: 100));
     setOnSearch(true);
@@ -435,6 +460,28 @@ class UserProvider extends ChangeNotifier {
     setOnSearch(false);
   }
 
+  Future<void> getUserStepHistory({DateTime? date}) async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    setOnSearch(true);
+
+    final selectedDate = date ?? DateTime.now();
+    final formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+    try {
+      final result = await userService.getStepData(date: date);
+      print("step data: ${result.data}");
+      if (result.data!.isNotEmpty) {
+        _userStep = result.data;
+      } else {
+        _userStep = [];
+      }
+    } catch (e, stacktrace) {
+      debugPrint("Error: ${e.toString()}");
+      debugPrint("Stacktrace: ${stacktrace.toString()}");
+      _userStep = [];
+    }
+    setOnSearch(false);
+  }
+
   void activeTrial() async {
     setOnSearch(true);
 
@@ -452,7 +499,7 @@ class UserProvider extends ChangeNotifier {
 
   Future<TransactionModel> paymentPremium(String? planType) async {
     setOnSearch(true);
-   try {
+    try {
       final ApiResult<TransactionModel> result =
           await userService.paymentPremium(planType);
 
@@ -462,17 +509,15 @@ class UserProvider extends ChangeNotifier {
       } else {
         debugPrint("Error: ${result.message}");
         data = TransactionModel(
-          grossAmount: 0.0,
-          transactionId: "",
-          paymentType: "",
-          bank: "",
-          vaNumber: "",
-          expireTimeUnix: 0,
-          expireTimeStr: "",
-          serviceName: "",
-                  status: 2
-
-        );
+            grossAmount: 0.0,
+            transactionId: "",
+            paymentType: "",
+            bank: "",
+            vaNumber: "",
+            expireTimeUnix: 0,
+            expireTimeStr: "",
+            serviceName: "",
+            status: 2);
       }
 
       notifyListeners();
@@ -482,24 +527,22 @@ class UserProvider extends ChangeNotifier {
       debugPrint("Error: ${e.toString()}");
       debugPrint("Stacktrace: ${stacktrace.toString()}");
 
-      return  TransactionModel(
-        grossAmount: 0.0,
-        transactionId: "",
-        paymentType: "",
-        bank: "",
-        vaNumber: "",
-        expireTimeUnix: 0,
-        expireTimeStr: "",
-        serviceName: "",
-                status: 2
-
-      );
+      return TransactionModel(
+          grossAmount: 0.0,
+          transactionId: "",
+          paymentType: "",
+          bank: "",
+          vaNumber: "",
+          expireTimeUnix: 0,
+          expireTimeStr: "",
+          serviceName: "",
+          status: 2);
     }
-
   }
+
   Future<TransactionModel> verifyPayment(String? transaction_id) async {
     setOnSearch(true);
-   try {
+    try {
       final ApiResult<TransactionModel> result =
           await userService.verifyPayment(transaction_id);
 
@@ -509,17 +552,15 @@ class UserProvider extends ChangeNotifier {
       } else {
         debugPrint("Error: ${result.message}");
         data = TransactionModel(
-          grossAmount: 0.0,
-          transactionId: "",
-          paymentType: "",
-          bank: "",
-          vaNumber: "",
-          expireTimeUnix: 0,
-          expireTimeStr: "",
-          serviceName: "",
-                  status: 2
-
-        );
+            grossAmount: 0.0,
+            transactionId: "",
+            paymentType: "",
+            bank: "",
+            vaNumber: "",
+            expireTimeUnix: 0,
+            expireTimeStr: "",
+            serviceName: "",
+            status: 2);
       }
 
       notifyListeners();
@@ -529,19 +570,17 @@ class UserProvider extends ChangeNotifier {
       debugPrint("Error: ${e.toString()}");
       debugPrint("Stacktrace: ${stacktrace.toString()}");
 
-      return  TransactionModel(
-        grossAmount: 0.0,
-        transactionId: "",
-        paymentType: "",
-        bank: "",
-        vaNumber: "",
-        expireTimeUnix: 0,
-        expireTimeStr: "",
-        serviceName: "",
-        status:  2
-      );
+      return TransactionModel(
+          grossAmount: 0.0,
+          transactionId: "",
+          paymentType: "",
+          bank: "",
+          vaNumber: "",
+          expireTimeUnix: 0,
+          expireTimeStr: "",
+          serviceName: "",
+          status: 2);
     }
-
   }
 
   // Future<void> getHealthData({DateTime? date}) async {

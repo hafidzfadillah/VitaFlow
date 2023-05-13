@@ -15,6 +15,7 @@ import 'package:vitaflow/core/models/user/user_drink.dart';
 import 'package:vitaflow/core/models/user/user_food.dart';
 import 'package:vitaflow/core/models/user/user_model.dart';
 
+import '../models/step/step_model.dart';
 import '../models/weight/weight_model.dart';
 
 class UserService {
@@ -179,6 +180,24 @@ class UserService {
     }
   }
 
+  Future<ApiResultList<StepModel>?> storeStep(int step) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    APIResponse response = await api.post(api.endpoint.storeStep,
+        useToken: true, token: token, data: {'step': step});
+
+    if (response.statusCode == 200) {
+      final data = response.data;
+      final userStep = ApiResultList<StepModel>.fromJson(data,
+          (data) => data.map((e) => StepModel.fromJson(e)).toList(), "data");
+
+      return userStep;
+    } else {
+      return null;
+    }
+  }
+
   Future<ApiResultList<UserDrinkModel>> getUserHistoryDrink(
       {DateTime? date}) async {
     final prefs = await SharedPreferences.getInstance();
@@ -309,6 +328,19 @@ class UserService {
 
     return ApiResultList<WeightModel>.fromJson(response.data,
         (data) => data.map((e) => WeightModel.fromJson(e)).toList(), "data");
+  }
+
+  Future<ApiResultList<StepModel>> getStepData({DateTime? date}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    String dateStr = DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
+
+    APIResponse response = await api.get(api.endpoint.getStept,
+        useToken: true, token: token, data: {"date": dateStr});
+
+    return ApiResultList<StepModel>.fromJson(response.data,
+        (data) => data.map((e) => StepModel.fromJson(e)).toList(), "data");
   }
 
   Future<ApiResultList<void>?> activeFreeTrial() async {

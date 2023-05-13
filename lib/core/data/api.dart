@@ -63,6 +63,9 @@ class Api {
   String getWeight = "$_baseServer/weight-track/history";
   String storeWeight = "$_baseServer/weight-track/store";
 
+  String storeStep = "$_baseServer/step-track/store";
+  String getStept = "$_baseServer/step-track/history";
+
   String activeFreeTrial = "$_baseServer/premium/trial";
   String payPremium = "$_baseServer/premium/pay/bca";
   String verifyPayment = "$_baseServer/verify";
