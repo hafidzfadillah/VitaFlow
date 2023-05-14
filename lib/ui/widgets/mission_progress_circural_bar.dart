@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class MissionProgressCircuralBar extends StatelessWidget {
   final IconData icon;
   final double progress;
@@ -8,12 +7,11 @@ class MissionProgressCircuralBar extends StatelessWidget {
   final Color backgroundColor;
   final Color foregroundColor;
   final double strokeWidth;
-    final String assetName;
- 
+  final String assetName;
 
   const MissionProgressCircuralBar({
     Key? key,
-     this.icon = Icons.check, 
+    this.icon = Icons.check,
     required this.progress,
     this.size = 80.0,
     this.backgroundColor = Colors.grey,
@@ -21,8 +19,6 @@ class MissionProgressCircuralBar extends StatelessWidget {
     this.strokeWidth = 10.0,
     required this.assetName,
   }) : super(key: key);
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -34,30 +30,25 @@ class MissionProgressCircuralBar extends StatelessWidget {
         children: [
           SizedBox(
             width: 60,
-          height: 60,
+            height: 60,
             child: CircularProgressIndicator(
-            value: progress,
-            backgroundColor: backgroundColor,
-            color: foregroundColor,
-            strokeWidth: strokeWidth,
-            
+              value: progress,
+              backgroundColor: backgroundColor,
+              color: foregroundColor,
+              strokeWidth: strokeWidth,
+            ),
           ),
-
-          ),
-          
           Center(
             child: progress != 100
-                ? Image.network(assetName,
-                width: 24, 
-                height: 24,
-
-         
+                ? Image.network(
+                    assetName,
+                    width: 24,
+                    height: 24,
                   )
                 : Icon(
                     icon,
                     color: foregroundColor,
                     size: radius,
-                    
                   ),
           ),
         ],

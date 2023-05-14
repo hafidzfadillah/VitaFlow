@@ -52,7 +52,6 @@ class MissionCard extends StatelessWidget {
           Navigator.of(context, rootNavigator: true)
               .pushNamed(screen.toLowerCase());
         }
-
       },
       child: Container(
         padding: EdgeInsets.all(16),
@@ -70,7 +69,7 @@ class MissionCard extends StatelessWidget {
                 backgroundColor ?? 0xffF6F8FA,
               ),
               foregroundColor: Color(missionColor ?? 0xff0BB576),
-              strokeWidth: 5,
+              strokeWidth: 8,
               assetName: icon,
             ),
             SizedBox(

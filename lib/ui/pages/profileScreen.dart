@@ -80,11 +80,11 @@ class ProfileBody extends StatelessWidget {
       if (userProvider.user == null && !userProvider.onSearch) {
         userProvider.getUserData();
 
-        return const CircularProgressIndicator();
+        return Center(child: const CircularProgressIndicator());
       }
       if (userProvider.user == null && userProvider.onSearch) {
         // if the categories are being searched, show a skeleton loading
-        return const CircularProgressIndicator();
+        return Center(child: const CircularProgressIndicator());
       }
       String name = userProvider.user?.name ?? ""; // mengambil nama pengguna
       String initial = name.toUpperCase().substring(0, 1);

@@ -86,7 +86,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           style: GoogleFonts.poppins(color: Colors.white),
                           background: primaryColor,
                           onClick: () {
-                            Navigator.pushNamed(context, '/survey');
+                            Navigator.pushNamed(context, '/register');
                           }),
                       SizedBox(
                         height: 2.h,

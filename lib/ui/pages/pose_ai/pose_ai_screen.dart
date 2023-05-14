@@ -45,7 +45,7 @@ class _PoseAiScreenState extends State<PoseAiScreen> {
 
   loadModel() async {
     return await Tflite.loadModel(
-        model: "assets/posenet_mv1_075_float_from_checkpoints.tflite");
+        model: "assets/models/posenet_mv1_075_float_from_checkpoints.tflite");
   }
 
   @override
