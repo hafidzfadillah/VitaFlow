@@ -254,7 +254,7 @@ class ProfileBody extends StatelessWidget {
                   SharedPreferences preferences = await SharedPreferences.getInstance();
                     await preferences.clear();
 
-                    Navigator.pushReplacementNamed(context, '/login');
+                    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
                   },
                   child: Row(
                     children: [

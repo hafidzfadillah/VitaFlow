@@ -31,7 +31,7 @@ class _StepAddScrenState extends State<StepAddScren> {
               // toast message
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Berhasil menambah data aktifitas lari Anda '),
+                  content: Text('Berhasil menambah data aktivitas lari Anda '),
                 ),
               );
               // delay
@@ -45,7 +45,7 @@ class _StepAddScrenState extends State<StepAddScren> {
                     color: Colors.white, fontWeight: FontWeight.w600))),
       ),
       appBar: CustomAppBar(
-          title: 'Tambah data aktifitasi lari manual',
+          title: 'Tambah data aktivitas lari manual',
           backgroundColor: lightModeBgColor,
           elevation: 0,
           leading: Card(
@@ -69,7 +69,7 @@ class _StepAddScrenState extends State<StepAddScren> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         children: [
           Text(
-            "Masukan aktifitas lari terakhir anda",
+            "Masukan aktivitas lari terakhir anda",
             style: normalText.copyWith(
                 fontSize: 16,
                 color: const Color(0xff333333),

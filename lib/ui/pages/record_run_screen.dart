@@ -79,7 +79,7 @@ class RecordRunBody extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Progress aktifitasi lari saat ini",
+                Text("Progress aktivitas lari saat ini",
                     style: normalText.copyWith(
                         fontSize: 14, color: const Color(0xff454545))),
                 const SizedBox(

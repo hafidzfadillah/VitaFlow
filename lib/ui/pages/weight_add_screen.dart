@@ -41,15 +41,7 @@ class _WeightAddScreen extends State<WeightAddScreen> {
                 // delay
                 Future.delayed(const Duration(seconds: 2), () {
                   // pop screen
-                  Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RecordWeightScreen()))
-                      .then((value) {
-                    if (value != null && value == true) {
-                      // Refresh widget disini
-                    }
-                  });
+                  Navigator.pop(context, true);
                 });
               },
               label: Text("Simpan",
