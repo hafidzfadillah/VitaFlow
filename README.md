@@ -35,7 +35,7 @@ Untuk menjawab masalah tersebut Tim Orion membawakan sebuah aplikasi mobile bern
 ### Presentasi Video
 
 Berikut adalah link presentasi video Vitaflow
-https://drive.google.com/drive/folders/1Qc-9EVz0E3qGjT1IqfUKxTkET_LN6BoC?usp=sharing
+https://drive.google.com/drive/folders/1-bFyVW5peXwEaMpsvV4v2cPjzF364huS
 
 
 ### Features
