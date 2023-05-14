@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitaflow/core/viewmodels/connection/connection.dart';
 import 'package:vitaflow/core/viewmodels/user/user_provider.dart';
@@ -101,6 +102,7 @@ class HomeScreenBody extends StatelessWidget {
                   height: 16,
                 ),
                 const UserNutrion(),
+                SizedBox(height: 2.h,),
                 const MyMisssion()
               ],
             ))

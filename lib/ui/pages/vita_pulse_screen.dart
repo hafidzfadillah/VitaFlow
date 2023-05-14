@@ -63,14 +63,19 @@ class VitaPulseScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: lightModeBgColor,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/add-user-health-rate');
+        onPressed: () async {
+          final result =
+              await Navigator.pushNamed(context, '/add-user-health-rate');
+
+          if (result == true) {
+            Navigator.pop(context, true);
+          }
         },
         backgroundColor: const Color(0xffF5D6D0),
         child: const Icon(Icons.add, color: Color(0xff372534)),
       ),
       appBar: CustomAppBar(
-          title: 'Hearth Rate',
+          title: 'Heart Rate',
           backgroundColor: const Color(0xffF5D6D0),
           elevation: 0,
           leading: Card(
@@ -163,9 +168,7 @@ class _UserHealthSummary extends StatelessWidget {
       if (userProvider.userBpm == null && userProvider.onSearch) {
         return const Center(child: CircularProgressIndicator());
       }
-      
 
-      
       final List<int> bpmValues =
           userProvider.userBpm?.map((e) => e.value)?.toList() ?? [];
 
@@ -212,14 +215,15 @@ class _UserHealthSummary extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 80),
-            Text("Data Chart akan tersedia jika kamu sudah melakukan cek kesehatan lebih dari 1x ",
+            Text(
+                "Data Chart akan tersedia jika kamu sudah melakukan cek kesehatan lebih dari 1x ",
                 textAlign: TextAlign.center,
                 style: normalText.copyWith(
                     fontSize: 14,
                     color: const Color(0xff333333),
-                    fontWeight: FontWeight.w400)), 
-          ],  
-        );  
+                    fontWeight: FontWeight.w400)),
+          ],
+        );
       }
     });
   }

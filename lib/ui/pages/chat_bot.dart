@@ -170,11 +170,17 @@ class _ChatBotBodyState extends State<ChatBotBody> {
                     if (p0.toLowerCase().contains("remind") ||
                         p0.toLowerCase().contains("pengingat")) {
                       await _showReminderDialog();
-                      chatProv.setReminderDone();
+                      chatProv.setReminderDone(p0);
                       messageController.clear();
-                    } else if (p0.toLowerCase().contains("rekap") ||
-                        p0.toLowerCase().contains("progres") ||
-                        p0.toLowerCase().contains("report")) {
+                    }
+                    //  else if (p0.toLowerCase().contains("rekap") ||
+                    //     p0.toLowerCase().contains("progres") ||
+                    //     p0.toLowerCase().contains("report")) {
+                    // } 
+                    else if (p0.toLowerCase().contains("meal plan") ||
+                        p0.toLowerCase().contains("rekomendasi resep")) {
+                      chatProv.showMealPlan(p0);
+                      messageController.clear();
                     } else {
                       chatProv.sendMessage(p0);
                       messageController.clear();
@@ -214,7 +220,7 @@ class _ChatBotBodyState extends State<ChatBotBody> {
                   if (p0.toLowerCase().contains("remind") ||
                       p0.toLowerCase().contains("pengingat")) {
                     await _showReminderDialog();
-                    chatProv.setReminderDone();
+                    chatProv.setReminderDone(messageController.text);
                     messageController.clear();
                   } else {
                     chatProv.sendMessage(p0);
@@ -231,6 +237,8 @@ class _ChatBotBodyState extends State<ChatBotBody> {
 
   // Schedule a notification based on the picked datetime
   Future<void> _scheduleNotification(DateTime scheduledTime, String msg) async {
+    messageController.text =
+        "Set reminder: ${scheduledTime.day} ${scheduledTime.month} ${scheduledTime.year}, ${scheduledTime.hour}:${scheduledTime.minute}";
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'your channel id', 'your channel name',
         importance: Importance.max,
