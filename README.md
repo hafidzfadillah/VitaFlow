@@ -1,11 +1,10 @@
 # VitaFlow
+
+
 ## Codespace - Orion Team
 - Yoga ramadhan (Hustler)
 - Muhammad Tegar Akmal (Hipster)
 - Muhammad Hafidz Fadillah  (Hacker)
-
-<img src="https://freshmart.oss-ap-southeast-5.aliyuncs.com/images/images/all_ss.png" alt="Mockup app" title="Mockup">
-
 
 ## Problem
 
@@ -34,7 +33,29 @@ Untuk menjawab masalah tersebut Tim Orion membawakan sebuah aplikasi mobile bern
 
 ## Features
 
+- Vita survey : Saat pengguna sudah mendaftar maka terdapat beberapa pertanyaan yang harus di isi oleh user agar vitaflow bisa memprediksi program apa yang cocok dengan kondisi pengguna
+- Visi mission : Setalah pengguna mendapatkan program yang cocok maka terdapat beberapa misi yang harus dikerjakan pengguna , dimaksudkan agar pengguna tidak bingung apa yang harus dilakukan untuk mencapai tujuan user.
+
+- Vita catat Asupan makan : Fitur ini memungkinkan pengguna untuk mencatat asupan makanan mereka secara harian. Pengguna dapat mencatat jenis makanan yang dikonsumsi pada pagi , siang atau malam hari. terdapat 2 cara user bisa catat asupan makanan
+   - Catat aktivitas manual : Pengguna mmelakukan input manual dengan cara mencari makanan yang sudah dimakan pada aplikasi vitafloow
+   - Scan Makanan : pengguna tidak perlu repot repot mencari nama makanan , dengan fitur ini tinggal photo makanan , maka akan keluar makanan yang discan
+- Catat aktivitas minum :  Fitur ini membantu pengguna dalam mencatat dan mengingatkan pengguna untuk konsumsi air putih mereka secara rutin
+- Cata aktivitas olahraga : Pengguna dapat mencatat aktivitas olahraga apa saja yang sudah di lakukan, metode  input olahraga terdapat
+   - Catat aktivitas manual : Pengguna melakukan pencarian olahraga yang sudah dilakukan pada aplikasi vita 
+   - Exercise plan dan olahraga interaktif : Khusus pengguna premium , terdapat fitur tambahan exercise plan yang dimna vitaflow sudah mengelompokan olahraga yang cocok dengan user dan user bisa mengikuti olahraga dengan interaktif karena terdapat video cara melakukan gerakan , timer dan play dan next gerakan olahraga
+   - Vita coach AI : Fitur ini sudah include pada exercise plan , dimana jika user tidak yakin gerakan benar maka kita terdapat fitur yang bisa koreksi gerakan olahraga .
+- Catat berat badan terakhir : agar pengguna bisa melihat progress hari dari hari , maka  pengguna bisa mencatat berat badan terakhir pengguna
+- Catat detak jantung
+- Catat aktivitas lari 
+- Vita bot 
+- Vita premium 
+- Vita credit 
 - 
+- -
+
+   - 
+   
+
 
 
 
@@ -53,6 +74,10 @@ Untuk membangun Vitaflow kita menggunakan  beberapa teknologi  seperti :
 
 
 ## Installation
+
+Untuk sekarang aplikasi kita hanya bisa di install di Android os :
+Dapat di download di : 
+
 
 ## License
 
