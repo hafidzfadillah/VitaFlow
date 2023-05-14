@@ -54,13 +54,15 @@ class _SurveyScreenState extends State<SurveyScreen> {
       setState(() {
         _isLoading = true;
       });
-      bool rsp = await survey.store();
+      var rsp = await survey.store();
+      print("result final : ${rsp!.dailyCalories}");
       setState(() {
         _isLoading = false;
       });
 
-      if (rsp) {
-        Navigator.pushReplacementNamed(context, '/result-survey', arguments: survey.survey);
+      if (rsp != null) {
+        Navigator.pushReplacementNamed(context, '/result-survey',
+            arguments: rsp);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -152,19 +154,19 @@ class _SurveyScreenState extends State<SurveyScreen> {
       margin: EdgeInsets.only(bottom: 4.h),
       child: Row(
         children: [
-          // CustomBackButton(
-          //   iconColor: Colors.transparent,
-          //   onClick: () {
-          //     // if (percentage <= 1 / 6 || currentPage == 0) {
-          //     //   Navigator.pop(context);
-          //     // } else {
-          //     //   setState(() {
-          //     //     percentage -= 1 / 6;
-          //     //     currentPage -= 1;
-          //     //   });
-          //     // }
-          //   },
-          // ),
+          CustomBackButton(
+            iconColor: primaryColor,
+            onClick: () {
+              if (percentage <= 1 / 6 || currentPage == 0) {
+                Navigator.pop(context);
+              } else {
+                setState(() {
+                  percentage -= 1 / 6;
+                  currentPage -= 1;
+                });
+              }
+            },
+          ),
           Expanded(
               child: Center(
             child: Container(
@@ -180,15 +182,16 @@ class _SurveyScreenState extends State<SurveyScreen> {
               ),
             ),
           )),
-          // InkWell(
-          //   onTap: () {
-          //     Navigator.pushReplacementNamed(context, '/login');
-          //   },
-          //   child: Text(
-          //     'Lewati',
-          //     style: subtitleTextStyle2.copyWith(fontWeight: FontWeight.w600),
-          //   ),
-          // )
+          InkWell(
+            onTap: () {
+              // Navigator.pushReplacementNamed(context, '/login');
+            },
+            child: Text(
+              'Lewati',
+              style: subtitleTextStyle2.copyWith(
+                  fontWeight: FontWeight.w600, color: Colors.transparent),
+            ),
+          )
         ],
       ),
     );

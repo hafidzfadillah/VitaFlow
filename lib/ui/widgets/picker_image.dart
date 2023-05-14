@@ -70,12 +70,14 @@ class PickerImage {
             margin: EdgeInsets.only(bottom:  10),
             height: 100,
             decoration:
-                BoxDecoration( color: primaryColor),
+                BoxDecoration(
+                  border:  Border.all(color: primaryColor, width: 2),
+                   color: Colors.white , borderRadius: BorderRadius.circular(10) , ),  
             child: GestureDetector(
               onTap: () => onClick(),
               child: Padding(
                 padding: EdgeInsets.all(20),
-                child: Center(child: Text(title, style:  normalText.copyWith( fontSize: 16, color: Colors.white),)),
+                child: Center(child: Text(title, style:  normalText.copyWith( fontSize: 16, color: primaryColor ,),)),
               ),
             )),
       

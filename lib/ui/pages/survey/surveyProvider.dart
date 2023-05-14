@@ -82,23 +82,20 @@ class SurveyProvider extends ChangeNotifier {
   }
 
   final surveyService = locator<SurveyService>();
-  Future<bool> store() async {
+  Future<SurveyModel?> store() async {
     try {
       print("Age: ${this._umur}");
       final result = await surveyService.submitData(this);
-      print("Result Data : ${result.data}");
+      print("Result Data : ${result.data.dailyCalories}");
 
       if (result.data != null) {
         _survey = result.data;
-
-        return true;
-      } else {
-        return false;
       }
     } catch (e, stacktrace) {
       debugPrint("Error: ${e.toString()}");
       debugPrint("Stacktrace: ${stacktrace.toString()}");
-      return false;
     }
+
+    return _survey;
   }
 }

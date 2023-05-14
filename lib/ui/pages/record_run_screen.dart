@@ -8,16 +8,24 @@ import '../../core/viewmodels/connection/connection.dart';
 import '../widgets/button.dart';
 import '../widgets/history_step_card.dart';
 
-class RecordRunScreen extends StatelessWidget {
+class RecordRunScreen extends StatefulWidget {
   const RecordRunScreen({Key? key}) : super(key: key);
 
+  @override
+  State<RecordRunScreen> createState() => _RecordRunScreenState();
+}
+
+class _RecordRunScreenState extends State<RecordRunScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightModeBgColor,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/record-add-step');
+        onPressed: () async {
+          final result = await Navigator.pushNamed(context, '/record-add-step');
+          if (result == true) {
+            Navigator.pop(context);
+          }
         },
         backgroundColor: primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
@@ -96,6 +104,9 @@ class RecordRunBody extends StatelessWidget {
                   ],
                 )
               ],
+            ),
+            const SizedBox(
+              height: 24,
             ),
             _UserStepHistory()
           ],

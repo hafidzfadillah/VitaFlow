@@ -20,20 +20,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-            child: Text(
-              'Tunggu ya',
-              style: GoogleFonts.balsamiqSans(
-                  fontWeight: FontWeight.w400,
-                  color: neutral90,
-                  fontSize: subheaderSize),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
             ),
           ),
           SizedBox(
             height: 2.h,
           ),
           Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+            child: Text(
+              'Mohon tunggu',
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w400,
+                  color: neutral90,
+                  fontSize: subheaderSize),
             ),
           ),
         ],

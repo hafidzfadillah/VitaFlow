@@ -658,6 +658,11 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearUserData(){
+    _user = null;
+    notifyListeners();
+  }
+
   // clear my nutrition
   void clearMyNutrition() {
     _myNutrition = null;

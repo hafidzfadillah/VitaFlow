@@ -58,7 +58,7 @@ class _WeightAddScreen extends State<WeightAddScreen> {
               backgroundColor: primaryColor,
             )),
         appBar: CustomAppBar(
-            title: 'Tambah data detak jantung manual',
+            title: 'Tambah data berat badan manual',
             backgroundColor: lightModeBgColor,
             elevation: 0,
             leading: Card(

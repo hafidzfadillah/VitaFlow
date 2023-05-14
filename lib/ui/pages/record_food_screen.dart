@@ -10,7 +10,6 @@ import 'package:vitaflow/ui/widgets/NutrientChart.dart';
 import 'package:vitaflow/ui/widgets/button.dart';
 import 'package:vitaflow/ui/widgets/loading/LoadingSingleBox.dart';
 
-
 import '../widgets/CustomAppBar.dart';
 
 class RecordFoodScreen extends StatelessWidget {
@@ -29,7 +28,7 @@ class RecordFoodScreen extends StatelessWidget {
           }),
         ),
         body: ChangeNotifierProvider(
-          create: (context) => UserProvider(),
+          create: (context) => UserProvider(),  
           child: const RecordFoodBody(),
         ));
   }
@@ -100,9 +99,7 @@ class RecordFoodBody extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            const UserFoodActivity(
-            
-            )
+            const UserFoodActivity()
           ],
         ),
       ));
@@ -113,44 +110,45 @@ class RecordFoodBody extends StatelessWidget {
 class UserFoodActivity extends StatelessWidget {
   const UserFoodActivity({
     super.key,
-
   });
 
   @override
   Widget build(BuildContext context) {
     return Consumer<UserProvider>(builder: (context, userProvider, _) {
       if (userProvider.userLunchFood == null && !userProvider.onSearch) {
-        userProvider.getUserFood(
-        
-        );
+        userProvider.getUserFood();
 
-        return const LoadingSingleBox();
+        return Center(
+          child: LoadingSingleBox(),
+        );
       }
       if (userProvider.userLunchFood == null && userProvider.onSearch) {
         // if the categories are being searched, show a skeleton loading
-        return const LoadingSingleBox();
+        return Center(
+          child: LoadingSingleBox(),
+        );
       }
 
       return Column(
         children: [
           LogFoodCard(
-              title: "Makan Pagi",
+            title: "Makan Pagi",
             icon: 'assets/images/icon_breakfast.png',
             foods: userProvider.userBreakfastFood!,
           ),
           LogFoodCard(
-                title: "Makan Siang",
-                    icon: 'assets/images/icon_lunch.png',
+            title: "Makan Siang",
+            icon: 'assets/images/icon_lunch.png',
             foods: userProvider.userLunchFood!,
           ),
           LogFoodCard(
-                title: "Makan Malam",
-                    icon: 'assets/images/icon_dinner.png',
+            title: "Makan Malam",
+            icon: 'assets/images/icon_dinner.png',
             foods: userProvider.userDinnerFood!,
           ),
           LogFoodCard(
-                title: "Makanan Ringan",
-                    icon: 'assets/images/icon_snack.png',
+            title: "Makanan Ringan",
+            icon: 'assets/images/icon_snack.png',
             foods: userProvider.userSnacks!,
           ),
         ],
@@ -168,11 +166,15 @@ class _UserNutrionWidget extends StatelessWidget {
       if (userProvider.myNutrition == null && !userProvider.onSearch) {
         userProvider.getNutrion();
 
-        return const CircularProgressIndicator();
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       }
       if (userProvider.myNutrition == null && userProvider.onSearch) {
         // if the categories are being searched, show a skeleton loading
-        return const CircularProgressIndicator();
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       }
       if (userProvider.myNutrition == null) {
         // if the categories have been loaded, show the category chips
@@ -203,14 +205,19 @@ class _UserNutrionWidget extends StatelessWidget {
                               color: const Color(0xff333333),
                               fontWeight: FontWeight.w500),
                         ),
-                        Text(
-                          userProvider.myNutrition?.calorieLeft.toString() ??
-                              "0",
+                  Text(
+                          (userProvider.myNutrition?.calorieLeft ?? 0) < 0
+                              ? "0"
+                              : userProvider.myNutrition?.calorieLeft
+                                  .toString() ?? "0",
                           style: normalText.copyWith(
-                              fontSize: 14,
-                              color: const Color.fromARGB(255, 139, 136, 136),
-                              fontWeight: FontWeight.w600),
+                            fontSize: 14,
+                            color: const Color.fromARGB(255, 139, 136, 136),
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
+
+
                       ],
                     ),
                     const SizedBox(

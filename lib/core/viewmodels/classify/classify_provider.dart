@@ -67,7 +67,7 @@ class ClassifyProvider extends ChangeNotifier {
     /// to make sure the result is correct
     print(output ); 
     if (output!.length > 0 &&
-        double.parse(output[0]['confidence'].toString()) > 0.90) {
+        double.parse(output[0]['confidence'].toString()) > 0.99) {
       _productResult = output[0]["label"].toString();
       _errorMessage = null;
       print("in provider");

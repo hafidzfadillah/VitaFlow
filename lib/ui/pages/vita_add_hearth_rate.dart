@@ -40,21 +40,13 @@ class _VitaAddHealthScreenState extends State<VitaAddHealthScreen> {
                 // delay
                 Future.delayed(const Duration(seconds: 2), () {
                   // pop screen
-                  Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => VitaPulseScreen()))
-                      .then((value) {
-                    if (value != null && value == true) {
-                      // Refresh widget disini
-                    }
-                  });
+                  Navigator.pop(context, true);
                 });
-
               },
               label: Text("Simpan",
                   style: normalText.copyWith(
-                      color: const Color(0xff372534), fontWeight: FontWeight.w600)),
+                      color: const Color(0xff372534),
+                      fontWeight: FontWeight.w600)),
               backgroundColor: const Color(0xffF5D6D0),
             )),
         appBar: CustomAppBar(
@@ -93,7 +85,7 @@ class _VitaAddHealthScreenState extends State<VitaAddHealthScreen> {
               state: bpm!,
               labelText: '',
               isSecure: false,
-              inputType:  TextInputType.number,
+              inputType: TextInputType.number,
             ),
           ],
         )));
