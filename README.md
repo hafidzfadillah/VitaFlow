@@ -1,9 +1,10 @@
 # VitaFlow
 
+<p align="center">
 
 ![alt text](https://github.com/hafidzfadillah/VitaFlow/blob/main/assets/images/appIcon.png?raw=true)
 
-
+</p>
 ## Codespace - Orion Team
 - Yoga ramadhan (Hustler)
 - Muhammad Tegar Akmal (Hipster)
