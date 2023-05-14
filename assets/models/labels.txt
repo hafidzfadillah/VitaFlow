@@ -1,3 +1,9 @@
-0 Burger
-1 Ayam goreng
-2 Nasi 
+0 Ayam Goreng
+1 Ayam pop
+2 Daging rendang
+3 dendeng batokok
+4 Gulai ikan
+5 Gulai tambusu
+6 Gulai tanjung
+7 telur balodo
+8 telor dadar

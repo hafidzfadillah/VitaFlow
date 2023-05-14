@@ -29,7 +29,7 @@ class RecordFoodScreen extends StatelessWidget {
           }),
         ),
         body: ChangeNotifierProvider(
-          create: (context) => UserProvider(),
+          create: (context) => UserProvider(),  
           child: const RecordFoodBody(),
         ));
   }
@@ -203,14 +203,19 @@ class _UserNutrionWidget extends StatelessWidget {
                               color: const Color(0xff333333),
                               fontWeight: FontWeight.w500),
                         ),
-                        Text(
-                          userProvider.myNutrition?.calorieLeft.toString() ??
-                              "0",
+                  Text(
+                          (userProvider.myNutrition?.calorieLeft ?? 0) < 0
+                              ? "0"
+                              : userProvider.myNutrition?.calorieLeft
+                                  .toString() ?? "0",
                           style: normalText.copyWith(
-                              fontSize: 14,
-                              color: const Color.fromARGB(255, 139, 136, 136),
-                              fontWeight: FontWeight.w600),
+                            fontSize: 14,
+                            color: const Color.fromARGB(255, 139, 136, 136),
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
+
+
                       ],
                     ),
                     const SizedBox(
