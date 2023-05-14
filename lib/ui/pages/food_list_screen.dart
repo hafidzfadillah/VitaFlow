@@ -185,7 +185,7 @@ class _FoodListScreenState extends State<FoodListScreen>
               onPressed: () {
                 choosePicture();
               },
-              icon: const Icon(Icons.camera, color: Color(0xff333333)),
+              icon: const Icon(Icons.camera_alt, color: Color(0xff333333)),
             ),
         ],
         leading: CustomBackButton(

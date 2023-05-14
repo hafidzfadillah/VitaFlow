@@ -20,12 +20,13 @@ class _StepAddScrenState extends State<StepAddScren> {
     return Scaffold(
         backgroundColor: lightModeBgColor,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Container(
-          padding: EdgeInsets.symmetric(horizontal: defMargin),
+      floatingActionButton: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          width: double.infinity,
           height: 70,
           child: FloatingActionButton.extended(
-              onPressed: () {
-                // userProvider
+            onPressed: () {
+               // userProvider
                 UserProvider userProvider = UserProvider();
                 userProvider.storeStep(int.parse(step?.text ?? "0"));
                 // toast message
@@ -47,12 +48,14 @@ class _StepAddScrenState extends State<StepAddScren> {
                       // Refresh widget disini
                     }
                   });
-                });
-              },
-              label: Text('Simpan',
-                  style: normalText.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.w600))),
-        ),
+              
+              });
+            },
+            label: Text("Simpan",
+                style: normalText.copyWith(
+                    color: Colors.white, fontWeight: FontWeight.w600)),
+            backgroundColor: primaryColor,
+          )),
         appBar: CustomAppBar(
             title: 'Tambah data aktifitasi lari manual',
             backgroundColor: lightModeBgColor,
