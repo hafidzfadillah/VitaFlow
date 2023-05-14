@@ -146,12 +146,17 @@ class UserNutrion extends StatelessWidget {
       if (userProvider.myNutrition == null && !userProvider.onSearch) {
         userProvider.getNutrion();
 
-        return const LoadingSingleBox();
+        return Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          child: const LoadingSingleBox());
       }
       if (userProvider.myNutrition == null && userProvider.onSearch) {
         // if the categories are being searched, show a skeleton loading
-        return const LoadingSingleBox();
+         return Container(
+            margin: const EdgeInsets.only(bottom: 10),
+            child: const LoadingSingleBox());
       }
+      
       if (userProvider.myNutrition == null) {
         // if the categories have been loaded, show the category chips
         return Center(
@@ -177,9 +182,11 @@ class UserNutrion extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(userProvider.myNutrition?.calorieLeft.toString() ?? "0",
-                      style: normalText.copyWith(
-                          fontSize: 37, fontWeight: FontWeight.w600)),
+                  Text((userProvider.myNutrition?.calorieLeft ?? 0) < 0
+          ? "0"
+          : userProvider.myNutrition?.calorieLeft.toString() ?? "",
+      style: normalText.copyWith(fontSize: 37, fontWeight: FontWeight.w600)),
+
                   const SizedBox(
                     width: 8,
                   ),
@@ -199,7 +206,7 @@ class UserNutrion extends StatelessWidget {
                 userProvider.myNutrition?.proteinPercentage.toDouble() ?? 0,
           ),
           const SizedBox(
-            height: 16,
+            height: 16, 
           ),
           NutritionInfoBox(
             carbs: userProvider.myNutrition?.carbohydrate ?? 0,
@@ -209,11 +216,15 @@ class UserNutrion extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          CaloriRow(
-              target: userProvider.myNutrition?.targetCalories ?? 0,
-              asupan: userProvider.myNutrition?.intakeCalories ?? 0,
-              aktivitas: userProvider.myNutrition?.activityCalories ?? 0,
-              kaloriTersedia: userProvider.myNutrition?.calorieLeft ?? 0),
+         CaloriRow(
+  target: userProvider.myNutrition?.targetCalories ?? 0,
+  asupan: userProvider.myNutrition?.intakeCalories ?? 0,
+  aktivitas: userProvider.myNutrition?.activityCalories ?? 0,
+  kaloriTersedia: (userProvider.myNutrition?.calorieLeft ?? 0) < 0 
+      ? 0 
+      : userProvider.myNutrition?.calorieLeft ?? 0,
+),
+
           const SizedBox(
             height: 16,
           ),

@@ -105,6 +105,9 @@ class RecordRunBody extends StatelessWidget {
                 )
               ],
             ),
+            const SizedBox(
+              height: 24,
+            ),
             _UserStepHistory()
           ],
         ));

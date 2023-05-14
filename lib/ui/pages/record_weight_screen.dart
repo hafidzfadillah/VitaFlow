@@ -100,6 +100,9 @@ class RecordWeightBody extends StatelessWidget {
                   )
                 ],
               ),
+              const SizedBox(
+                height: 16,
+              ),
               _UserWeightHistory()
             ],
           ),

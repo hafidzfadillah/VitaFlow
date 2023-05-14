@@ -21,7 +21,7 @@ class LogFoodCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         String mealTitle = title;
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => FoodListScreen(defaultMealType: mealTitle),
