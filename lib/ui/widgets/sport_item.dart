@@ -7,13 +7,15 @@ class SportItem extends StatelessWidget {
   final String title, imgAddress;
   final int durasi;
   final Function() onClick;
+  final Function() onHelp;
 
   const SportItem(
       {super.key,
       required this.title,
       required this.durasi,
       required this.imgAddress,
-      required this.onClick});
+      required this.onClick,
+      required this.onHelp});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,9 @@ class SportItem extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
-            ClipRRect(
+            Stack(
+              children: [
+                ClipRRect(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               child: Image.network(
@@ -33,6 +37,11 @@ class SportItem extends StatelessWidget {
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
+            ),
+            Positioned(
+              right: 0,
+              child: IconButton(onPressed: onHelp, icon: Icon(Icons.help_outline, color: Colors.white,)))
+              ],
             ),
             Padding(
               padding: EdgeInsets.all(defRadius),

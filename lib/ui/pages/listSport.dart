@@ -1,7 +1,9 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:vitaflow/ui/home/theme.dart';
+import 'package:vitaflow/ui/pages/pose_ai/pose_ai_screen.dart';
 import 'package:vitaflow/ui/widgets/CustomAppBar.dart';
 import 'package:vitaflow/ui/widgets/button.dart';
 import 'package:vitaflow/ui/widgets/sport_item.dart';
@@ -102,62 +104,83 @@ class _ListSportState extends State<ListSport> {
           SliverFillRemaining(
             fillOverscroll: true,
             child: Container(
-                color: Colors.white,
-                padding: EdgeInsets.all(defMargin),
-                // child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // physics: ClampingScrollPhysics(),
-                    // padding: EdgeInsets.all(defMargin),
-                    // shrinkWrap: true,
-                    children: [
-                      Text(
-                        'Tujuan',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600, fontSize: headerSize),
-                      ),
-                      SizedBox(
-                        height: 1.h,
-                      ),
-                      Text(
-                        widget.data['description'],
-                        style: GoogleFonts.poppins(
-                            color: Colors.grey, fontSize: subheaderSize),
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Text(
-                        'Latihan',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600, fontSize: headerSize),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          // shrinkWrap: true,
-                          // physics: NeverScrollableScrollPhysics(),
-                          itemCount: widget.data['exercises'].length,
-                          itemBuilder: (c, i) {
-                            var item = widget.data['exercises'][i];
-                            return SportItem(
-                              title: item['title'],
-                              durasi: item['durasi'],
-                              imgAddress: item['img'],
-                              onClick: () {
-                                Navigator.pushNamed(context, '/action-sport',
-                                    arguments: widget.data['exercises']);
-                              },
-                            );
-                          },
-                        ),
-                      )
-                    ],
+              color: Colors.white,
+              padding: EdgeInsets.all(defMargin),
+              // child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // physics: ClampingScrollPhysics(),
+                // padding: EdgeInsets.all(defMargin),
+                // shrinkWrap: true,
+                children: [
+                  Text(
+                    'Tujuan',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600, fontSize: headerSize),
                   ),
-                // )
-                ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Text(
+                    widget.data['description'],
+                    style: GoogleFonts.poppins(
+                        color: Colors.grey, fontSize: subheaderSize),
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  Text(
+                    'Latihan',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600, fontSize: headerSize),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      // shrinkWrap: true,
+                      // physics: NeverScrollableScrollPhysics(),
+                      itemCount: widget.data['exercises'].length,
+                      itemBuilder: (c, i) {
+                        var item = widget.data['exercises'][i];
+                        return SportItem(
+                          title: item['title'],
+                          durasi: item['durasi'],
+                          imgAddress: item['img'],
+                          onClick: () {
+                            Navigator.pushNamed(context, '/action-sport',
+                                arguments: widget.data['exercises']);
+                          },
+                          onHelp: () {
+                            onSelectA(context, 'posenet');
+                          },
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
+              // )
+            ),
           )
         ],
       ),
     );
+  }
+
+  void onSelectA(BuildContext context, String modelName) async {
+    try {
+      List<CameraDescription> cameras = await availableCameras();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PoseAiScreen(
+            cameras: cameras,
+            title: modelName,
+          ),
+        ),
+      );
+    } on CameraException catch (e) {
+      print('Error: $e.code\nError Message: $e.message');
+    }
   }
 }

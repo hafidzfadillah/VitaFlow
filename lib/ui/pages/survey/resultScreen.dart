@@ -12,12 +12,13 @@ import '../../widgets/button.dart';
 
 class SurveyResultScreen extends StatelessWidget {
   static const routeName = "/result-survey";
-  final SurveyModel result;
+  final SurveyModel? result;
 
   const SurveyResultScreen({super.key, required this.result});
 
   @override
   Widget build(BuildContext context) {
+    print(result!.dailyCalories);
     return Scaffold(
         appBar: CustomAppBar(
           title: 'Hasil Penilaian',
@@ -42,7 +43,7 @@ class SurveyResultScreen extends StatelessWidget {
                     height: 2.h,
                   ),
                   WeightIndicator(
-                      bmi: result.bmi, label: result.bmiClassification),
+                      bmi: result!.bmi, label: result!.bmiClassification),
                   SizedBox(
                     height: 2.h,
                   ),
@@ -52,7 +53,7 @@ class SurveyResultScreen extends StatelessWidget {
                           border: Border.all(color: neutral60)),
                       padding: EdgeInsets.all(defMargin),
                       child: Text(
-                        result.warning,
+                        result!.warning,
                         style: GoogleFonts.poppins(color: neutral70),
                       )),
                   SizedBox(
@@ -90,7 +91,7 @@ class SurveyResultScreen extends StatelessWidget {
                           RichText(
                               textAlign: TextAlign.start,
                               text: TextSpan(
-                                  text: '${result.dailyCalories}',
+                                  text: '${result!.dailyCalories}',
                                   style: GoogleFonts.poppins(
                                       color: blackColor,
                                       fontWeight: FontWeight.w600),
@@ -134,14 +135,14 @@ class SurveyResultScreen extends StatelessWidget {
                           RichText(
                               textAlign: TextAlign.start,
                               text: TextSpan(
-                                  text: '${result.recommendedWeight}kg',
+                                  text: '${result!.recommendedWeight}kg',
                                   style: GoogleFonts.poppins(
                                       color: blackColor,
                                       fontWeight: FontWeight.w600),
                                   children: [
                                     TextSpan(
                                       text:
-                                          ' (Berat badan kamu: ${result.idealWeight.round()}kg)',
+                                          ' (Berat badan kamu: ${result!.idealWeight.round()}kg)',
                                       style: GoogleFonts.poppins(
                                         color: neutral60,
                                         fontSize: captionSize,
@@ -179,7 +180,7 @@ class SurveyResultScreen extends StatelessWidget {
                           RichText(
                               textAlign: TextAlign.start,
                               text: TextSpan(
-                                  text: '${result.programs!.programName}',
+                                  text: '${result!.programs!.programName}',
                                   style: GoogleFonts.poppins(
                                       color: blackColor,
                                       fontWeight: FontWeight.w600),

@@ -16,8 +16,13 @@ class RecordWeightScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: lightModeBgColor,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/record-add-weight');
+        onPressed: () async {
+          final result =
+              await Navigator.pushNamed(context, '/record-add-weight');
+
+          if (result == true) {
+            Navigator.pop(context);
+          }
         },
         backgroundColor: primaryColor,
         child: const Icon(Icons.add, color: Colors.white),

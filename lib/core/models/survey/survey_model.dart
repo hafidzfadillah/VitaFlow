@@ -20,22 +20,25 @@ class SurveyModel extends Serializable {
       required this.warning,
       required this.programs});
 
-  factory SurveyModel.fromJson(Map<String, dynamic> json) => SurveyModel(
-      bmi: json['bmi'] ?? 0.0,
-      idealWeight: json['idealWeight'] ?? 0.0,
-      recommendedWeight: json['recommendedWeight'] ?? 0.0,
-      dailyCalories: json['dailyCalories'] ?? 0.0,
-      bmiClassification: json['bmiClassification'] ?? "",
-      warning: json['warning'] ?? "",
-      programs: Programs.fromJson(json['programs']));
+  factory SurveyModel.fromJson(Map<String, dynamic> json) {
+    print("JSON :: $json");
+    return SurveyModel(
+        bmi: json['bmi'] ,
+        idealWeight: json['ideal_weight'],
+        recommendedWeight: json['recommended_weight'],
+        dailyCalories: json['daily_calories'] ,
+        bmiClassification: json['bmi_classification'] ,
+        warning: json['warning'] ,
+        programs: Programs.fromJson(json['programs']));
+  }
 
   @override
   Map<String, dynamic> toJson() => {
         "bmi": bmi,
-        "idealWeight": idealWeight,
-        "recommendedWeight": recommendedWeight,
-        "dailyCalories": dailyCalories,
-        "bmiClassification": bmiClassification,
+        "ideal_weight": idealWeight,
+        "recommended_weight": recommendedWeight,
+        "daily_calories": dailyCalories,
+        "bmi_classification": bmiClassification,
         "warning": warning,
         "programs": programs,
       };
@@ -84,15 +87,15 @@ class Programs extends Serializable {
   @override
   Map<String, dynamic> toJson() => {
         "id": id,
-        "programName": programName,
-        "programDescription": programDescription,
-        "programDuration": programDuration,
-        "programGoalWeight": programGoalWeight,
-        "programType": programType,
+        "program_name": programName,
+        "program_description": programDescription,
+        "program_duration": programDuration,
+        "program_goal_weight": programGoalWeight,
+        "program_type": programType,
         "image": image,
-        "bmiMin": bmiMin,
-        "bmiMax": bmiMax,
-        "createdAt": createdAt,
-        "updatedAt": updatedAt,
+        "bmi_min": bmiMin,
+        "bmi_max": bmiMax,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }

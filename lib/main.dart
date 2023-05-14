@@ -17,13 +17,21 @@ import 'route/route_generator.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:camera/camera.dart';
+
+List<CameraDescription>? cameras;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Intl.defaultLocale = 'id'; // or any other locale you want to use
   var providers = await GlobalProviders.register();
-
   await setupLocator();
   tz.initializeTimeZones();
+  try {
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    print('Error: $e.code\nError Message: $e.message');
+  }
   runApp(MyApp(
     providers: providers,
   ));
