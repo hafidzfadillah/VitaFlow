@@ -4,7 +4,7 @@
 - Muhammad Tegar Akmal (Hipster)
 - Muhammad Hafidz Fadillah  (Hacker)
 
-![Alt text](https://freshmart.oss-ap-southeast-5.aliyuncs.com/images/images/all_ss.png "Title")
+<img src="https://freshmart.oss-ap-southeast-5.aliyuncs.com/images/images/all_ss.png" alt="Mockup app" title="Mockup">
 
 
 ## Problem
