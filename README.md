@@ -4,6 +4,8 @@
 - Muhammad Tegar Akmal (Hipster)
 - Muhammad Hafidz Fadillah  (Hacker)
 
+![Uploading all_ss.png…]()
+
 ## Problem
 
 Sebelum berkenalan dengan produk kami  mari kita lihat cerita Agus. Agus adalah seorang karyawan di PT Astri yang bekerja 10-12 jam sehari. Dia tidak memiliki waktu untuk mengatur pola hidupnya dan sering memilih makanan sembarangan, mengabaikan kesehatannya. Suatu ketika, dia terkena TBC dan harus cuti dengan waktu yang lama. Setelah sembuh, dia ingin berubah dan mencoba menjalani pola hidup sehat, tetapi mengalami beberapa masalah:
