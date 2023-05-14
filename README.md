@@ -1,6 +1,6 @@
 # VitaFlow
 
-![alt text](https://github.com/hafidzfadillah/VitaFlow/blob/main/assets/images/all_ss3.jpg?raw=true)
+
 
 ## Codespace - Orion Team
 - Yoga ramadhan (Hustler)
@@ -28,11 +28,13 @@ Berdasarkan permasalahan Agus, kami merancang beberapa solusi untuk membantunya 
 ## Product
 Untuk menjawab masalah tersebut Tim Orion membawakan sebuah aplikasi mobile bernama "Vitaflow".Sesuai dengan unsur namanya Flow , kita membuat aplikasi vitaflow dengan ux dan alur aplikasi yang mudah dimengerti oleh user
 
+### Presentasi Video
+
+Berikut adalah link presentasi video Vitaflow
 
 
 
-
-## Features
+### Features
 
 - Vita survey : Saat pengguna sudah mendaftar maka terdapat beberapa pertanyaan yang harus di isi oleh user agar vitaflow bisa memprediksi program apa yang cocok dengan kondisi pengguna
 - Visi mission : Setalah pengguna mendapatkan program yang cocok maka terdapat beberapa misi yang harus dikerjakan pengguna , dimaksudkan agar pengguna tidak bingung apa yang harus dilakukan untuk mencapai tujuan user.
@@ -54,7 +56,7 @@ Untuk menjawab masalah tersebut Tim Orion membawakan sebuah aplikasi mobile bern
 - Pembayaran otomatis  : vitaflow sudah support pembayaran otomatis untuk pembelian vita premium
 - Vita credit : bagi free user  terdapat batasan untuk menanyakan ke vita coach   , free user mendapatkan 2600 cedit yang dapat dipakai  , jika habis maka tidak bisa menggunakan vita coach.jika user premium  vita credit menjadi tidak terbatas -
 
-   - 
+
    
 
 
@@ -73,17 +75,33 @@ Untuk membangun Vitaflow kita menggunakan  beberapa teknologi  seperti :
 - Provider  - State management kita menggunakan provider 
 
 
+## Screenshot 
+![alt text](https://github.com/hafidzfadillah/VitaFlow/blob/main/assets/images/all_ss4.jpg?raw=true)
 
-## Installation
+## Installation 
 
 Untuk sekarang aplikasi kita hanya bisa di install di Android os :
-Dapat di download di : 
+
+Link Doownload APK :  https://tinyurl.com/vita-flow
+
+LINK FIGMA (DESAIN) : https://www.figma.com/file/hHwD2Oym5aBIS3pSxCE4Dk/VitaFlow?type=design&node-id=621%3A2769&t=mGhlRRQnr1o7tiIw-1
+
+LINK REPO BACKEND : https://github.com/tegar97/vitaflow-api
 
 Jika ingin skip Register , bisa menggunakan akun berikut
 email : yogi@gmail.com
 password : tegar123
 
 
+## Note
+
+- Data Nutrisi makanan tidak akurat
+- Data  kalori terbakar pada olahraga hanya estimasi 
+- VITABOT Command :
+   - reminder : SET Pengigat olahraga , makan , dll 
+   - meal plan : GENERATE Rekoomendasi makan
+- Cara memakai fitur vita coach / deteksi gerakan -> ke catatan olahraga -> mulai olahraga terencana -> pada bagian list gerakan klik icon ? 
+-
 
 ## License
 
