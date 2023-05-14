@@ -4,7 +4,8 @@
 - Muhammad Tegar Akmal (Hipster)
 - Muhammad Hafidz Fadillah  (Hacker)
 
-![Uploading all_ss.png…]()
+![Alt text](https://freshmart.oss-ap-southeast-5.aliyuncs.com/images/images/all_ss.png "Title")
+
 
 ## Problem
 
