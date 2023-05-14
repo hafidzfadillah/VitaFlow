@@ -15,12 +15,15 @@ import 'injection.dart';
 import 'navigation/navigation_utils.dart';
 import 'route/route_generator.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   Intl.defaultLocale = 'id'; // or any other locale you want to use
   var providers = await GlobalProviders.register();
 
   await setupLocator();
+  tz.initializeTimeZones();
   runApp(MyApp(
     providers: providers,
   ));
@@ -48,8 +51,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (create) => CategoryProvider()),
         ChangeNotifierProvider(create: (create) => UserProvider()),
         ChangeNotifierProvider(create: (create) => SurveyProvider()),
-        ChangeNotifierProvider(create: (create ) => ClassifyProvider()),
-        ChangeNotifierProvider(create: (create ) => FoodProvider()),
+        ChangeNotifierProvider(create: (create) => ClassifyProvider()),
+        ChangeNotifierProvider(create: (create) => FoodProvider()),
         ChangeNotifierProvider(create: (create) => ProductProvider()),
         ChangeNotifierProvider(create: (create) => ProgramProvider())
       ],

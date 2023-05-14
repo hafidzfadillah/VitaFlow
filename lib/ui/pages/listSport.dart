@@ -42,20 +42,19 @@ class _ListSportState extends State<ListSport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation:  FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Container(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           width: double.infinity,
           height: 70,
           child: FloatingActionButton.extended(
             onPressed: () {
               Navigator.pushNamed(context, '/action-sport',
-                  arguments: widget.data['exercises']);          
+                  arguments: widget.data['exercises']);
             },
             label: Text("Mulai",
                 style: normalText.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600)),
+                    color: Colors.white, fontWeight: FontWeight.w600)),
             backgroundColor: primaryColor,
           )),
       body: CustomScrollView(
@@ -101,52 +100,61 @@ class _ListSportState extends State<ListSport> {
             ),
           ),
           SliverFillRemaining(
+            fillOverscroll: true,
             child: Container(
                 color: Colors.white,
-                child: ListView(
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.all(defMargin),
-                  children: [
-                    Text(
-                      'Tujuan',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: headerSize),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Text(
-                      widget.data['description'],
-                      style: GoogleFonts.poppins(
-                          color: Colors.grey, fontSize: subheaderSize),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      'Latihan',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: headerSize),
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: widget.data['exercises'].length,
-                      itemBuilder: (c, i) {
-                        var item = widget.data['exercises'][i];
-                        return SportItem(
-                          title: item['title'],
-                          durasi: item['durasi'],
-                          imgAddress: item['img'],
-                          onClick: () {
-                            Navigator.pushNamed(context, '/action-sport',
-                                arguments: widget.data['exercises']);
+                padding: EdgeInsets.all(defMargin),
+                // child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    // physics: ClampingScrollPhysics(),
+                    // padding: EdgeInsets.all(defMargin),
+                    // shrinkWrap: true,
+                    children: [
+                      Text(
+                        'Tujuan',
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600, fontSize: headerSize),
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Text(
+                        widget.data['description'],
+                        style: GoogleFonts.poppins(
+                            color: Colors.grey, fontSize: subheaderSize),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Text(
+                        'Latihan',
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600, fontSize: headerSize),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          // shrinkWrap: true,
+                          // physics: NeverScrollableScrollPhysics(),
+                          itemCount: widget.data['exercises'].length,
+                          itemBuilder: (c, i) {
+                            var item = widget.data['exercises'][i];
+                            return SportItem(
+                              title: item['title'],
+                              durasi: item['durasi'],
+                              imgAddress: item['img'],
+                              onClick: () {
+                                Navigator.pushNamed(context, '/action-sport',
+                                    arguments: widget.data['exercises']);
+                              },
+                            );
                           },
-                        );
-                      },
-                    )
-                  ],
-                )),
+                        ),
+                      )
+                    ],
+                  ),
+                // )
+                ),
           )
         ],
       ),

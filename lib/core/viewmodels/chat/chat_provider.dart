@@ -47,7 +47,7 @@ class ChatProvider extends ChangeNotifier {
       _messages?.add(
         MessageModel(
           role: "loading",
-          message: 'Vitabot sedang mengetik.....',
+          message: 'Mengetik.....',
         ),
       );
       
@@ -66,7 +66,7 @@ class ChatProvider extends ChangeNotifier {
         _messages?.add(
           MessageModel(
             role: "bot",
-            message: "Sorry, sepertinya ada masalah dengan server kami. Silahkan coba lagi nanti . ",
+            message: "Maaf, sepertinya aku kurang memahami apa maksudmu.",
           ),
         );
         setOnSearch(false);
@@ -82,6 +82,17 @@ class ChatProvider extends ChangeNotifier {
     setOnSearch(false);
     _messages?.removeWhere((message) => message.role == "loading");
       
+    notifyListeners();
+  }
+
+   void setReminderDone() {
+    _messages?.add(
+        MessageModel(
+          role: "bot",
+          message: 'Pengingat berhasil diset',
+        ),
+      );
+
     notifyListeners();
   }
 

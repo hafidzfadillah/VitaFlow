@@ -60,7 +60,8 @@ dependencies:
   shimmer_animation: ^2.1.0+1
   flutter_tflite: ^1.0.1
   chewie: ^1.5.0
-
+  flutter_local_notifications: ^13.0.0
+  flutter_native_timezone: ^2.0.0
   
 
 dev_dependencies:
