@@ -1,5 +1,6 @@
 # VitaFlow
 
+![alt text](https://github.com/hafidzfadillah/VitaFlow/blob/main/assets/images/all_ss3.jpg?raw=true)
 
 ## Codespace - Orion Team
 - Yoga ramadhan (Hustler)
@@ -47,11 +48,11 @@ Untuk menjawab masalah tersebut Tim Orion membawakan sebuah aplikasi mobile bern
 - Catat berat badan terakhir : agar pengguna bisa melihat progress hari dari hari , maka  pengguna bisa mencatat berat badan terakhir pengguna
 - Catat detak jantung
 - Catat aktivitas lari 
-- Vita bot 
-- Vita premium 
-- Vita credit 
-- 
-- -
+- Vita coach   : bot yang berguna sebagai asisten pengguna , dapat menanyakan seputar kesehata , nutrisi , saran , olahraga ,dll 
+- Vita coach plus : bagi user premium terdpaat beberapa fitur tambahan : meminta rekap progress pegguna , set reminder ,  membuat meal plan. 
+- Vita premium  : tedapat beberapa fitur yang mengharuskan upgrade ke premium seperti exercise plan , vita coach plus , 
+- Pembayaran otomatis  : vitaflow sudah support pembayaran otomatis untuk pembelian vita premium
+- Vita credit : bagi free user  terdapat batasan untuk menanyakan ke vita coach   , free user mendapatkan 2600 cedit yang dapat dipakai  , jika habis maka tidak bisa menggunakan vita coach.jika user premium  vita credit menjadi tidak terbatas -
 
    - 
    
@@ -77,6 +78,11 @@ Untuk membangun Vitaflow kita menggunakan  beberapa teknologi  seperti :
 
 Untuk sekarang aplikasi kita hanya bisa di install di Android os :
 Dapat di download di : 
+
+Jika ingin skip Register , bisa menggunakan akun berikut
+email : yogi@gmail.com
+password : tegar123
+
 
 
 ## License
