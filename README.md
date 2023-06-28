@@ -13,52 +13,52 @@
 
 ## Problem
 
-Sebelum berkenalan dengan produk kami  mari kita lihat cerita Agus. Agus adalah seorang karyawan di PT Astri yang bekerja 10-12 jam sehari. Dia tidak memiliki waktu untuk mengatur pola hidupnya dan sering memilih makanan sembarangan, mengabaikan kesehatannya. Suatu ketika, dia terkena TBC dan harus cuti dengan waktu yang lama. Setelah sembuh, dia ingin berubah dan mencoba menjalani pola hidup sehat, tetapi mengalami beberapa masalah:
+Before getting acquainted with our product, let's take a look at Agus's story. Agus is an employee at PT Astri, working 10-12 hours a day. He doesn't have time to manage his lifestyle and often chooses unhealthy food, neglecting his health. One day, he contracted tuberculosis and had to take a long leave of absence. After recovering, he wants to change and try to live a healthy lifestyle, but he encounters several problems:
 
-- Agus kekurangan waktu untuk menjaga pola hidup sehat karena kesibukannya di perusahaan.
-- Agus kesulitan memilih makanan sehat dan bergizi karena kurang pengetahuan mengenai        kebutuhan gizi tubuhnya.
-- Agus merasa konsultasi dengan ahli gizi atau pelatih pribadi terlalu mahal dan tidakpraktis untuk diakses.
-- Agus bingung mulai dari mana jika ingin memulai pola hidup sehat.
+- Agus lacks time to maintain a healthy lifestyle due to his busy schedule at the company.
+- Agus struggles to choose healthy and nutritious food due to a lack of knowledge about his body's nutritional needs.
+- Agus finds consulting with a nutritionist or personal trainer too expensive and impractical to access.
+- Agus is confused about where to start if he wants to adopt a healthy lifestyle.
 
 ## Solution 
 
-Berdasarkan permasalahan Agus, kami merancang beberapa solusi untuk membantunya menjaga pola hidup sehat dengan lebih mudah dan efektif, antara lain:
-- Menyediakan fitur-fitur yang dapat disesuaikan dengan jadwal pengguna, seperti rencana latihan terpersonalisasi dan reminder yang membantu Agus menjaga pola hidup sehat
-- Menyediakan program rekomendasi makanan sehat dan fitur jurnal makanan dengan penghitung kalori untuk memantau asupan nutrisi harian Agus.
-- Membuat sebuah fitur AI yang dapat menjadi media konsultasi dan pendamping pribadi bagi agus ketika menjalani programnya
-- Membuat aplikasi dengan ux dan flow yang mudah dimengerti oleh agus dengan cara membuat seperti task harian , dengan itu agus tidak kebingunan mulai dari mana
+Based on Agus's problems, we have designed several solutions to help him maintain a healthy lifestyle more easily and effectively, including:
 
+- Providing customizable features that can align with the user's schedule, such as personalized workout plans and reminders that assist Agus in maintaining a healthy lifestyle.
+- Offering a program of recommended healthy foods and a food journal feature with a calorie counter to monitor Agus's daily nutrient intake.
+- Creating an AI feature that can serve as a consultation medium and personal companion for Agus during his program.
+- Developing an application with a user-friendly UX and flow that Agus can easily understand, such as creating daily tasks. This way, Agus won't be confused about where to start.
 
 ## Product
-Untuk menjawab masalah tersebut Tim Orion membawakan sebuah aplikasi mobile bernama "Vitaflow".Sesuai dengan unsur namanya Flow , kita membuat aplikasi vitaflow dengan ux dan alur aplikasi yang mudah dimengerti oleh user
+
+To address these problems, the Orion Team has developed a mobile application called "Vitaflow". True to its name, Flow, we have created the Vitaflow app with a user-friendly UX and application flow.
 
 ### Presentasi Video
 
-Berikut adalah link presentasi video Vitaflow
+Here is the link to the Vitaflow video presentation:
 https://drive.google.com/drive/folders/1-bFyVW5peXwEaMpsvV4v2cPjzF364huS
 
 
 ### Features
 
-- Vita survey : Saat pengguna sudah mendaftar maka terdapat beberapa pertanyaan yang harus di isi oleh user agar vitaflow bisa memprediksi program apa yang cocok dengan kondisi pengguna
-- Visi mission : Setalah pengguna mendapatkan program yang cocok maka terdapat beberapa misi yang harus dikerjakan pengguna , dimaksudkan agar pengguna tidak bingung apa yang harus dilakukan untuk mencapai tujuan user.
-
-- Vita catat Asupan makan : Fitur ini memungkinkan pengguna untuk mencatat asupan makanan mereka secara harian. Pengguna dapat mencatat jenis makanan yang dikonsumsi pada pagi , siang atau malam hari. terdapat 2 cara user bisa catat asupan makanan
-   - Catat aktivitas manual : Pengguna mmelakukan input manual dengan cara mencari makanan yang sudah dimakan pada aplikasi vitafloow
-   - Scan Makanan : pengguna tidak perlu repot repot mencari nama makanan , dengan fitur ini tinggal photo makanan , maka akan keluar makanan yang discan
-- Catat aktivitas minum :  Fitur ini membantu pengguna dalam mencatat dan mengingatkan pengguna untuk konsumsi air putih mereka secara rutin
-- Cata aktivitas olahraga : Pengguna dapat mencatat aktivitas olahraga apa saja yang sudah di lakukan, metode  input olahraga terdapat
-   - Catat aktivitas manual : Pengguna melakukan pencarian olahraga yang sudah dilakukan pada aplikasi vita 
-   - Exercise plan dan olahraga interaktif : Khusus pengguna premium , terdapat fitur tambahan exercise plan yang dimna vitaflow sudah mengelompokan olahraga yang cocok dengan user dan user bisa mengikuti olahraga dengan interaktif karena terdapat video cara melakukan gerakan , timer dan play dan next gerakan olahraga
-   - Vita coach AI : Fitur ini sudah include pada exercise plan , dimana jika user tidak yakin gerakan benar maka kita terdapat fitur yang bisa koreksi gerakan olahraga .
-- Catat berat badan terakhir : agar pengguna bisa melihat progress hari dari hari , maka  pengguna bisa mencatat berat badan terakhir pengguna
-- Catat detak jantung
-- Catat aktivitas lari 
-- Vita coach   : bot yang berguna sebagai asisten pengguna , dapat menanyakan seputar kesehata , nutrisi , saran , olahraga ,dll 
-- Vita coach plus : bagi user premium terdpaat beberapa fitur tambahan : meminta rekap progress pegguna , set reminder ,  membuat meal plan. 
-- Vita premium  : tedapat beberapa fitur yang mengharuskan upgrade ke premium seperti exercise plan , vita coach plus , 
-- Pembayaran otomatis  : vitaflow sudah support pembayaran otomatis untuk pembelian vita premium
-- Vita credit : bagi free user  terdapat batasan untuk menanyakan ke vita coach   , free user mendapatkan 2600 cedit yang dapat dipakai  , jika habis maka tidak bisa menggunakan vita coach.jika user premium  vita credit menjadi tidak terbatas -
+- Vita Survey: Upon registration, users are required to answer several questions so that Vitaflow can predict a suitable program based on the user's condition.
+- Visi mission : After users receive a suitable program, there are several missions that users need to complete. This is intended to provide users with clear guidance on what needs to be done to achieve their goals.
+- Vita catat Asupan makan : This feature allows users to track their daily food intake. Users can record the types of food consumed during breakfast, lunch, and dinner. There are two ways users can track their food intake:
+   - Manual Entry: Users manually input the foods they have eaten into the Vitaflow app.
+   - Food Scanning: Users can simply take a photo of their food, and the app will identify and log the scanned food item.
+- Water Intake Tracker: This feature helps users track and reminds them to consume an adequate amount of water regularly.
+-Exercise Tracker: Users can record the physical activities they have performed. There are several methods to input exercise:
+   -Exercise Plans and Interactive Workouts: Exclusive to premium users, this feature provides additional exercise plans tailored to the user, including interactive workout videos, timers, and step-by-step instructions.
+   -Vita Coach AI: This feature is included in the exercise plans and provides feedback on exercise form if the user is unsure.- Catat berat badan terakhir : 
+- Last Weight Entry: Users can record their latest body weight to track their progress over time.
+- Heart Rate Tracking
+- Running Activity Tracking
+- Vita Coach: A helpful bot assistant that can provide information and guidance on health, nutrition, workout suggestions, and more.
+- Vita Coach Plus: Available to premium users, this feature includes additional functionalities such as progress summaries, reminders, and personalized meal 
+  plans.
+- Vita Premium: Premium users can access various enhanced features, including exercise plans and Vita Coach Plus.
+- Automatic Payments: Vitaflow supports automatic payments for purchasing Vita Premium.
+- Vita Credits: Free users have limitations on their interactions with Vita Coach. They receive 2600 credits that can be used for interactions. Once depleted, they cannot use Vita Coach. Premium users have unlimited Vita Credits.
 
 
    
@@ -69,15 +69,15 @@ https://drive.google.com/drive/folders/1-bFyVW5peXwEaMpsvV4v2cPjzF364huS
 
 ## Tech
 
-Untuk membangun Vitaflow kita menggunakan  beberapa teknologi  seperti : 
+To build Vitaflow, we utilized several technologies, including:
 
--  Flutter  - Untuk membuat aplikasi vitaflow
-- Laravel  - Sebagai backend vitaflow
-- Redis - cache database agar aplikasi vitaflow  makin ngebut
-- Alibaba object storage - Untuk handle penyimpanan kita menggunakan layanan albiaba
-- Tensorflow - Digunakan untuk fitur scan makanan dan vita coach (mendeteksi gerakan olahraga)
-- Provider  - State management kita menggunakan provider 
 
+- Flutter: Used to create the Vitaflow mobile application.
+- Laravel: Serves as the backend for Vitaflow.
+- Redis: Caches the database to optimize the performance of the Vitaflow application.
+- Alibaba Object Storage: Handles storage using Alibaba's services.
+- Tensorflow: Utilized for food scanning and exercise motion detection in the Vita Coach feature.
+- Provider: Used for state management in the application.
 
 ## Screenshot 
 ![alt text](https://github.com/hafidzfadillah/VitaFlow/blob/main/assets/images/all_ss4.jpg?raw=true)
@@ -98,14 +98,11 @@ password : tegar123
 
 
 ## Note
+Currently, the Vitaflow app can only be installed on Android OS:
 
-- Data Nutrisi makanan tidak akurat
-- Data  kalori terbakar pada olahraga hanya estimasi 
-- VITABOT Command :
-   - reminder : SET Pengigat olahraga , makan , dll 
-   - meal plan : GENERATE Rekoomendasi makan
-- Cara memakai fitur vita coach / deteksi gerakan -> ke catatan olahraga -> mulai olahraga terencana -> pada bagian list gerakan klik icon ? 
--
+APK Download Link: https://tinyurl.com/vita-flow
+
+FIGMA Design Link: https://www.figma.com/file/hHwD2Oym5aBIS3pSxCE4Dk/VitaFlow?type=design&node-id=621%3A2769&t=mGhlRRQnr1
 
 ## License
 
