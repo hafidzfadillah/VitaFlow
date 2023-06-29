@@ -8,7 +8,7 @@
 ## Codespace - Orion Team
 
 - Yoga ramadhan (Hustler)
-- Muhammad Tegar Akmal (Hipster)
+- Muhammad Tegar Akmal (Hipster and Hacker)
 - Muhammad Hafidz Fadillah  (Hacker)
 
 ## Problem
